@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - VTOP 2.0</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
+</head>
+<body>
+    <div class="min-h-screen bg-black">
+        <nav class="glass-effect border-b border-white/10 fixed w-full z-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center h-16">
+                    <div class="flex items-center space-x-4">
+                        <button id="menu-toggle" class="lg:hidden text-gray-400 hover:text-white p-2">
+                            <i data-lucide="menu" class="w-6 h-6"></i>
+                        </button>
+                        <h1 class="text-2xl font-bold gradient-text">VTOP 2.0</h1>
+                    </div>
+                    <button id="logout-btn" class="text-gray-400 hover:text-white flex items-center p-2">
+                        <i data-lucide="log-out" class="w-5 h-5 mr-2"></i>
+                        Logout
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <div class="flex pt-16">
+            <aside id="sidebar" class="-translate-x-full lg:translate-x-0 fixed lg:sticky top-16 h-[calc(100vh-4rem)] w-64 glass-effect border-r border-white/10 transition-transform duration-300 z-40 overflow-y-auto">
+                <nav class="p-4 space-y-2" id="sidebar-nav"></nav>
+            </aside>
+
+            <main class="flex-1 p-8">
+                <div class="max-w-7xl mx-auto">
+                    <div class="animate-fade-in" data-testid="profile-container">
+                        <h1 class="text-4xl font-bold mb-8 gradient-text" data-testid="profile-title">Student Profile</h1>
+                        
+                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                            <div class="glass-effect p-8 border-white/10 rounded-lg lg:col-span-1">
+                                <div class="flex flex-col items-center">
+                                    <div class="w-32 h-32 rounded-full bg-gradient-to-br from-cyan-500 to-blue-500 flex items-center justify-center mb-4">
+                                        <i data-lucide="user" class="w-16 h-16 text-white"></i>
+                                    </div>
+                                    <h2 class="text-2xl font-bold text-white mb-2" data-testid="profile-name" id="profile-name"></h2>
+                                    <p class="text-gray-400" data-testid="profile-student-id" id="profile-student-id"></p>
+                                </div>
+                            </div>
+
+                            <div class="glass-effect p-8 border-white/10 rounded-lg lg:col-span-2">
+                                <h3 class="text-2xl font-semibold mb-6 text-white">Personal Information</h3>
+                                <div class="space-y-4" id="profile-info"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <div id="overlay" class="fixed inset-0 bg-black/50 z-30 lg:hidden hidden"></div>
+    </div>
+
+    <div id="toast-container" class="fixed top-4 right-4 z-50"></div>
+
+    <script src="js/data.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        lucide.createIcons();
+        const profile = dataService.getProfile();
+        document.getElementById('profile-name').textContent = profile.name;
+        document.getElementById('profile-student-id').textContent = profile.student_id;
+        
+        const info = [
+            { icon: 'mail', label: 'Email', value: profile.email, testid: 'profile-email' },
+            { icon: 'hash', label: 'Registration Number', value: profile.registration_number, testid: 'profile-reg-number' },
+            { icon: 'book-open', label: 'Program', value: profile.program, testid: 'profile-program' },
+            { icon: 'book-open', label: 'Branch', value: profile.branch, testid: 'profile-branch' },
+            { icon: 'calendar', label: 'Current Semester', value: profile.semester, testid: 'profile-semester' }
+        ];
+        
+        const profileInfo = document.getElementById('profile-info');
+        info.forEach(item => {
+            const div = document.createElement('div');
+            div.className = 'flex items-center space-x-4';
+            div.innerHTML = `
+                <i data-lucide="${item.icon}" class="w-5 h-5 text-cyan-400"></i>
+                <div>
+                    <p class="text-sm text-gray-400">${item.label}</p>
+                    <p class="text-white" data-testid="${item.testid}">${item.value}</p>
+                </div>
+            `;
+            profileInfo.appendChild(div);
+        });
+        lucide.createIcons();
+    </script>
+</body>
+</html>
