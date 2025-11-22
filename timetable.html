@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time Table - VTOP 2.0</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
+</head>
+<body>
+    <div class="min-h-screen bg-black">
+        <nav class="glass-effect border-b border-white/10 fixed w-full z-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center h-16">
+                    <div class="flex items-center space-x-4">
+                        <button id="menu-toggle" class="lg:hidden text-gray-400 hover:text-white p-2">
+                            <i data-lucide="menu" class="w-6 h-6"></i>
+                        </button>
+                        <h1 class="text-2xl font-bold gradient-text">VTOP 2.0</h1>
+                    </div>
+                    <button id="logout-btn" class="text-gray-400 hover:text-white flex items-center p-2">
+                        <i data-lucide="log-out" class="w-5 h-5 mr-2"></i>
+                        Logout
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <div class="flex pt-16">
+            <aside id="sidebar" class="-translate-x-full lg:translate-x-0 fixed lg:sticky top-16 h-[calc(100vh-4rem)] w-64 glass-effect border-r border-white/10 transition-transform duration-300 z-40 overflow-y-auto">
+                <nav class="p-4 space-y-2" id="sidebar-nav"></nav>
+            </aside>
+
+            <main class="flex-1 p-8">
+                <div class="max-w-7xl mx-auto">
+                    <div class="animate-fade-in" data-testid="timetable-container">
+                        <h1 class="text-4xl font-bold mb-8 gradient-text" data-testid="timetable-title">Time Table</h1>
+                        <div class="space-y-6" id="timetable-list"></div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <div id="overlay" class="fixed inset-0 bg-black/50 z-30 lg:hidden hidden"></div>
+    </div>
+
+    <div id="toast-container" class="fixed top-4 right-4 z-50"></div>
+
+    <script src="js/data.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        lucide.createIcons();
+        const grouped = dataService.groupTimetableByDay();
+        const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
+        const timetableList = document.getElementById('timetable-list');
+        
+        days.forEach(day => {
+            const card = document.createElement('div');
+            card.className = 'glass-effect p-6 border-white/10 rounded-lg';
+            card.setAttribute('data-testid', `day-card-${day.toLowerCase()}`);
+            
+            let slotsHTML = '';
+            if (grouped[day] && grouped[day].length > 0) {
+                slotsHTML = grouped[day].map((slot, index) => `
+                    <div class="bg-white/5 p-4 rounded-lg" data-testid="slot-${day.toLowerCase()}-${index}">
+                        <div class="flex items-center space-x-2 mb-2">
+                            <i data-lucide="clock" class="w-4 h-4 text-cyan-400"></i>
+                            <span class="text-cyan-400" data-testid="slot-time-${day.toLowerCase()}-${index}">${slot.slot}</span>
+                        </div>
+                        <h3 class="text-lg font-semibold text-white" data-testid="slot-course-${day.toLowerCase()}-${index}">${slot.course_name}</h3>
+                        <p class="text-gray-400 text-sm" data-testid="slot-code-${day.toLowerCase()}-${index}">${slot.course_code}</p>
+                        <div class="flex items-center space-x-4 mt-2 text-sm">
+                            <div class="flex items-center space-x-1">
+                                <i data-lucide="user" class="w-4 h-4 text-gray-400"></i>
+                                <span class="text-gray-400" data-testid="slot-faculty-${day.toLowerCase()}-${index}">${slot.faculty}</span>
+                            </div>
+                            <div class="flex items-center space-x-1">
+                                <i data-lucide="map-pin" class="w-4 h-4 text-gray-400"></i>
+                                <span class="text-gray-400" data-testid="slot-venue-${day.toLowerCase()}-${index}">${slot.venue}</span>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            } else {
+                slotsHTML = '<p class="text-gray-400 text-center py-4">No classes scheduled</p>';
+            }
+            
+            card.innerHTML = `
+                <h2 class="text-2xl font-semibold text-white mb-4" data-testid="day-title-${day.toLowerCase()}">${day}</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">${slotsHTML}</div>
+            `;
+            timetableList.appendChild(card);
+        });
+        
+        lucide.createIcons();
+    </script>
+</body>
+</html>
