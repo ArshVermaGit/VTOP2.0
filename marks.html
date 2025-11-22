@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marks - VTOP 2.0</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
+</head>
+<body>
+    <div class="min-h-screen bg-black">
+        <nav class="glass-effect border-b border-white/10 fixed w-full z-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center h-16">
+                    <div class="flex items-center space-x-4">
+                        <button id="menu-toggle" class="lg:hidden text-gray-400 hover:text-white p-2"><i data-lucide="menu" class="w-6 h-6"></i></button>
+                        <h1 class="text-2xl font-bold gradient-text">VTOP 2.0</h1>
+                    </div>
+                    <button id="logout-btn" class="text-gray-400 hover:text-white flex items-center p-2"><i data-lucide="log-out" class="w-5 h-5 mr-2"></i>Logout</button>
+                </div>
+            </div>
+        </nav>
+        <div class="flex pt-16">
+            <aside id="sidebar" class="-translate-x-full lg:translate-x-0 fixed lg:sticky top-16 h-[calc(100vh-4rem)] w-64 glass-effect border-r border-white/10 transition-transform duration-300 z-40 overflow-y-auto"><nav class="p-4 space-y-2" id="sidebar-nav"></nav></aside>
+            <main class="flex-1 p-8">
+                <div class="max-w-7xl mx-auto">
+                    <div class="animate-fade-in" data-testid="marks-container">
+                        <h1 class="text-4xl font-bold mb-8 gradient-text" data-testid="marks-title">Internal Marks</h1>
+                        <div class="grid grid-cols-1 gap-6" id="marks-list"></div>
+                    </div>
+                </div>
+            </main>
+        </div>
+        <div id="overlay" class="fixed inset-0 bg-black/50 z-30 lg:hidden hidden"></div>
+    </div>
+    <div id="toast-container" class="fixed top-4 right-4 z-50"></div>
+    <script src="js/data.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        lucide.createIcons();
+        const marks = dataService.getMarks();
+        const marksList = document.getElementById('marks-list');
+        marks.forEach((record, index) => {
+            const card = document.createElement('div');
+            card.className = 'glass-effect p-6 border-white/10 rounded-lg';
+            card.setAttribute('data-testid', `marks-card-${index}`);
+            card.innerHTML = `
+                <h3 class="text-xl font-semibold text-white mb-4" data-testid="marks-course-name-${index}">${record.course_name}</h3>
+                <p class="text-gray-400 mb-4" data-testid="marks-course-code-${index}">${record.course_code}</p>
+                <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+                    <div class="bg-white/5 p-4 rounded-lg"><p class="text-sm text-gray-400">CAT-1</p><p class="text-2xl font-bold text-cyan-400" data-testid="cat1-${index}">${record.cat1}/50</p></div>
+                    <div class="bg-white/5 p-4 rounded-lg"><p class="text-sm text-gray-400">CAT-2</p><p class="text-2xl font-bold text-cyan-400" data-testid="cat2-${index}">${record.cat2}/50</p></div>
+                    <div class="bg-white/5 p-4 rounded-lg"><p class="text-sm text-gray-400">Assignment</p><p class="text-2xl font-bold text-cyan-400" data-testid="assignment-${index}">${record.assignment}/20</p></div>
+                    <div class="bg-white/5 p-4 rounded-lg"><p class="text-sm text-gray-400">FAT</p><p class="text-2xl font-bold text-cyan-400" data-testid="fat-${index}">${record.fat}/100</p></div>
+                    <div class="bg-gradient-to-br from-cyan-500 to-blue-500 p-4 rounded-lg"><p class="text-sm text-white">Total</p><p class="text-2xl font-bold text-white" data-testid="total-${index}">${record.total}</p></div>
+                </div>
+            `;
+            marksList.appendChild(card);
+        });
+    </script>
+</body>
+</html>
