@@ -8,40 +8,63 @@
     <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
 </head>
 <body>
-    <div class="min-h-screen bg-black">
-        <nav class="glass-effect border-b border-white/10 fixed w-full z-50">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex justify-between items-center h-16">
-                    <div class="flex items-center space-x-4">
-                        <button id="menu-toggle" class="lg:hidden text-gray-400 hover:text-white p-2">
-                            <i data-lucide="menu" class="w-6 h-6"></i>
-                        </button>
-                        <h1 class="text-2xl font-bold gradient-text">VTOP 2.0</h1>
+    <div class="min-h-screen bg-black relative overflow-hidden">
+        <!-- Background -->
+        <div class="absolute inset-0 bg-gradient-to-br from-gray-900 via-black to-gray-900"></div>
+        <div class="absolute top-0 right-0 w-1/3 h-1/3 bg-green-500/5 rounded-full blur-3xl"></div>
+
+        <!-- Navigation -->
+        <nav class="relative z-50 border-b border-white/5">
+            <div class="max-w-7xl mx-auto px-6 py-4">
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center space-x-8">
+                        <h1 class="text-xl font-light tracking-tight text-white">VTOP<span class="text-cyan-400">2.0</span></h1>
+                        <nav class="hidden md:flex space-x-6 text-sm text-gray-400">
+                            <a href="dashboard.html" class="hover:text-white transition-colors">Dashboard</a>
+                            <a href="profile.html" class="hover:text-white transition-colors">Profile</a>
+                            <a href="attendance.html" class="hover:text-white transition-colors">Attendance</a>
+                            <a href="payments.html" class="text-white">Payments</a>
+                        </nav>
                     </div>
-                    <button id="logout-btn" class="text-gray-400 hover:text-white flex items-center p-2">
-                        <i data-lucide="log-out" class="w-5 h-5 mr-2"></i>
-                        Logout
-                    </button>
+                    <div class="flex items-center space-x-4">
+                        <span class="text-sm text-gray-400">21BCE001</span>
+                        <button id="logout-btn" class="text-gray-400 hover:text-white transition-colors">
+                            <i data-lucide="log-out" class="w-5 h-5"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
         </nav>
 
-        <div class="flex pt-16">
-            <aside id="sidebar" class="-translate-x-full lg:translate-x-0 fixed lg:sticky top-16 h-[calc(100vh-4rem)] w-64 glass-effect border-r border-white/10 transition-transform duration-300 z-40 overflow-y-auto">
-                <nav class="p-4 space-y-2" id="sidebar-nav"></nav>
-            </aside>
+        <!-- Main Content -->
+        <main class="relative z-10 max-w-6xl mx-auto px-6 py-8">
+            <!-- Header -->
+            <div class="mb-12">
+                <h1 class="text-4xl font-light text-white mb-2">Payment History</h1>
+                <p class="text-gray-400 font-light">Transaction records and fee payments</p>
+            </div>
 
-            <main class="flex-1 p-8">
-                <div class="max-w-7xl mx-auto">
-                    <div class="animate-fade-in" data-testid="payments-container">
-                        <h1 class="text-4xl font-bold mb-8 gradient-text" data-testid="payments-title">Payment History</h1>
-                        <div class="grid grid-cols-1 gap-6" id="payments-list"></div>
-                    </div>
+            <!-- Stats -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div class="bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-sm">
+                    <div class="text-2xl font-light text-green-400 mb-2">₹82,000</div>
+                    <div class="text-sm text-gray-400">Total Paid</div>
                 </div>
-            </main>
-        </div>
+                <div class="bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-sm">
+                    <div class="text-2xl font-light text-cyan-400 mb-2">3</div>
+                    <div class="text-sm text-gray-400">Transactions</div>
+                </div>
+                <div class="bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-sm">
+                    <div class="text-2xl font-light text-green-400 mb-2">All</div>
+                    <div class="text-sm text-gray-400">Completed</div>
+                </div>
+            </div>
 
-        <div id="overlay" class="fixed inset-0 bg-black/50 z-30 lg:hidden hidden"></div>
+            <!-- Payments List -->
+            <div class="grid grid-cols-1 gap-6" id="payments-list">
+                <!-- Payments will be populated by JavaScript -->
+            </div>
+        </main>
     </div>
 
     <div id="toast-container" class="fixed top-4 right-4 z-50"></div>
@@ -56,27 +79,27 @@
         
         payments.forEach((payment, index) => {
             const card = document.createElement('div');
-            card.className = 'glass-effect p-6 border-white/10 rounded-lg';
+            card.className = 'bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-sm hover:border-cyan-400/30 transition-all';
             card.setAttribute('data-testid', `payment-card-${index}`);
             card.innerHTML = `
                 <div class="flex justify-between items-start">
                     <div class="flex-1">
-                        <h3 class="text-xl font-semibold text-white mb-2" data-testid="payment-description-${index}">${payment.description}</h3>
+                        <h3 class="text-xl font-light text-white mb-3" data-testid="payment-description-${index}">${payment.description}</h3>
                         <div class="space-y-2">
-                            <div class="flex items-center space-x-2">
-                                <i data-lucide="credit-card" class="w-4 h-4 text-gray-400"></i>
-                                <span class="text-gray-400 text-sm" data-testid="payment-transaction-id-${index}">${payment.transaction_id}</span>
+                            <div class="flex items-center space-x-3">
+                                <i data-lucide="credit-card" class="w-5 h-5 text-cyan-400"></i>
+                                <span class="text-gray-300 text-sm" data-testid="payment-transaction-id-${index}">${payment.transaction_id}</span>
                             </div>
-                            <div class="flex items-center space-x-2">
-                                <i data-lucide="calendar" class="w-4 h-4 text-gray-400"></i>
-                                <span class="text-gray-400 text-sm" data-testid="payment-date-${index}">${payment.date}</span>
+                            <div class="flex items-center space-x-3">
+                                <i data-lucide="calendar" class="w-5 h-5 text-cyan-400"></i>
+                                <span class="text-gray-300 text-sm" data-testid="payment-date-${index}">${payment.date}</span>
                             </div>
                         </div>
                     </div>
                     <div class="text-right">
-                        <p class="text-3xl font-bold text-cyan-400 mb-2" data-testid="payment-amount-${index}">₹${payment.amount.toLocaleString()}</p>
-                        <div class="flex items-center space-x-1 text-green-400">
-                            <i data-lucide="check-circle" class="w-4 h-4"></i>
+                        <p class="text-3xl font-light text-cyan-400 mb-3" data-testid="payment-amount-${index}">₹${payment.amount.toLocaleString()}</p>
+                        <div class="flex items-center space-x-2 text-green-400">
+                            <i data-lucide="check-circle" class="w-5 h-5"></i>
                             <span class="text-sm" data-testid="payment-status-${index}">${payment.status}</span>
                         </div>
                     </div>
