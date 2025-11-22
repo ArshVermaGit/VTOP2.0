@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - VTOP 2.0</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
+</head>
+<body>
+    <div class="min-h-screen bg-black">
+        <nav class="glass-effect border-b border-white/10 fixed w-full z-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center h-16">
+                    <div class="flex items-center space-x-4">
+                        <button data-testid="menu-toggle" id="menu-toggle" class="lg:hidden text-gray-400 hover:text-white p-2">
+                            <i data-lucide="menu" class="w-6 h-6"></i>
+                        </button>
+                        <h1 class="text-2xl font-bold gradient-text" data-testid="nav-title">VTOP 2.0</h1>
+                    </div>
+                    <button data-testid="logout-button" id="logout-btn" class="text-gray-400 hover:text-white flex items-center p-2">
+                        <i data-lucide="log-out" class="w-5 h-5 mr-2"></i>
+                        Logout
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <div class="flex pt-16">
+            <aside id="sidebar" class="-translate-x-full lg:translate-x-0 fixed lg:sticky top-16 h-[calc(100vh-4rem)] w-64 glass-effect border-r border-white/10 transition-transform duration-300 z-40 overflow-y-auto" data-testid="sidebar">
+                <nav class="p-4 space-y-2" id="sidebar-nav"></nav>
+            </aside>
+
+            <main class="flex-1 p-8" data-testid="main-content">
+                <div class="max-w-7xl mx-auto">
+                    <div class="animate-fade-in" data-testid="dashboard-container">
+                        <div class="mb-8">
+                            <h1 class="text-4xl font-bold mb-2" data-testid="welcome-message" id="welcome-message">
+                                Welcome back, Student
+                            </h1>
+                            <p class="text-gray-400" data-testid="student-id-display" id="student-info"></p>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="quick-links"></div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <div id="overlay" class="fixed inset-0 bg-black/50 z-30 lg:hidden hidden"></div>
+    </div>
+
+    <div id="toast-container" class="fixed top-4 right-4 z-50"></div>
+
+    <script src="js/data.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
