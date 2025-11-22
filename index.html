@@ -3,60 +3,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VTOP 2.0 - Login</title>
+    <title>VTOP 2.0 - Student Portal</title>
     <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
 </head>
 <body>
-    <div class="min-h-screen flex items-center justify-center relative overflow-hidden bg-black">
-        <div class="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black">
-            <div class="absolute top-20 left-20 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl animate-pulse"></div>
-            <div class="absolute bottom-20 right-20 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse" style="animation-delay: 1s"></div>
-        </div>
+    <div class="min-h-screen bg-black relative overflow-hidden">
+        <!-- Background Elements -->
+        <div class="absolute inset-0 bg-gradient-to-br from-gray-900 via-black to-gray-900"></div>
+        <div class="absolute top-20 left-20 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-20 right-20 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl"></div>
 
-        <div class="glass-effect w-full max-w-md p-8 relative z-10 border-white/10 rounded-lg" data-testid="login-card">
-            <div class="text-center mb-8">
-                <h1 class="text-5xl font-bold mb-2 gradient-text" data-testid="vtop-title">VTOP 2.0</h1>
-                <p class="text-gray-400 text-sm" data-testid="login-subtitle">Student Portal</p>
+        <!-- Navigation -->
+        <nav class="relative z-50 border-b border-white/5">
+            <div class="max-w-7xl mx-auto px-6 py-4">
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center space-x-8">
+                        <h1 class="text-2xl font-light tracking-tight text-white">VTOP<span class="text-cyan-400">2.0</span></h1>
+                        <div class="hidden md:flex space-x-6 text-sm text-gray-400">
+                            <a href="#features" class="hover:text-white transition-colors">Features</a>
+                            <a href="#about" class="hover:text-white transition-colors">About</a>
+                            <a href="#contact" class="hover:text-white transition-colors">Contact</a>
+                        </div>
+                    </div>
+                    <div class="text-sm text-gray-400">
+                        Student Portal
+                    </div>
+                </div>
             </div>
+        </nav>
 
-            <form id="login-form" class="space-y-6">
-                <div>
-                    <label class="block text-sm font-medium mb-2 text-gray-300" for="student-id">Student ID</label>
-                    <input
-                        id="student-id"
-                        data-testid="student-id-input"
-                        type="text"
-                        placeholder="Enter your Student ID"
-                        class="bg-white/5 border border-white/10 text-white placeholder:text-gray-500 focus:border-cyan-500 rounded-lg p-3 w-full"
-                        required
-                    />
+        <!-- Main Content -->
+        <div class="relative z-10 flex items-center justify-center min-h-[90vh]">
+            <div class="max-w-md w-full mx-4">
+                <div class="text-center mb-12">
+                    <h1 class="text-6xl font-light tracking-tight text-white mb-4">
+                        VTOP<span class="text-cyan-400">2.0</span>
+                    </h1>
+                    <p class="text-gray-400 text-lg font-light">
+                        Premium student experience. Pure academic focus.
+                    </p>
                 </div>
 
-                <div>
-                    <label class="block text-sm font-medium mb-2 text-gray-300" for="password">Password</label>
-                    <input
-                        id="password"
-                        data-testid="password-input"
-                        type="password"
-                        placeholder="Enter your password"
-                        class="bg-white/5 border border-white/10 text-white placeholder:text-gray-500 focus:border-cyan-500 rounded-lg p-3 w-full"
-                        required
-                    />
+                <!-- Login Card -->
+                <div class="bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-8 shadow-2xl">
+                    <div class="text-center mb-8">
+                        <h2 class="text-2xl font-light text-white mb-2">Student Login</h2>
+                        <p class="text-gray-400 text-sm">Access your academic dashboard</p>
+                    </div>
+
+                    <form id="login-form" class="space-y-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-3">Student ID</label>
+                            <input
+                                id="student-id"
+                                data-testid="student-id-input"
+                                type="text"
+                                placeholder="Enter your Student ID"
+                                class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-colors"
+                                required
+                            />
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-3">Password</label>
+                            <input
+                                id="password"
+                                data-testid="password-input"
+                                type="password"
+                                placeholder="Enter your password"
+                                class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-colors"
+                                required
+                            />
+                        </div>
+
+                        <button
+                            data-testid="login-button"
+                            type="submit"
+                            class="w-full bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-medium py-4 rounded-xl transition-all duration-300 transform hover:scale-[1.02] shadow-lg shadow-cyan-500/25"
+                        >
+                            Sign In
+                        </button>
+                    </form>
+
+                    <div class="mt-6 text-center">
+                        <p class="text-xs text-gray-500" data-testid="demo-credentials">
+                            Demo: 21BCE001 / demo123
+                        </p>
+                    </div>
                 </div>
 
-                <button
-                    data-testid="login-button"
-                    type="submit"
-                    class="w-full bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white font-medium py-6 text-base rounded-lg transition-all"
-                >
-                    Sign In
-                </button>
-            </form>
-
-            <div class="mt-6 text-center">
-                <p class="text-xs text-gray-500" data-testid="demo-credentials">
-                    Demo: 21BCE001 / demo123
-                </p>
+                <!-- Features Preview -->
+                <div class="grid grid-cols-3 gap-4 mt-12 text-center">
+                    <div class="text-gray-400">
+                        <div class="text-cyan-400 text-sm font-medium">Dashboard</div>
+                        <div class="text-xs mt-1">Overview</div>
+                    </div>
+                    <div class="text-gray-400">
+                        <div class="text-cyan-400 text-sm font-medium">Attendance</div>
+                        <div class="text-xs mt-1">Tracking</div>
+                    </div>
+                    <div class="text-gray-400">
+                        <div class="text-cyan-400 text-sm font-medium">Grades</div>
+                        <div class="text-xs mt-1">Management</div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -66,5 +117,8 @@
     <script src="js/data.js"></script>
     <script src="js/utils.js"></script>
     <script src="js/auth.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
 </body>
 </html>
