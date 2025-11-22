@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VTOP 2.0 - Login</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="min-h-screen flex items-center justify-center relative overflow-hidden bg-black">
+        <div class="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black">
+            <div class="absolute top-20 left-20 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl animate-pulse"></div>
+            <div class="absolute bottom-20 right-20 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse" style="animation-delay: 1s"></div>
+        </div>
+
+        <div class="glass-effect w-full max-w-md p-8 relative z-10 border-white/10 rounded-lg" data-testid="login-card">
+            <div class="text-center mb-8">
+                <h1 class="text-5xl font-bold mb-2 gradient-text" data-testid="vtop-title">VTOP 2.0</h1>
+                <p class="text-gray-400 text-sm" data-testid="login-subtitle">Student Portal</p>
+            </div>
+
+            <form id="login-form" class="space-y-6">
+                <div>
+                    <label class="block text-sm font-medium mb-2 text-gray-300" for="student-id">Student ID</label>
+                    <input
+                        id="student-id"
+                        data-testid="student-id-input"
+                        type="text"
+                        placeholder="Enter your Student ID"
+                        class="bg-white/5 border border-white/10 text-white placeholder:text-gray-500 focus:border-cyan-500 rounded-lg p-3 w-full"
+                        required
+                    />
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium mb-2 text-gray-300" for="password">Password</label>
+                    <input
+                        id="password"
+                        data-testid="password-input"
+                        type="password"
+                        placeholder="Enter your password"
+                        class="bg-white/5 border border-white/10 text-white placeholder:text-gray-500 focus:border-cyan-500 rounded-lg p-3 w-full"
+                        required
+                    />
+                </div>
+
+                <button
+                    data-testid="login-button"
+                    type="submit"
+                    class="w-full bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white font-medium py-6 text-base rounded-lg transition-all"
+                >
+                    Sign In
+                </button>
+            </form>
+
+            <div class="mt-6 text-center">
+                <p class="text-xs text-gray-500" data-testid="demo-credentials">
+                    Demo: 21BCE001 / demo123
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast-container" class="fixed top-4 right-4 z-50"></div>
+
+    <script src="js/data.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+</html>
