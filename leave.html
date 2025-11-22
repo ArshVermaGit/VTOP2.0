@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leave Request - VTOP 2.0</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
+</head>
+<body>
+    <div class="min-h-screen bg-black">
+        <nav class="glass-effect border-b border-white/10 fixed w-full z-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center h-16">
+                    <div class="flex items-center space-x-4">
+                        <button id="menu-toggle" class="lg:hidden text-gray-400 hover:text-white p-2">
+                            <i data-lucide="menu" class="w-6 h-6"></i>
+                        </button>
+                        <h1 class="text-2xl font-bold gradient-text">VTOP 2.0</h1>
+                    </div>
+                    <button id="logout-btn" class="text-gray-400 hover:text-white flex items-center p-2">
+                        <i data-lucide="log-out" class="w-5 h-5 mr-2"></i>
+                        Logout
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <div class="flex pt-16">
+            <aside id="sidebar" class="-translate-x-full lg:translate-x-0 fixed lg:sticky top-16 h-[calc(100vh-4rem)] w-64 glass-effect border-r border-white/10 transition-transform duration-300 z-40 overflow-y-auto">
+                <nav class="p-4 space-y-2" id="sidebar-nav"></nav>
+            </aside>
+
+            <main class="flex-1 p-8">
+                <div class="max-w-7xl mx-auto">
+                    <div class="animate-fade-in" data-testid="leave-request-container">
+                        <h1 class="text-4xl font-bold mb-8 gradient-text" data-testid="leave-request-title">Leave Request</h1>
+
+                        <div class="glass-effect p-6 border-white/10 rounded-lg mb-8" data-testid="leave-form-card">
+                            <h2 class="text-2xl font-semibold mb-6 text-white">Submit New Leave Request</h2>
+                            <form id="leave-form" class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-medium mb-2 text-gray-300" for="leave-type">Leave Type</label>
+                                    <input id="leave-type" data-testid="leave-type-input" type="text" value="Sick Leave" class="bg-white/5 border border-white/10 text-white rounded-lg p-3 w-full" />
+                                </div>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-sm font-medium mb-2 text-gray-300" for="from-date">From Date</label>
+                                        <input id="from-date" data-testid="from-date-input" type="date" class="bg-white/5 border border-white/10 text-white rounded-lg p-3 w-full" required />
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium mb-2 text-gray-300" for="to-date">To Date</label>
+                                        <input id="to-date" data-testid="to-date-input" type="date" class="bg-white/5 border border-white/10 text-white rounded-lg p-3 w-full" required />
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-2 text-gray-300" for="reason">Reason</label>
+                                    <textarea id="reason" data-testid="reason-textarea" class="bg-white/5 border border-white/10 text-white rounded-lg p-3 w-full textarea" rows="4" required></textarea>
+                                </div>
+                                <button data-testid="submit-leave-button" type="submit" class="bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white font-medium py-3 px-6 rounded-lg transition-all">
+                                    Submit Request
+                                </button>
+                            </form>
+                        </div>
+
+                        <h2 class="text-2xl font-semibold mb-4 text-white">Previous Requests</h2>
+                        <div class="grid grid-cols-1 gap-6" id="leave-history"></div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <div id="overlay" class="fixed inset-0 bg-black/50 z-30 lg:hidden hidden"></div>
+    </div>
+
+    <div id="toast-container" class="fixed top-4 right-4 z-50"></div>
+
+    <script src="js/data.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        lucide.createIcons();
+        
+        function getStatusColor(status) {
+            if (status === "Approved") return "text-green-400";
+            if (status === "Rejected") return "text-red-400";
+            return "text-yellow-400";
+        }
+        
+        function loadLeaveHistory() {
+            const leaves = dataService.getLeaveRequests();
+            const leaveHistory = document.getElementById('leave-history');
+            leaveHistory.innerHTML = '';
+            
+            leaves.forEach((leave, index) => {
+                const card = document.createElement('div');
+                card.className = 'glass-effect p-6 border-white/10 rounded-lg';
+                card.setAttribute('data-testid', `leave-history-card-${index}`);
+                card.innerHTML = `
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="text-lg font-semibold text-white" data-testid="leave-type-${index}">${leave.leave_type}</h3>
+                            <p class="text-gray-400" data-testid="leave-dates-${index}">${leave.from_date} to ${leave.to_date}</p>
+                            <p class="text-gray-300 mt-2" data-testid="leave-reason-${index}">${leave.reason}</p>
+                        </div>
+                        <span class="font-semibold ${getStatusColor(leave.status)}" data-testid="leave-status-${index}">
+                            ${leave.status}
+                        </span>
+                    </div>
+                `;
+                leaveHistory.appendChild(card);
+            });
+        }
+        
+        loadLeaveHistory();
+        
+        document.getElementById('leave-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const leaveData = {
+                leave_type: document.getElementById('leave-type').value,
+                from_date: document.getElementById('from-date').value,
+                to_date: document.getElementById('to-date').value,
+                reason: document.getElementById('reason').value
+            };
+            dataService.submitLeaveRequest(leaveData);
+            showToast('Leave request submitted successfully!', 'success');
+            document.getElementById('leave-form').reset();
+            document.getElementById('leave-type').value = 'Sick Leave';
+            loadLeaveHistory();
+        });
+    </script>
+</body>
+</html>
