@@ -8,51 +8,83 @@
     <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
 </head>
 <body>
-    <div class="min-h-screen bg-black">
-        <nav class="glass-effect border-b border-white/10 fixed w-full z-50">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex justify-between items-center h-16">
-                    <div class="flex items-center space-x-4">
-                        <button id="menu-toggle" class="lg:hidden text-gray-400 hover:text-white p-2">
-                            <i data-lucide="menu" class="w-6 h-6"></i>
-                        </button>
-                        <h1 class="text-2xl font-bold gradient-text">VTOP 2.0</h1>
+    <div class="min-h-screen bg-black relative overflow-hidden">
+        <!-- Background -->
+        <div class="absolute inset-0 bg-gradient-to-br from-gray-900 via-black to-gray-900"></div>
+        <div class="absolute top-0 right-0 w-1/3 h-1/3 bg-green-500/5 rounded-full blur-3xl"></div>
+
+        <!-- Navigation -->
+        <nav class="relative z-50 border-b border-white/5">
+            <div class="max-w-7xl mx-auto px-6 py-4">
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center space-x-8">
+                        <h1 class="text-xl font-light tracking-tight text-white">VTOP<span class="text-cyan-400">2.0</span></h1>
+                        <nav class="hidden md:flex space-x-6 text-sm text-gray-400">
+                            <a href="dashboard.html" class="hover:text-white transition-colors">Dashboard</a>
+                            <a href="profile.html" class="hover:text-white transition-colors">Profile</a>
+                            <a href="hostel.html" class="text-white">Hostel</a>
+                            <a href="payments.html" class="hover:text-white transition-colors">Payments</a>
+                        </nav>
                     </div>
-                    <button id="logout-btn" class="text-gray-400 hover:text-white flex items-center p-2">
-                        <i data-lucide="log-out" class="w-5 h-5 mr-2"></i>
-                        Logout
-                    </button>
+                    <div class="flex items-center space-x-4">
+                        <span class="text-sm text-gray-400">21BCE001</span>
+                        <button id="logout-btn" class="text-gray-400 hover:text-white transition-colors">
+                            <i data-lucide="log-out" class="w-5 h-5"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
         </nav>
 
-        <div class="flex pt-16">
-            <aside id="sidebar" class="-translate-x-full lg:translate-x-0 fixed lg:sticky top-16 h-[calc(100vh-4rem)] w-64 glass-effect border-r border-white/10 transition-transform duration-300 z-40 overflow-y-auto">
-                <nav class="p-4 space-y-2" id="sidebar-nav"></nav>
-            </aside>
+        <!-- Main Content -->
+        <main class="relative z-10 max-w-4xl mx-auto px-6 py-8">
+            <!-- Header -->
+            <div class="mb-12 text-center">
+                <h1 class="text-4xl font-light text-white mb-2">Hostel Accommodation</h1>
+                <p class="text-gray-400 font-light">Your residential details and facilities</p>
+            </div>
 
-            <main class="flex-1 p-8">
-                <div class="max-w-7xl mx-auto">
-                    <div class="animate-fade-in" data-testid="hostel-container">
-                        <h1 class="text-4xl font-bold mb-8 gradient-text" data-testid="hostel-title">Hostel Room Allotment</h1>
+            <!-- Hostel Card -->
+            <div class="bg-white/5 border border-white/10 rounded-2xl p-8 backdrop-blur-sm">
+                <div class="flex items-start space-x-6 mb-8">
+                    <div class="bg-gradient-to-br from-cyan-500 to-blue-500 p-6 rounded-2xl flex-shrink-0">
+                        <i data-lucide="home" class="w-12 h-12 text-white"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-3xl font-light text-white mb-2">Your Room Allocation</h2>
+                        <p class="text-gray-400">Comfortable living space with premium amenities</p>
+                    </div>
+                </div>
 
-                        <div class="glass-effect p-8 border-white/10 rounded-lg">
-                            <div class="flex items-start space-x-6">
-                                <div class="bg-gradient-to-br from-cyan-500 to-blue-500 p-6 rounded-2xl flex-shrink-0">
-                                    <i data-lucide="home" class="w-12 h-12 text-white"></i>
-                                </div>
-                                <div class="flex-1">
-                                    <h2 class="text-3xl font-bold text-white mb-6">Your Room Details</h2>
-                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="hostel-details"></div>
-                                </div>
-                            </div>
+                <!-- Hostel Details -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="hostel-details">
+                    <!-- Details will be populated by JavaScript -->
+                </div>
+
+                <!-- Facilities -->
+                <div class="mt-8 pt-8 border-t border-white/10">
+                    <h3 class="text-xl font-light text-white mb-4">Hostel Facilities</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div class="text-center">
+                            <i data-lucide="wifi" class="w-8 h-8 text-cyan-400 mx-auto mb-2"></i>
+                            <div class="text-white text-sm">WiFi</div>
+                        </div>
+                        <div class="text-center">
+                            <i data-lucide="utensils" class="w-8 h-8 text-cyan-400 mx-auto mb-2"></i>
+                            <div class="text-white text-sm">Mess</div>
+                        </div>
+                        <div class="text-center">
+                            <i data-lucide="dumbbell" class="w-8 h-8 text-cyan-400 mx-auto mb-2"></i>
+                            <div class="text-white text-sm">Gym</div>
+                        </div>
+                        <div class="text-center">
+                            <i data-lucide="book-open" class="w-8 h-8 text-cyan-400 mx-auto mb-2"></i>
+                            <div class="text-white text-sm">Library</div>
                         </div>
                     </div>
                 </div>
-            </main>
-        </div>
-
-        <div id="overlay" class="fixed inset-0 bg-black/50 z-30 lg:hidden hidden"></div>
+            </div>
+        </main>
     </div>
 
     <div id="toast-container" class="fixed top-4 right-4 z-50"></div>
@@ -66,25 +98,19 @@
         const hostelDetails = document.getElementById('hostel-details');
         
         const details = [
-            { label: 'Block', value: hostel.block, testid: 'hostel-block' },
-            { label: 'Room Number', value: hostel.room_number, testid: 'hostel-room' },
-            { label: 'Bed Number', value: hostel.bed_number, testid: 'hostel-bed' },
+            { label: 'Block', value: hostel.block, testid: 'hostel-block', icon: 'building' },
+            { label: 'Room Number', value: hostel.room_number, testid: 'hostel-room', icon: 'door-open' },
+            { label: 'Bed Number', value: hostel.bed_number, testid: 'hostel-bed', icon: 'bed' },
             { label: 'Allotment Date', value: hostel.allotment_date, testid: 'hostel-date', icon: 'calendar' }
         ];
         
         details.forEach(detail => {
             const div = document.createElement('div');
-            div.className = 'bg-white/5 p-4 rounded-lg';
+            div.className = 'bg-white/5 border border-white/10 rounded-xl p-6 text-center hover:border-cyan-400/30 transition-all';
             div.innerHTML = `
-                <p class="text-sm text-gray-400 mb-1">${detail.label}</p>
-                ${detail.icon ? `
-                    <div class="flex items-center space-x-2">
-                        <i data-lucide="${detail.icon}" class="w-5 h-5 text-cyan-400"></i>
-                        <p class="text-xl font-semibold text-white" data-testid="${detail.testid}">${detail.value}</p>
-                    </div>
-                ` : `
-                    <p class="text-2xl font-semibold text-cyan-400" data-testid="${detail.testid}">${detail.value}</p>
-                `}
+                <i data-lucide="${detail.icon}" class="w-8 h-8 text-cyan-400 mx-auto mb-3"></i>
+                <p class="text-sm text-gray-400 mb-2">${detail.label}</p>
+                <p class="text-2xl font-light text-white" data-testid="${detail.testid}">${detail.value}</p>
             `;
             hostelDetails.appendChild(div);
         });
