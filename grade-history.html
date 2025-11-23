@@ -8,114 +8,103 @@
     <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
 </head>
 <body>
-    <div class="min-h-screen bg-black relative overflow-hidden">
-        <!-- Background -->
-        <div class="absolute inset-0 bg-gradient-to-br from-gray-900 via-black to-gray-900"></div>
-        <div class="absolute top-0 right-0 w-1/3 h-1/3 bg-purple-500/5 rounded-full blur-3xl"></div>
+    <div class="bg-pattern"></div>
+    
+    <nav>
+        <div class="nav-container">
+            <div class="logo">VTOP<span>2.0</span></div>
+            <ul class="nav-links">
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="profile.html">Profile</a></li>
+                <li><a href="attendance.html">Attendance</a></li>
+                <li><a href="grades.html">Grades</a></li>
+                <li><a href="grade-history.html" class="active">History</a></li>
+                <li><a href="timetable.html">Timetable</a></li>
+                <li><a href="exams.html">Exams</a></li>
+                <li><a href="leave.html">Leave</a></li>
+                <li><a href="messages.html">Messages</a></li>
+                <li><a href="hostel.html">Hostel</a></li>
+                <li><a href="payments.html">Payments</a></li>
+                <li><a href="curriculum.html">Curriculum</a></li>
+            </ul>
+            <div class="nav-profile">
+                <span class="profile-id">21BCE001</span>
+                <button class="btn-icon" id="change-password-btn" title="Change Password">
+                    <i data-lucide="key" style="width: 20px; height: 20px;"></i>
+                </button>
+                <button class="btn-icon" id="logout-btn" title="Logout">
+                    <i data-lucide="log-out" style="width: 20px; height: 20px;"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
 
-        <!-- Navigation -->
-        <nav class="relative z-50 border-b border-white/5">
-            <div class="max-w-7xl mx-auto px-6 py-4">
-                <div class="flex justify-between items-center">
-                    <div class="flex items-center space-x-8">
-                        <h1 class="text-xl font-light tracking-tight text-white">VTOP<span class="text-cyan-400">2.0</span></h1>
-                        <nav class="hidden md:flex space-x-6 text-sm text-gray-400">
-                            <a href="dashboard.html" class="hover:text-white transition-colors">Dashboard</a>
-                            <a href="profile.html" class="hover:text-white transition-colors">Profile</a>
-                            <a href="grades.html" class="hover:text-white transition-colors">Grades</a>
-                            <a href="grade-history.html" class="text-white">History</a>
-                        </nav>
-                    </div>
-                    <div class="flex items-center space-x-4">
-                        <span class="text-sm text-gray-400">21BCE001</span>
-                        <button id="logout-btn" class="text-gray-400 hover:text-white transition-colors">
-                            <i data-lucide="log-out" class="w-5 h-5"></i>
-                        </button>
-                    </div>
+    <div class="container">
+        <div class="flex justify-between items-center mb-4">
+            <div>
+                <h1 class="text-3xl font-light">Academic History</h1>
+                <p class="text-gray">Complete grade record across semesters</p>
+            </div>
+            <a href="grades.html" class="btn btn-secondary">
+                <i data-lucide="arrow-left" style="width: 16px; height: 16px; margin-right: 0.5rem;"></i>
+                Back to Current Grades
+            </a>
+        </div>
+
+        <!-- GPA Progression -->
+        <div class="card mb-4">
+            <div class="flex justify-between items-start mb-4">
+                <div>
+                    <h3 class="card-title">GPA Progression</h3>
+                    <p class="card-subtitle">Your academic journey</p>
+                </div>
+                <div class="text-right">
+                    <div class="text-sm text-gray">Cumulative GPA</div>
+                    <div class="stat-value" style="font-size: 2rem;">8.92</div>
                 </div>
             </div>
-        </nav>
-
-        <!-- Main Content -->
-        <main class="relative z-10 max-w-6xl mx-auto px-6 py-8">
-            <!-- Header -->
-            <div class="mb-12">
-                <h1 class="text-4xl font-light text-white mb-2">Academic History</h1>
-                <p class="text-gray-400 font-light">Complete grade record across semesters</p>
-            </div>
-
-            <!-- GPA Progress -->
-            <div class="bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-sm mb-8">
-                <h3 class="text-xl font-light text-white mb-4">GPA Progression</h3>
-                <div class="flex items-center space-x-4 overflow-x-auto">
-                    <div class="text-center flex-shrink-0">
-                        <div class="text-cyan-400 text-2xl font-light">8.45</div>
-                        <div class="text-gray-400 text-sm">Sem 1</div>
-                    </div>
-                    <div class="text-center flex-shrink-0">
-                        <div class="text-cyan-400 text-2xl font-light">8.67</div>
-                        <div class="text-gray-400 text-sm">Sem 2</div>
-                    </div>
-                    <div class="text-center flex-shrink-0">
-                        <div class="text-cyan-400 text-2xl font-light">8.82</div>
-                        <div class="text-gray-400 text-sm">Sem 3</div>
-                    </div>
-                    <div class="text-center flex-shrink-0">
-                        <div class="text-cyan-400 text-2xl font-light">8.91</div>
-                        <div class="text-gray-400 text-sm">Sem 4</div>
-                    </div>
-                    <div class="text-center flex-shrink-0">
-                        <div class="text-cyan-400 text-2xl font-light">8.92</div>
-                        <div class="text-gray-400 text-sm">Sem 5</div>
-                    </div>
+            
+            <div class="flex items-center gap-4 overflow-x-auto pb-2">
+                <div class="text-center flex-shrink-0">
+                    <div class="text-cyan text-2xl font-light">8.45</div>
+                    <div class="text-gray text-sm mt-1">Sem 1</div>
+                </div>
+                <div style="width: 2rem; height: 2px; background: linear-gradient(90deg, rgba(6, 182, 212, 0.5), rgba(6, 182, 212, 0.8));"></div>
+                <div class="text-center flex-shrink-0">
+                    <div class="text-cyan text-2xl font-light">8.67</div>
+                    <div class="text-gray text-sm mt-1">Sem 2</div>
+                </div>
+                <div style="width: 2rem; height: 2px; background: linear-gradient(90deg, rgba(6, 182, 212, 0.5), rgba(6, 182, 212, 0.8));"></div>
+                <div class="text-center flex-shrink-0">
+                    <div class="text-cyan text-2xl font-light">8.82</div>
+                    <div class="text-gray text-sm mt-1">Sem 3</div>
+                </div>
+                <div style="width: 2rem; height: 2px; background: linear-gradient(90deg, rgba(6, 182, 212, 0.5), rgba(6, 182, 212, 0.8));"></div>
+                <div class="text-center flex-shrink-0">
+                    <div class="text-cyan text-2xl font-light">8.91</div>
+                    <div class="text-gray text-sm mt-1">Sem 4</div>
+                </div>
+                <div style="width: 2rem; height: 2px; background: linear-gradient(90deg, rgba(6, 182, 212, 0.5), rgba(6, 182, 212, 0.8));"></div>
+                <div class="text-center flex-shrink-0">
+                    <div class="text-cyan text-2xl font-light">8.92</div>
+                    <div class="text-gray text-sm mt-1">Sem 5</div>
                 </div>
             </div>
+        </div>
 
-            <!-- Grade History -->
-            <div class="space-y-6" id="grade-history-list">
-                <!-- Grade history will be populated by JavaScript -->
-            </div>
-        </main>
+        <!-- Semester-wise Grade History -->
+        <div class="grid gap-4" id="grade-history-list">
+            <!-- Grade history will be populated by JavaScript -->
+        </div>
     </div>
 
-    <div id="toast-container" class="fixed top-4 right-4 z-50"></div>
+    <div id="toast-container"></div>
 
     <script src="js/data.js"></script>
     <script src="js/utils.js"></script>
-    <script src="js/main.js"></script>
+    <script src="js/grade-history.js"></script>
     <script>
         lucide.createIcons();
-        const groupedGrades = dataService.groupBySemester();
-        const gradeHistoryList = document.getElementById('grade-history-list');
-        
-        Object.keys(groupedGrades).sort().forEach((semester, index) => {
-            const card = document.createElement('div');
-            card.className = 'bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-sm hover:border-cyan-400/30 transition-all';
-            card.setAttribute('data-testid', `semester-history-card-${index}`);
-            
-            const semesterGrades = groupedGrades[semester];
-            const totalCredits = semesterGrades.reduce((sum, grade) => sum + grade.credits, 0);
-            
-            card.innerHTML = `
-                <div class="flex items-center justify-between mb-6">
-                    <h2 class="text-2xl font-light text-white" data-testid="semester-history-title-${index}">Semester ${semester}</h2>
-                    <div class="text-cyan-400 font-medium">${totalCredits} Credits</div>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    ${semesterGrades.map((grade, idx) => `
-                        <div class="bg-white/5 border border-white/10 rounded-xl p-4 hover:border-cyan-400/30 transition-all" data-testid="grade-history-${index}-${idx}">
-                            <h3 class="text-lg font-light text-white mb-2" data-testid="grade-history-course-${index}-${idx}">${grade.course_name}</h3>
-                            <p class="text-cyan-400 text-sm mb-3" data-testid="grade-history-code-${index}-${idx}">${grade.course_code}</p>
-                            <div class="flex justify-between items-center">
-                                <span class="text-2xl font-light text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-400" data-testid="grade-history-grade-${index}-${idx}">${grade.grade}</span>
-                                <span class="text-gray-400 text-sm" data-testid="grade-history-credits-${index}-${idx}">${grade.credits} Credits</span>
-                            </div>
-                        </div>
-                    `).join('')}
-                </div>
-            `;
-            gradeHistoryList.appendChild(card);
-        });
     </script>
 </body>
 </html>
