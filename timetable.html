@@ -3,115 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Time Table - VTOP 2.0</title>
+    <title>Timetable - VTOP 2.0</title>
     <link rel="stylesheet" href="css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
 </head>
 <body>
-    <div class="min-h-screen bg-black relative overflow-hidden">
-        <!-- Background -->
-        <div class="absolute inset-0 bg-gradient-to-br from-gray-900 via-black to-gray-900"></div>
-        <div class="absolute top-0 left-0 w-1/3 h-1/3 bg-cyan-500/5 rounded-full blur-3xl"></div>
-        <div class="absolute bottom-0 right-0 w-1/3 h-1/3 bg-purple-500/5 rounded-full blur-3xl"></div>
-
-        <!-- Navigation -->
-        <nav class="relative z-50 border-b border-white/5">
-            <div class="max-w-7xl mx-auto px-6 py-4">
-                <div class="flex justify-between items-center">
-                    <div class="flex items-center space-x-8">
-                        <h1 class="text-xl font-light tracking-tight text-white">VTOP<span class="text-cyan-400">2.0</span></h1>
-                        <nav class="hidden md:flex space-x-6 text-sm text-gray-400">
-                            <a href="dashboard.html" class="hover:text-white transition-colors">Dashboard</a>
-                            <a href="profile.html" class="hover:text-white transition-colors">Profile</a>
-                            <a href="timetable.html" class="text-white">Schedule</a>
-                            <a href="exams.html" class="hover:text-white transition-colors">Exams</a>
-                        </nav>
-                    </div>
-                    <div class="flex items-center space-x-4">
-                        <span class="text-sm text-gray-400">21BCE001</span>
-                        <button id="logout-btn" class="text-gray-400 hover:text-white transition-colors">
-                            <i data-lucide="log-out" class="w-5 h-5"></i>
-                        </button>
-                    </div>
-                </div>
+    <div class="bg-pattern"></div>
+    
+    <nav>
+        <div class="nav-container">
+            <div class="logo">VTOP<span>2.0</span></div>
+            <ul class="nav-links">
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="profile.html">Profile</a></li>
+                <li><a href="attendance.html">Attendance</a></li>
+                <li><a href="grades.html">Grades</a></li>
+                <li><a href="timetable.html" class="active">Timetable</a></li>
+                <li><a href="exams.html">Exams</a></li>
+                <li><a href="leave.html">Leave</a></li>
+                <li><a href="messages.html">Messages</a></li>
+                <li><a href="hostel.html">Hostel</a></li>
+                <li><a href="payments.html">Payments</a></li>
+                <li><a href="curriculum.html">Curriculum</a></li>
+            </ul>
+            <div class="nav-profile">
+                <span class="profile-id">21BCE001</span>
+                <button class="btn-icon" id="change-password-btn" title="Change Password">
+                    <i data-lucide="key" style="width: 20px; height: 20px;"></i>
+                </button>
+                <button class="btn-icon" id="logout-btn" title="Logout">
+                    <i data-lucide="log-out" style="width: 20px; height: 20px;"></i>
+                </button>
             </div>
-        </nav>
+        </div>
+    </nav>
 
-        <!-- Main Content -->
-        <main class="relative z-10 max-w-6xl mx-auto px-6 py-8">
-            <!-- Header -->
-            <div class="mb-12">
-                <h1 class="text-4xl font-light text-white mb-2">Weekly Time Table</h1>
-                <p class="text-gray-400 font-light">Your class schedule organized by day</p>
-            </div>
-
-            <!-- Current Week -->
-            <div class="bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-sm mb-8">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <h3 class="text-xl font-light text-white">Current Week</h3>
-                        <p class="text-gray-400">November 25 - December 1, 2024</p>
-                    </div>
-                    <div class="text-cyan-400 text-sm font-medium">5 Classes Scheduled</div>
-                </div>
-            </div>
-
-            <!-- Timetable -->
-            <div class="space-y-6" id="timetable-list">
-                <!-- Timetable will be populated by JavaScript -->
-            </div>
-        </main>
+    <div class="container">
+        <h1 class="text-3xl font-light mb-4">Class Timetable</h1>
+        
+        <div class="grid gap-3" id="timetable-list">
+            <!-- Timetable cards will be populated by JavaScript -->
+        </div>
     </div>
 
-    <div id="toast-container" class="fixed top-4 right-4 z-50"></div>
+    <div id="toast-container"></div>
 
     <script src="js/data.js"></script>
     <script src="js/utils.js"></script>
-    <script src="js/main.js"></script>
+    <script src="js/timetable.js"></script>
     <script>
-        lucide.createIcons();
-        const grouped = dataService.groupTimetableByDay();
-        const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
-        const timetableList = document.getElementById('timetable-list');
-        
-        days.forEach(day => {
-            const card = document.createElement('div');
-            card.className = 'bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-sm hover:border-cyan-400/30 transition-all';
-            card.setAttribute('data-testid', `day-card-${day.toLowerCase()}`);
-            
-            let slotsHTML = '';
-            if (grouped[day] && grouped[day].length > 0) {
-                slotsHTML = grouped[day].map((slot, index) => `
-                    <div class="bg-white/5 border border-white/10 rounded-xl p-4 hover:border-cyan-400/30 transition-all" data-testid="slot-${day.toLowerCase()}-${index}">
-                        <div class="flex items-center space-x-3 mb-3">
-                            <i data-lucide="clock" class="w-5 h-5 text-cyan-400"></i>
-                            <span class="text-cyan-400 font-medium" data-testid="slot-time-${day.toLowerCase()}-${index}">${slot.slot}</span>
-                        </div>
-                        <h3 class="text-lg font-light text-white mb-2" data-testid="slot-course-${day.toLowerCase()}-${index}">${slot.course_name}</h3>
-                        <p class="text-gray-400 text-sm mb-3" data-testid="slot-code-${day.toLowerCase()}-${index}">${slot.course_code}</p>
-                        <div class="flex items-center space-x-4 text-sm">
-                            <div class="flex items-center space-x-2">
-                                <i data-lucide="user" class="w-4 h-4 text-gray-400"></i>
-                                <span class="text-gray-400" data-testid="slot-faculty-${day.toLowerCase()}-${index}">${slot.faculty}</span>
-                            </div>
-                            <div class="flex items-center space-x-2">
-                                <i data-lucide="map-pin" class="w-4 h-4 text-gray-400"></i>
-                                <span class="text-gray-400" data-testid="slot-venue-${day.toLowerCase()}-${index}">${slot.venue}</span>
-                            </div>
-                        </div>
-                    </div>
-                `).join('');
-            } else {
-                slotsHTML = '<p class="text-gray-400 text-center py-8">No classes scheduled</p>';
-            }
-            
-            card.innerHTML = `
-                <h2 class="text-2xl font-light text-white mb-4" data-testid="day-title-${day.toLowerCase()}">${day}</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">${slotsHTML}</div>
-            `;
-            timetableList.appendChild(card);
-        });
-        
         lucide.createIcons();
     </script>
 </body>
