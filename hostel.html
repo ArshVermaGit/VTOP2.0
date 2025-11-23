@@ -8,113 +8,84 @@
     <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
 </head>
 <body>
-    <div class="min-h-screen bg-black relative overflow-hidden">
-        <!-- Background -->
-        <div class="absolute inset-0 bg-gradient-to-br from-gray-900 via-black to-gray-900"></div>
-        <div class="absolute top-0 right-0 w-1/3 h-1/3 bg-green-500/5 rounded-full blur-3xl"></div>
+    <div class="bg-pattern"></div>
+    
+    <nav>
+        <div class="nav-container">
+            <div class="logo">VTOP<span>2.0</span></div>
+            <ul class="nav-links">
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="profile.html">Profile</a></li>
+                <li><a href="attendance.html">Attendance</a></li>
+                <li><a href="grades.html">Grades</a></li>
+                <li><a href="timetable.html">Timetable</a></li>
+                <li><a href="exams.html">Exams</a></li>
+                <li><a href="leave.html">Leave</a></li>
+                <li><a href="messages.html">Messages</a></li>
+                <li><a href="hostel.html" class="active">Hostel</a></li>
+                <li><a href="payments.html">Payments</a></li>
+                <li><a href="curriculum.html">Curriculum</a></li>
+            </ul>
+            <div class="nav-profile">
+                <span class="profile-id">21BCE001</span>
+                <button class="btn-icon" id="change-password-btn" title="Change Password">
+                    <i data-lucide="key" style="width: 20px; height: 20px;"></i>
+                </button>
+                <button class="btn-icon" id="logout-btn" title="Logout">
+                    <i data-lucide="log-out" style="width: 20px; height: 20px;"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
 
-        <!-- Navigation -->
-        <nav class="relative z-50 border-b border-white/5">
-            <div class="max-w-7xl mx-auto px-6 py-4">
-                <div class="flex justify-between items-center">
-                    <div class="flex items-center space-x-8">
-                        <h1 class="text-xl font-light tracking-tight text-white">VTOP<span class="text-cyan-400">2.0</span></h1>
-                        <nav class="hidden md:flex space-x-6 text-sm text-gray-400">
-                            <a href="dashboard.html" class="hover:text-white transition-colors">Dashboard</a>
-                            <a href="profile.html" class="hover:text-white transition-colors">Profile</a>
-                            <a href="hostel.html" class="text-white">Hostel</a>
-                            <a href="payments.html" class="hover:text-white transition-colors">Payments</a>
-                        </nav>
+    <div class="container">
+        <h1 class="text-3xl font-light mb-4">Hostel Accommodation</h1>
+        
+        <div class="card">
+            <div class="flex gap-3 mb-4">
+                <div style="width: 100px; height: 100px; border-radius: 1.5rem; background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(34, 197, 94, 0.2)); display: flex; align-items: center; justify-content: center;">
+                    <i data-lucide="home" style="width: 50px; height: 50px; color: #10b981;"></i>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-light mb-1">Room Allocation</h2>
+                    <p class="text-gray">Your residential details</p>
+                </div>
+            </div>
+
+            <div class="grid grid-2 gap-3 mb-4" id="hostel-details">
+                <!-- Hostel details will be populated by JavaScript -->
+            </div>
+
+            <div class="border-t" style="border-color: rgba(255,255,255,0.08); padding-top: 1.5rem;">
+                <h3 class="text-xl font-light mb-3">Facilities</h3>
+                <div class="grid grid-4 gap-2">
+                    <div class="text-center">
+                        <i data-lucide="wifi" class="text-cyan" style="width: 40px; height: 40px; margin: 0 auto 0.5rem;"></i>
+                        <div class="text-sm">WiFi</div>
                     </div>
-                    <div class="flex items-center space-x-4">
-                        <span class="text-sm text-gray-400">21BCE001</span>
-                        <button id="logout-btn" class="text-gray-400 hover:text-white transition-colors">
-                            <i data-lucide="log-out" class="w-5 h-5"></i>
-                        </button>
+                    <div class="text-center">
+                        <i data-lucide="utensils" class="text-cyan" style="width: 40px; height: 40px; margin: 0 auto 0.5rem;"></i>
+                        <div class="text-sm">Mess</div>
+                    </div>
+                    <div class="text-center">
+                        <i data-lucide="dumbbell" class="text-cyan" style="width: 40px; height: 40px; margin: 0 auto 0.5rem;"></i>
+                        <div class="text-sm">Gym</div>
+                    </div>
+                    <div class="text-center">
+                        <i data-lucide="book-open" class="text-cyan" style="width: 40px; height: 40px; margin: 0 auto 0.5rem;"></i>
+                        <div class="text-sm">Library</div>
                     </div>
                 </div>
             </div>
-        </nav>
-
-        <!-- Main Content -->
-        <main class="relative z-10 max-w-4xl mx-auto px-6 py-8">
-            <!-- Header -->
-            <div class="mb-12 text-center">
-                <h1 class="text-4xl font-light text-white mb-2">Hostel Accommodation</h1>
-                <p class="text-gray-400 font-light">Your residential details and facilities</p>
-            </div>
-
-            <!-- Hostel Card -->
-            <div class="bg-white/5 border border-white/10 rounded-2xl p-8 backdrop-blur-sm">
-                <div class="flex items-start space-x-6 mb-8">
-                    <div class="bg-gradient-to-br from-cyan-500 to-blue-500 p-6 rounded-2xl flex-shrink-0">
-                        <i data-lucide="home" class="w-12 h-12 text-white"></i>
-                    </div>
-                    <div>
-                        <h2 class="text-3xl font-light text-white mb-2">Your Room Allocation</h2>
-                        <p class="text-gray-400">Comfortable living space with premium amenities</p>
-                    </div>
-                </div>
-
-                <!-- Hostel Details -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="hostel-details">
-                    <!-- Details will be populated by JavaScript -->
-                </div>
-
-                <!-- Facilities -->
-                <div class="mt-8 pt-8 border-t border-white/10">
-                    <h3 class="text-xl font-light text-white mb-4">Hostel Facilities</h3>
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        <div class="text-center">
-                            <i data-lucide="wifi" class="w-8 h-8 text-cyan-400 mx-auto mb-2"></i>
-                            <div class="text-white text-sm">WiFi</div>
-                        </div>
-                        <div class="text-center">
-                            <i data-lucide="utensils" class="w-8 h-8 text-cyan-400 mx-auto mb-2"></i>
-                            <div class="text-white text-sm">Mess</div>
-                        </div>
-                        <div class="text-center">
-                            <i data-lucide="dumbbell" class="w-8 h-8 text-cyan-400 mx-auto mb-2"></i>
-                            <div class="text-white text-sm">Gym</div>
-                        </div>
-                        <div class="text-center">
-                            <i data-lucide="book-open" class="w-8 h-8 text-cyan-400 mx-auto mb-2"></i>
-                            <div class="text-white text-sm">Library</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </main>
+        </div>
     </div>
 
-    <div id="toast-container" class="fixed top-4 right-4 z-50"></div>
+    <div id="toast-container"></div>
 
     <script src="js/data.js"></script>
     <script src="js/utils.js"></script>
-    <script src="js/main.js"></script>
+    <script src="js/hostel.js"></script>
     <script>
-        lucide.createIcons();
-        const hostel = dataService.getHostel();
-        const hostelDetails = document.getElementById('hostel-details');
-        
-        const details = [
-            { label: 'Block', value: hostel.block, testid: 'hostel-block', icon: 'building' },
-            { label: 'Room Number', value: hostel.room_number, testid: 'hostel-room', icon: 'door-open' },
-            { label: 'Bed Number', value: hostel.bed_number, testid: 'hostel-bed', icon: 'bed' },
-            { label: 'Allotment Date', value: hostel.allotment_date, testid: 'hostel-date', icon: 'calendar' }
-        ];
-        
-        details.forEach(detail => {
-            const div = document.createElement('div');
-            div.className = 'bg-white/5 border border-white/10 rounded-xl p-6 text-center hover:border-cyan-400/30 transition-all';
-            div.innerHTML = `
-                <i data-lucide="${detail.icon}" class="w-8 h-8 text-cyan-400 mx-auto mb-3"></i>
-                <p class="text-sm text-gray-400 mb-2">${detail.label}</p>
-                <p class="text-2xl font-light text-white" data-testid="${detail.testid}">${detail.value}</p>
-            `;
-            hostelDetails.appendChild(div);
-        });
-        
         lucide.createIcons();
     </script>
 </body>
