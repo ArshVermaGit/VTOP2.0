@@ -8,123 +8,126 @@
     <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
 </head>
 <body>
-    <div class="min-h-screen bg-black relative overflow-hidden">
-        <!-- Background -->
-        <div class="absolute inset-0 bg-gradient-to-br from-gray-900 via-black to-gray-900"></div>
-        <div class="absolute top-0 right-0 w-1/3 h-1/3 bg-cyan-500/5 rounded-full blur-3xl"></div>
+    <div class="bg-pattern"></div>
+    
+    <nav>
+        <div class="nav-container">
+            <div class="logo">VTOP<span>2.0</span></div>
+            <ul class="nav-links">
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="profile.html" class="active">Profile</a></li>
+                <li><a href="attendance.html">Attendance</a></li>
+                <li><a href="grades.html">Grades</a></li>
+                <li><a href="timetable.html">Timetable</a></li>
+                <li><a href="exams.html">Exams</a></li>
+                <li><a href="leave.html">Leave</a></li>
+                <li><a href="messages.html">Messages</a></li>
+                <li><a href="hostel.html">Hostel</a></li>
+                <li><a href="payments.html">Payments</a></li>
+                <li><a href="curriculum.html">Curriculum</a></li>
+            </ul>
+            <div class="nav-profile">
+                <span class="profile-id">21BCE001</span>
+                <button class="btn-icon" id="change-password-btn" title="Change Password">
+                    <i data-lucide="key" style="width: 20px; height: 20px;"></i>
+                </button>
+                <button class="btn-icon" id="logout-btn" title="Logout">
+                    <i data-lucide="log-out" style="width: 20px; height: 20px;"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
 
-        <!-- Navigation -->
-        <nav class="relative z-50 border-b border-white/5">
-            <div class="max-w-7xl mx-auto px-6 py-4">
-                <div class="flex justify-between items-center">
-                    <div class="flex items-center space-x-8">
-                        <h1 class="text-xl font-light tracking-tight text-white">VTOP<span class="text-cyan-400">2.0</span></h1>
-                        <nav class="hidden md:flex space-x-6 text-sm text-gray-400">
-                            <a href="dashboard.html" class="hover:text-white transition-colors">Dashboard</a>
-                            <a href="profile.html" class="text-white">Profile</a>
-                            <a href="attendance.html" class="hover:text-white transition-colors">Attendance</a>
-                            <a href="grades.html" class="hover:text-white transition-colors">Grades</a>
-                        </nav>
+    <div class="container">
+        <h1 class="text-3xl font-light mb-4">Student Profile</h1>
+        
+        <div class="grid grid-2 gap-3">
+            <div class="card">
+                <div class="flex gap-3 mb-4">
+                    <div style="width: 120px; height: 120px; border-radius: 1.5rem; background: linear-gradient(135deg, rgba(6, 182, 212, 0.2), rgba(168, 85, 247, 0.2)); display: flex; align-items: center; justify-content: center;">
+                        <i data-lucide="user" style="width: 60px; height: 60px; color: #06b6d4;"></i>
                     </div>
-                    <div class="flex items-center space-x-4">
-                        <span class="text-sm text-gray-400">21BCE001</span>
-                        <button id="logout-btn" class="text-gray-400 hover:text-white transition-colors">
-                            <i data-lucide="log-out" class="w-5 h-5"></i>
-                        </button>
+                    <div style="flex: 1;">
+                        <h2 class="text-2xl font-light mb-1" id="student-name">Raj Kumar</h2>
+                        <p class="text-gray" id="student-id-display">21BCE001</p>
+                        <span class="badge badge-success mt-2">Active</span>
                     </div>
                 </div>
-            </div>
-        </nav>
-
-        <!-- Main Content -->
-        <main class="relative z-10 max-w-4xl mx-auto px-6 py-8">
-            <!-- Header -->
-            <div class="mb-12 text-center">
-                <h1 class="text-4xl font-light text-white mb-2">Student Profile</h1>
-                <p class="text-gray-400 font-light">Personal information and academic details</p>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <!-- Profile Card -->
-                <div class="lg:col-span-1">
-                    <div class="bg-white/5 border border-white/10 rounded-2xl p-8 backdrop-blur-sm text-center">
-                        <div class="w-32 h-32 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                            <i data-lucide="user" class="w-16 h-16 text-white"></i>
-                        </div>
-                        <h2 class="text-2xl font-light text-white mb-2" data-testid="profile-name">Student 21BCE001</h2>
-                        <p class="text-cyan-400 mb-6" data-testid="profile-student-id">21BCE001</p>
-                        <div class="bg-white/5 rounded-xl p-4">
-                            <div class="text-white text-lg font-light mb-1">8.92 GPA</div>
-                            <div class="text-gray-400 text-sm">Current Semester</div>
+                
+                <div class="grid gap-2">
+                    <div class="list-item">
+                        <i data-lucide="graduation-cap" class="text-cyan"></i>
+                        <div>
+                            <div class="text-xs text-gray">Program</div>
+                            <div class="font-medium" id="student-program">B.Tech Computer Science</div>
                         </div>
                     </div>
-                </div>
-
-                <!-- Details Card -->
-                <div class="lg:col-span-2">
-                    <div class="bg-white/5 border border-white/10 rounded-2xl p-8 backdrop-blur-sm">
-                        <h3 class="text-2xl font-light text-white mb-6">Personal Information</h3>
-                        
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div class="space-y-1">
-                                <label class="text-sm text-gray-400">Email</label>
-                                <div class="text-white font-medium" data-testid="profile-email">21bce001@university.edu</div>
-                            </div>
-                            <div class="space-y-1">
-                                <label class="text-sm text-gray-400">Registration Number</label>
-                                <div class="text-white font-medium" data-testid="profile-reg-number">21BCE001</div>
-                            </div>
-                            <div class="space-y-1">
-                                <label class="text-sm text-gray-400">Program</label>
-                                <div class="text-white font-medium" data-testid="profile-program">B.Tech</div>
-                            </div>
-                            <div class="space-y-1">
-                                <label class="text-sm text-gray-400">Branch</label>
-                                <div class="text-white font-medium" data-testid="profile-branch">Computer Science and Engineering</div>
-                            </div>
-                            <div class="space-y-1">
-                                <label class="text-sm text-gray-400">Current Semester</label>
-                                <div class="text-white font-medium" data-testid="profile-semester">5</div>
-                            </div>
-                            <div class="space-y-1">
-                                <label class="text-sm text-gray-400">Academic Year</label>
-                                <div class="text-white font-medium">2024-2025</div>
-                            </div>
+                    <div class="list-item">
+                        <i data-lucide="mail" class="text-cyan"></i>
+                        <div>
+                            <div class="text-xs text-gray">Email</div>
+                            <div class="font-medium" id="student-email">raj.kumar@vit.ac.in</div>
                         </div>
-
-                        <!-- Academic Stats -->
-                        <div class="mt-8 pt-8 border-t border-white/10">
-                            <h4 class="text-lg font-light text-white mb-4">Academic Statistics</h4>
-                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                                <div class="text-center">
-                                    <div class="text-cyan-400 text-2xl font-light">93.5%</div>
-                                    <div class="text-gray-400 text-sm">Attendance</div>
-                                </div>
-                                <div class="text-center">
-                                    <div class="text-cyan-400 text-2xl font-light">5</div>
-                                    <div class="text-gray-400 text-sm">Courses</div>
-                                </div>
-                                <div class="text-center">
-                                    <div class="text-cyan-400 text-2xl font-light">A+</div>
-                                    <div class="text-gray-400 text-sm">Avg Grade</div>
-                                </div>
-                                <div class="text-center">
-                                    <div class="text-cyan-400 text-2xl font-light">42</div>
-                                    <div class="text-gray-400 text-sm">Credits</div>
-                                </div>
-                            </div>
+                    </div>
+                    <div class="list-item">
+                        <i data-lucide="phone" class="text-cyan"></i>
+                        <div>
+                            <div class="text-xs text-gray">Phone</div>
+                            <div class="font-medium" id="student-phone">+91 98765 43210</div>
+                        </div>
+                    </div>
+                    <div class="list-item">
+                        <i data-lucide="cake" class="text-cyan"></i>
+                        <div>
+                            <div class="text-xs text-gray">Date of Birth</div>
+                            <div class="font-medium" id="student-dob">15-03-2003</div>
                         </div>
                     </div>
                 </div>
             </div>
-        </main>
+
+            <div class="card">
+                <h3 class="card-title mb-4">Academic Performance</h3>
+                
+                <div class="mb-4">
+                    <div class="flex justify-between mb-2">
+                        <span class="text-gray">Current GPA</span>
+                        <span class="text-2xl font-light text-cyan" id="profile-gpa">8.92</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill progress-green" id="gpa-progress" style="width: 89.2%"></div>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <div class="flex justify-between mb-2">
+                        <span class="text-gray">Overall Attendance</span>
+                        <span class="text-2xl font-light text-cyan" id="profile-attendance">87%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill progress-yellow" id="attendance-progress" style="width: 87%"></div>
+                    </div>
+                </div>
+
+                <div class="grid grid-2 gap-2 mt-4">
+                    <div class="dashboard-stat">
+                        <div class="stat-value" id="courses-enrolled">5</div>
+                        <div class="stat-label">Courses Enrolled</div>
+                    </div>
+                    <div class="dashboard-stat">
+                        <div class="stat-value" id="total-credits">18</div>
+                        <div class="stat-label">Total Credits</div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div id="toast-container" class="fixed top-4 right-4 z-50"></div>
+    <div id="toast-container"></div>
 
     <script src="js/data.js"></script>
     <script src="js/utils.js"></script>
-    <script src="js/main.js"></script>
+    <script src="js/profile.js"></script>
     <script>
         lucide.createIcons();
     </script>
