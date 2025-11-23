@@ -8,151 +8,113 @@
     <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
 </head>
 <body>
-    <div class="min-h-screen bg-black relative overflow-hidden">
-        <!-- Background -->
-        <div class="absolute inset-0 bg-gradient-to-br from-gray-900 via-black to-gray-900"></div>
-        <div class="absolute top-0 left-0 w-1/3 h-1/3 bg-cyan-500/5 rounded-full blur-3xl"></div>
-        <div class="absolute bottom-0 right-0 w-1/3 h-1/3 bg-purple-500/5 rounded-full blur-3xl"></div>
-
-        <!-- Navigation -->
-        <nav class="relative z-50 border-b border-white/5">
-            <div class="max-w-7xl mx-auto px-6 py-4">
-                <div class="flex justify-between items-center">
-                    <div class="flex items-center space-x-8">
-                        <h1 class="text-xl font-light tracking-tight text-white">VTOP<span class="text-cyan-400">2.0</span></h1>
-                        <nav class="hidden md:flex space-x-6 text-sm text-gray-400">
-                            <a href="dashboard.html" class="text-white">Dashboard</a>
-                            <a href="profile.html" class="hover:text-white transition-colors">Profile</a>
-                            <a href="attendance.html" class="hover:text-white transition-colors">Attendance</a>
-                            <a href="grades.html" class="hover:text-white transition-colors">Grades</a>
-                            <a href="timetable.html" class="hover:text-white transition-colors">Schedule</a>
-                        </nav>
-                    </div>
-                    <div class="flex items-center space-x-4">
-                        <span class="text-sm text-gray-400" data-testid="student-id-display">21BCE001</span>
-                        <button id="logout-btn" class="text-gray-400 hover:text-white transition-colors">
-                            <i data-lucide="log-out" class="w-5 h-5"></i>
-                        </button>
-                    </div>
-                </div>
+    <div class="bg-pattern"></div>
+    
+    <nav>
+        <div class="nav-container">
+            <div class="logo">VTOP<span>2.0</span></div>
+            <ul class="nav-links">
+                <li><a href="dashboard.html" class="active">Dashboard</a></li>
+                <li><a href="profile.html">Profile</a></li>
+                <li><a href="attendance.html">Attendance</a></li>
+                <li><a href="grades.html">Grades</a></li>
+                <li><a href="timetable.html">Timetable</a></li>
+                <li><a href="exams.html">Exams</a></li>
+                <li><a href="leave.html">Leave</a></li>
+                <li><a href="messages.html">Messages</a></li>
+                <li><a href="hostel.html">Hostel</a></li>
+                <li><a href="payments.html">Payments</a></li>
+                <li><a href="curriculum.html">Curriculum</a></li>
+            </ul>
+            <div class="nav-profile">
+                <span class="profile-id">21BCE001</span>
+                <button class="btn-icon" id="change-password-btn" title="Change Password">
+                    <i data-lucide="key" style="width: 20px; height: 20px;"></i>
+                </button>
+                <button class="btn-icon" id="logout-btn" title="Logout">
+                    <i data-lucide="log-out" style="width: 20px; height: 20px;"></i>
+                </button>
             </div>
-        </nav>
+        </div>
+    </nav>
 
-        <!-- Main Content -->
-        <main class="relative z-10 max-w-7xl mx-auto px-6 py-8">
-            <!-- Header -->
-            <div class="mb-12">
-                <h1 class="text-4xl font-light text-white mb-2" data-testid="welcome-message">
-                    Welcome back, <span class="text-cyan-400">Student</span>
-                </h1>
-                <p class="text-gray-400 font-light">Your academic dashboard</p>
+    <div class="container">
+        <h1 class="text-3xl font-light mb-4">Dashboard</h1>
+        
+        <div class="dashboard-grid">
+            <div class="dashboard-stat">
+                <div class="stat-value" id="gpa-value">8.92</div>
+                <div class="stat-label">Current GPA</div>
             </div>
-
-            <!-- Stats Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
-                <div class="bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-sm">
-                    <div class="text-3xl font-light text-cyan-400 mb-2">93.5%</div>
-                    <div class="text-sm text-gray-400">Attendance</div>
-                </div>
-                <div class="bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-sm">
-                    <div class="text-3xl font-light text-cyan-400 mb-2">8.92</div>
-                    <div class="text-sm text-gray-400">Current GPA</div>
-                </div>
-                <div class="bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-sm">
-                    <div class="text-3xl font-light text-cyan-400 mb-2">5</div>
-                    <div class="text-sm text-gray-400">Active Courses</div>
-                </div>
-                <div class="bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-sm">
-                    <div class="text-3xl font-light text-cyan-400 mb-2">12</div>
-                    <div class="text-sm text-gray-400">Days to Exams</div>
-                </div>
+            <div class="dashboard-stat">
+                <div class="stat-value" id="attendance-value">87%</div>
+                <div class="stat-label">Attendance</div>
             </div>
-
-            <!-- Quick Actions -->
-            <div class="mb-12">
-                <h2 class="text-2xl font-light text-white mb-6">Quick Access</h2>
-                <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
-                    <a href="attendance.html" class="bg-white/5 border border-white/10 rounded-xl p-4 text-center hover:border-cyan-400/30 transition-all group">
-                        <div class="w-12 h-12 bg-cyan-500/10 rounded-lg flex items-center justify-center mx-auto mb-3 group-hover:bg-cyan-500/20 transition-colors">
-                            <i data-lucide="calendar" class="w-6 h-6 text-cyan-400"></i>
-                        </div>
-                        <div class="text-white text-sm font-medium">Attendance</div>
-                    </a>
-                    <a href="marks.html" class="bg-white/5 border border-white/10 rounded-xl p-4 text-center hover:border-cyan-400/30 transition-all group">
-                        <div class="w-12 h-12 bg-cyan-500/10 rounded-lg flex items-center justify-center mx-auto mb-3 group-hover:bg-cyan-500/20 transition-colors">
-                            <i data-lucide="bar-chart" class="w-6 h-6 text-cyan-400"></i>
-                        </div>
-                        <div class="text-white text-sm font-medium">Marks</div>
-                    </a>
-                    <a href="grades.html" class="bg-white/5 border border-white/10 rounded-xl p-4 text-center hover:border-cyan-400/30 transition-all group">
-                        <div class="w-12 h-12 bg-cyan-500/10 rounded-lg flex items-center justify-center mx-auto mb-3 group-hover:bg-cyan-500/20 transition-colors">
-                            <i data-lucide="award" class="w-6 h-6 text-cyan-400"></i>
-                        </div>
-                        <div class="text-white text-sm font-medium">Grades</div>
-                    </a>
-                    <a href="timetable.html" class="bg-white/5 border border-white/10 rounded-xl p-4 text-center hover:border-cyan-400/30 transition-all group">
-                        <div class="w-12 h-12 bg-cyan-500/10 rounded-lg flex items-center justify-center mx-auto mb-3 group-hover:bg-cyan-500/20 transition-colors">
-                            <i data-lucide="clock" class="w-6 h-6 text-cyan-400"></i>
-                        </div>
-                        <div class="text-white text-sm font-medium">Time Table</div>
-                    </a>
-                    <a href="exams.html" class="bg-white/5 border border-white/10 rounded-xl p-4 text-center hover:border-cyan-400/30 transition-all group">
-                        <div class="w-12 h-12 bg-cyan-500/10 rounded-lg flex items-center justify-center mx-auto mb-3 group-hover:bg-cyan-500/20 transition-colors">
-                            <i data-lucide="book-open" class="w-6 h-6 text-cyan-400"></i>
-                        </div>
-                        <div class="text-white text-sm font-medium">Exams</div>
-                    </a>
-                </div>
+            <div class="dashboard-stat">
+                <div class="stat-value" id="courses-value">5</div>
+                <div class="stat-label">Courses</div>
             </div>
+            <div class="dashboard-stat">
+                <div class="stat-value" id="exams-value">4</div>
+                <div class="stat-label">Upcoming Exams</div>
+            </div>
+        </div>
 
-            <!-- Recent Activity -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <!-- Upcoming Classes -->
-                <div class="bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-sm">
-                    <h3 class="text-xl font-light text-white mb-4">Today's Classes</h3>
-                    <div class="space-y-3">
-                        <div class="flex items-center justify-between py-3 border-b border-white/5">
-                            <div>
-                                <div class="text-white font-medium">Data Structures</div>
-                                <div class="text-gray-400 text-sm">09:00 - 10:00</div>
-                            </div>
-                            <div class="text-cyan-400 text-sm">AB1-101</div>
-                        </div>
-                        <div class="flex items-center justify-between py-3 border-b border-white/5">
-                            <div>
-                                <div class="text-white font-medium">Algorithms</div>
-                                <div class="text-gray-400 text-sm">10:00 - 11:00</div>
-                            </div>
-                            <div class="text-cyan-400 text-sm">AB1-102</div>
-                        </div>
+        <div class="grid grid-2 gap-3 mb-3">
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <h3 class="card-title">Recent Attendance</h3>
+                        <p class="card-subtitle">Last 5 courses</p>
                     </div>
                 </div>
+                <div id="recent-attendance"></div>
+            </div>
 
-                <!-- Recent Messages -->
-                <div class="bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-sm">
-                    <h3 class="text-xl font-light text-white mb-4">Recent Messages</h3>
-                    <div class="space-y-3">
-                        <div class="py-3 border-b border-white/5">
-                            <div class="text-white font-medium mb-1">Data Structures</div>
-                            <div class="text-gray-400 text-sm">Assignment 2 deadline extended</div>
-                            <div class="text-cyan-400 text-xs mt-1">Dr. Sharma • 2h ago</div>
-                        </div>
-                        <div class="py-3 border-b border-white/5">
-                            <div class="text-white font-medium mb-1">Algorithms</div>
-                            <div class="text-gray-400 text-sm">CAT-2 scheduled for next week</div>
-                            <div class="text-cyan-400 text-xs mt-1">Dr. Kumar • 4h ago</div>
-                        </div>
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <h3 class="card-title">Upcoming Exams</h3>
+                        <p class="card-subtitle">Next 3 exams</p>
                     </div>
                 </div>
+                <div id="upcoming-exams"></div>
             </div>
-        </main>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <div>
+                    <h3 class="card-title">Quick Actions</h3>
+                    <p class="card-subtitle">Common tasks</p>
+                </div>
+            </div>
+            <div class="grid grid-4 gap-2">
+                <a href="attendance.html" class="btn btn-secondary">
+                    <i data-lucide="calendar-check" style="width: 16px; height: 16px; margin-right: 0.5rem;"></i>
+                    Attendance
+                </a>
+                <a href="grades.html" class="btn btn-secondary">
+                    <i data-lucide="award" style="width: 16px; height: 16px; margin-right: 0.5rem;"></i>
+                    Grades
+                </a>
+                <a href="timetable.html" class="btn btn-secondary">
+                    <i data-lucide="clock" style="width: 16px; height: 16px; margin-right: 0.5rem;"></i>
+                    Timetable
+                </a>
+                <a href="leave.html" class="btn btn-secondary">
+                    <i data-lucide="file-text" style="width: 16px; height: 16px; margin-right: 0.5rem;"></i>
+                    Apply Leave
+                </a>
+            </div>
+        </div>
     </div>
 
-    <div id="toast-container" class="fixed top-4 right-4 z-50"></div>
+    <div id="toast-container"></div>
 
     <script src="js/data.js"></script>
     <script src="js/utils.js"></script>
-    <script src="js/main.js"></script>
+    <script src="js/dashboard.js"></script>
     <script>
         lucide.createIcons();
     </script>
