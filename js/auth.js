@@ -21,7 +21,7 @@ function handleLogin(e) {
     }
     
     // Demo credentials check
-    if (studentId === '21BCE001' && password === 'demo123') {
+    if (studentId === '24BCG10026' && password === '123') {
         // Set authentication
         sessionStorage.setItem('authenticated', 'true');
         sessionStorage.setItem('studentId', studentId);
@@ -34,6 +34,6 @@ function handleLogin(e) {
             window.location.href = 'dashboard.html';
         }, 1000);
     } else {
-        showToast('Invalid credentials! Use: 21BCE001 / demo123', 'error');
+        showToast('Invalid credentials! Use: 24BCG10026 / 123', 'error');
     }
 }
