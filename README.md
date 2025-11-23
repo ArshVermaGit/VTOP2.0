@@ -23,10 +23,8 @@
 - [Tech Stack](#-tech-stack)
 - [Project Structure](#-project-structure)
 - [Pages Overview](#-pages-overview)
-- [Screenshots](#-screenshots)
 - [Customization](#-customization)
 - [Contributing](#-contributing)
-- [License](#-license)
 - [Acknowledgments](#-acknowledgments)
 
 ---
@@ -204,28 +202,6 @@ Program structure, course requirements, and credit distribution.
 ### 🔐 Change Password (`change-password.html`)
 Secure password update with validation and requirements display.
 
----
-
-## 📸 Screenshots
-
-### Dashboard
-![Dashboard](screenshots/dashboard.png)
-*Clean overview of key academic metrics*
-
-### Profile
-![Profile](screenshots/profile.png)
-*Student information and performance summary*
-
-### Attendance
-![Attendance](screenshots/attendance.png)
-*Course-wise attendance tracking*
-
-### Grades
-![Grades](screenshots/grades.png)
-*Detailed grade reports*
-
----
-
 ## 🎨 Customization
 
 ### Changing Colors
@@ -296,37 +272,6 @@ Contributions are welcome! Here's how you can help:
 - Test on multiple browsers
 - Ensure responsive design
 
----
-
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-```
-MIT License
-
-Copyright (c) 2024 VTOP 2.0
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-```
-
----
 
 ## 🙏 Acknowledgments
 
@@ -351,9 +296,10 @@ SOFTWARE.
 ## 📞 Contact & Support
 
 ### Get in Touch
-- **GitHub Issues**: [Report bugs or request features](https://github.com/yourusername/vtop-2.0/issues)
-- **Email**: your.email@example.com
-- **Twitter**: [@yourusername](https://twitter.com/yourusername)
+- **GitHub**: [Report bugs or request features](https://github.com/ArshVermaGit/VTOP2.0)
+- **Email**: Arshvermadev@gmail.com
+- **Linkedin**: [ArshVermaDev](https://www.linkedin.com/in/arshvermadev/)
+- **X**: [Thearshverma](https://twitter.com/Thearshverma)
 
 ### Support the Project
 If you find VTOP 2.0 helpful, consider:
@@ -363,16 +309,6 @@ If you find VTOP 2.0 helpful, consider:
 - 🔀 Contributing code
 - 📢 Sharing with others
 
----
-
-## 📊 Project Stats
-
-![GitHub stars](https://img.shields.io/github/stars/yourusername/vtop-2.0?style=social)
-![GitHub forks](https://img.shields.io/github/forks/yourusername/vtop-2.0?style=social)
-![GitHub issues](https://img.shields.io/github/issues/yourusername/vtop-2.0)
-![GitHub license](https://img.shields.io/github/license/yourusername/vtop-2.0)
-
----
 
 ## 🗺 Roadmap
 
