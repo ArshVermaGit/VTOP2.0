@@ -1,11 +1,11 @@
 // data.js - Student Data Management
 const studentData = {
-    id: '21BCE001',
-    name: 'Raj Kumar',
+    id: '24BCG10026',
+    name: 'Arsh Verma',
     program: 'B.Tech Computer Science',
-    email: 'raj.kumar@vit.ac.in',
-    phone: '+91 98765 43210',
-    dob: '15-03-2003',
+    email: 'arsh.24bcg10026@vitbhopal.ac.in',
+    phone: '+91 9555532013',
+    dob: '22-11-2005',
     
     attendance: {
         overall: 87,
