@@ -3,125 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Internal Marks - VTOP 2.0</title>
+    <title>Marks - VTOP 2.0</title>
     <link rel="stylesheet" href="css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
 </head>
 <body>
-    <div class="min-h-screen bg-black relative overflow-hidden">
-        <!-- Background -->
-        <div class="absolute inset-0 bg-gradient-to-br from-gray-900 via-black to-gray-900"></div>
-        <div class="absolute top-0 right-0 w-1/3 h-1/3 bg-purple-500/5 rounded-full blur-3xl"></div>
-
-        <!-- Navigation -->
-        <nav class="relative z-50 border-b border-white/5">
-            <div class="max-w-7xl mx-auto px-6 py-4">
-                <div class="flex justify-between items-center">
-                    <div class="flex items-center space-x-8">
-                        <h1 class="text-xl font-light tracking-tight text-white">VTOP<span class="text-cyan-400">2.0</span></h1>
-                        <nav class="hidden md:flex space-x-6 text-sm text-gray-400">
-                            <a href="dashboard.html" class="hover:text-white transition-colors">Dashboard</a>
-                            <a href="profile.html" class="hover:text-white transition-colors">Profile</a>
-                            <a href="marks.html" class="text-white">Marks</a>
-                            <a href="grades.html" class="hover:text-white transition-colors">Grades</a>
-                        </nav>
-                    </div>
-                    <div class="flex items-center space-x-4">
-                        <span class="text-sm text-gray-400">21BCE001</span>
-                        <button id="logout-btn" class="text-gray-400 hover:text-white transition-colors">
-                            <i data-lucide="log-out" class="w-5 h-5"></i>
-                        </button>
-                    </div>
-                </div>
+    <div class="bg-pattern"></div>
+    
+    <nav>
+        <div class="nav-container">
+            <div class="logo">VTOP<span>2.0</span></div>
+            <ul class="nav-links">
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="profile.html">Profile</a></li>
+                <li><a href="attendance.html">Attendance</a></li>
+                <li><a href="grades.html">Grades</a></li>
+                <li><a href="marks.html" class="active">Marks</a></li>
+                <li><a href="timetable.html">Timetable</a></li>
+                <li><a href="exams.html">Exams</a></li>
+                <li><a href="leave.html">Leave</a></li>
+                <li><a href="messages.html">Messages</a></li>
+                <li><a href="hostel.html">Hostel</a></li>
+                <li><a href="payments.html">Payments</a></li>
+                <li><a href="curriculum.html">Curriculum</a></li>
+            </ul>
+            <div class="nav-profile">
+                <span class="profile-id">21BCE001</span>
+                <button class="btn-icon" id="change-password-btn" title="Change Password">
+                    <i data-lucide="key" style="width: 20px; height: 20px;"></i>
+                </button>
+                <button class="btn-icon" id="logout-btn" title="Logout">
+                    <i data-lucide="log-out" style="width: 20px; height: 20px;"></i>
+                </button>
             </div>
-        </nav>
+        </div>
+    </nav>
 
-        <!-- Main Content -->
-        <main class="relative z-10 max-w-6xl mx-auto px-6 py-8">
-            <!-- Header -->
-            <div class="mb-12">
-                <h1 class="text-4xl font-light text-white mb-2">Internal Marks</h1>
-                <p class="text-gray-400 font-light">Continuous assessment performance</p>
+    <div class="container">
+        <div class="flex justify-between items-center mb-4">
+            <div>
+                <h1 class="text-3xl font-light">Detailed Marks</h1>
+                <p class="text-gray">Assessment-wise breakdown</p>
             </div>
+            <a href="grades.html" class="btn btn-secondary">
+                <i data-lucide="arrow-left" style="width: 16px; height: 16px; margin-right: 0.5rem;"></i>
+                Back to Grades
+            </a>
+        </div>
 
-            <!-- Overall Performance -->
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-                <div class="bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-sm text-center">
-                    <div class="text-2xl font-light text-cyan-400 mb-2">199</div>
-                    <div class="text-sm text-gray-400">Avg Total</div>
-                </div>
-                <div class="bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-sm text-center">
-                    <div class="text-2xl font-light text-cyan-400 mb-2">48.5</div>
-                    <div class="text-sm text-gray-400">Avg CAT</div>
-                </div>
-                <div class="bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-sm text-center">
-                    <div class="text-2xl font-light text-cyan-400 mb-2">18.8</div>
-                    <div class="text-sm text-gray-400">Avg Assignment</div>
-                </div>
-                <div class="bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-sm text-center">
-                    <div class="text-2xl font-light text-cyan-400 mb-2">87.8</div>
-                    <div class="text-sm text-gray-400">Avg FAT</div>
-                </div>
+        <!-- Summary Cards -->
+        <div class="grid grid-3 gap-3 mb-4">
+            <div class="dashboard-stat">
+                <div class="stat-value" id="total-assessments">12</div>
+                <div class="stat-label">Total Assessments</div>
             </div>
+            <div class="dashboard-stat">
+                <div class="stat-value" id="average-score">85.4%</div>
+                <div class="stat-label">Average Score</div>
+            </div>
+            <div class="dashboard-stat">
+                <div class="stat-value" id="highest-score">98</div>
+                <div class="stat-label">Highest Score</div>
+            </div>
+        </div>
 
-            <!-- Marks Grid -->
-            <div class="grid grid-cols-1 gap-6" id="marks-list">
-                <!-- Marks will be populated by JavaScript -->
-            </div>
-        </main>
+        <!-- Course-wise Marks -->
+        <div class="grid gap-4" id="marks-list">
+            <!-- Marks cards will be populated by JavaScript -->
+        </div>
     </div>
 
-    <div id="toast-container" class="fixed top-4 right-4 z-50"></div>
+    <div id="toast-container"></div>
 
     <script src="js/data.js"></script>
     <script src="js/utils.js"></script>
-    <script src="js/main.js"></script>
+    <script src="js/marks.js"></script>
     <script>
         lucide.createIcons();
-        const marks = dataService.getMarks();
-        const marksList = document.getElementById('marks-list');
-        
-        marks.forEach((record, index) => {
-            const card = document.createElement('div');
-            card.className = 'bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-sm hover:border-cyan-400/30 transition-all';
-            card.setAttribute('data-testid', `marks-card-${index}`);
-            card.innerHTML = `
-                <div class="flex justify-between items-start mb-6">
-                    <div>
-                        <h3 class="text-2xl font-light text-white mb-2" data-testid="marks-course-name-${index}">${record.course_name}</h3>
-                        <p class="text-cyan-400" data-testid="marks-course-code-${index}">${record.course_code}</p>
-                    </div>
-                    <div class="text-right">
-                        <div class="text-3xl font-light text-white mb-1">${record.total}</div>
-                        <div class="text-sm text-gray-400">Total Marks</div>
-                    </div>
-                </div>
-                
-                <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
-                    <div class="bg-white/5 border border-white/10 rounded-xl p-4 text-center hover:border-cyan-400/30 transition-all">
-                        <p class="text-sm text-gray-400 mb-2">CAT-1</p>
-                        <p class="text-2xl font-light text-cyan-400" data-testid="cat1-${index}">${record.cat1}/50</p>
-                    </div>
-                    <div class="bg-white/5 border border-white/10 rounded-xl p-4 text-center hover:border-cyan-400/30 transition-all">
-                        <p class="text-sm text-gray-400 mb-2">CAT-2</p>
-                        <p class="text-2xl font-light text-cyan-400" data-testid="cat2-${index}">${record.cat2}/50</p>
-                    </div>
-                    <div class="bg-white/5 border border-white/10 rounded-xl p-4 text-center hover:border-cyan-400/30 transition-all">
-                        <p class="text-sm text-gray-400 mb-2">Assignment</p>
-                        <p class="text-2xl font-light text-cyan-400" data-testid="assignment-${index}">${record.assignment}/20</p>
-                    </div>
-                    <div class="bg-white/5 border border-white/10 rounded-xl p-4 text-center hover:border-cyan-400/30 transition-all">
-                        <p class="text-sm text-gray-400 mb-2">FAT</p>
-                        <p class="text-2xl font-light text-cyan-400" data-testid="fat-${index}">${record.fat}/100</p>
-                    </div>
-                    <div class="bg-gradient-to-br from-cyan-500 to-blue-500 border border-cyan-400/30 rounded-xl p-4 text-center">
-                        <p class="text-sm text-white mb-2">Total</p>
-                        <p class="text-2xl font-light text-white" data-testid="total-${index}">${record.total}</p>
-                    </div>
-                </div>
-            `;
-            marksList.appendChild(card);
-        });
     </script>
 </body>
 </html>
