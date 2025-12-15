@@ -296,10 +296,10 @@ Contributions are welcome! Here's how you can help:
 ## 📞 Contact & Support
 
 ### Get in Touch
-- **GitHub**: [Report bugs or request features](https://github.com/ArshVermaGit/VTOP2.0)
-- **Email**: Arshvermadev@gmail.com
-- **Linkedin**: [ArshVermaDev](https://www.linkedin.com/in/arshvermadev/)
-- **X**: [Thearshverma](https://twitter.com/Thearshverma)
+- 🐙 **GitHub**: [ArshVermaGit](https://github.com/ArshVermaGit)
+- 💼 **LinkedIn**: [ArshVermaDev](https://www.linkedin.com/in/arshvermadev/)
+- ✖️ **X (Twitter)**: [@TheArshVerma](https://x.com/TheArshVerma)
+- 📧 **Email**: [Arshverma.dev@gmail.com](mailto:Arshverma.dev@gmail.com)
 
 ### Support the Project
 If you find VTOP 2.0 helpful, consider:
