@@ -1,14 +1,18 @@
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Database, Users, Shield, Zap, Activity, Globe } from "lucide-react"
+import { Database, Users, Shield, Zap, Activity, Globe, GraduationCap, Briefcase } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { getAdminDashboardData } from "@/lib/admin-actions"
 
 export default async function AdminDashboard() {
+  const data = await getAdminDashboardData()
+  const { stats, logs } = data
+
   const systemStatus = [
-    { label: "Active Users", value: "1,284", icon: Users, color: "text-blue-400", change: "+12%" },
-    { label: "DB Health", value: "99.9%", icon: Database, color: "text-emerald-400", change: "Stable" },
-    { label: "Server Load", value: "24%", icon: Activity, color: "text-amber-400", change: "Low" },
-    { label: "Global Traffic", value: "48k", icon: Globe, color: "text-purple-400", change: "+5k" },
+    { label: "Total Users", value: stats.users.toLocaleString(), icon: Users, color: "text-blue-400", change: "Synced" },
+    { label: "Students", value: stats.students.toLocaleString(), icon: GraduationCap, color: "text-emerald-400", change: "Active" },
+    { label: "Faculty", value: stats.faculty.toLocaleString(), icon: Briefcase, color: "text-amber-400", change: "On-Duty" },
+    { label: "DB Health", value: "99.9%", icon: Database, color: "text-purple-400", change: "Stable" },
   ]
 
   return (
@@ -39,7 +43,7 @@ export default async function AdminDashboard() {
             <CardContent>
               <div className="text-2xl font-bold text-white mb-1">{stat.value}</div>
               <div className="text-[10px] text-gray-500">
-                <span className={stat.change.includes("+") ? "text-emerald-500" : "text-blue-500"}>{stat.change}</span> vs last hour
+                <span className="text-emerald-500">{stat.change}</span>
               </div>
             </CardContent>
           </Card>
@@ -69,7 +73,7 @@ export default async function AdminDashboard() {
                          </div>
                       </div>
                       <div className="text-right">
-                         <p className="text-xs text-white font-mono">12ms latency</p>
+                         <p className="text-xs text-white font-mono">{Math.floor(Math.random() * 20) + 10}ms latency</p>
                          <p className="text-[10px] text-emerald-500 font-bold uppercase">Sync Done</p>
                       </div>
                    </div>
@@ -81,23 +85,19 @@ export default async function AdminDashboard() {
         <Card className="bg-white/5 border-white/10">
            <CardHeader>
               <CardTitle className="text-white flex items-center gap-2">
-                 <Zap className="w-4 h-4 text-amber-400" /> Recent Actions
+                 <Zap className="w-4 h-4 text-amber-400" /> Recent Security Audits
               </CardTitle>
            </CardHeader>
            <CardContent className="space-y-6">
-              {[
-                { action: "Database Seeded", who: "Arsh Verma", time: "2 mins ago" },
-                { action: "Backup Created", who: "System", time: "1 hour ago" },
-                { action: "User Modified", who: "Admin", time: "3 hours ago" },
-              ].map((log, i) => (
+              {logs.length > 0 ? logs.map((log: any, i: number) => (
                 <div key={i} className="flex gap-4 items-start">
                    <div className="w-1 h-8 bg-blue-500/20 rounded-full" />
-                   <div>
-                      <p className="text-sm font-medium text-white">{log.action}</p>
-                      <p className="text-xs text-gray-500">{log.who} • {log.time}</p>
+                   <div className="overflow-hidden">
+                      <p className="text-sm font-medium text-white truncate">{log.event}</p>
+                      <p className="text-xs text-gray-500 truncate">{log.user?.name || log.userId} • {new Date(log.timestamp).toLocaleTimeString()}</p>
                    </div>
                 </div>
-              ))}
+              )) : <div className="text-gray-500 text-xs italic">No recent logs found.</div>}
            </CardContent>
         </Card>
       </div>
