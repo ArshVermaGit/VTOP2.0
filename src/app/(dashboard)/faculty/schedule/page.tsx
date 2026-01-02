@@ -2,19 +2,21 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Badge } from "@/components/ui/badge"
 import { Clock, MapPin, User, BookOpen, Calendar as CalendarIcon, Filter } from "lucide-react"
-import { getFacultyProfile, getAcademicEvents, getSemesterMilestones } from "@/lib/actions"
+import { getFacultyProfile, getAcademicEvents, getSemesterMilestones, getFacultyTimetable } from "@/lib/actions"
 import { Button } from "@/components/ui/button"
+import Link from "next/link"
 
 export default async function FacultySchedulePage() {
-  const [faculty, events, milestones] = await Promise.all([
+  const [faculty, events, milestones, timetable] = await Promise.all([
     getFacultyProfile(),
     getAcademicEvents(),
-    getSemesterMilestones()
+    getSemesterMilestones(),
+    getFacultyTimetable()
   ])
 
   if (!faculty) return <div className="p-12 text-center text-gray-500">Log in to view your schedule.</div>
 
-  const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
+  const days = ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY"]
 
   return (
     <div className="space-y-6">
@@ -32,7 +34,7 @@ export default async function FacultySchedulePage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 space-y-6">
-           <Tabs defaultValue="Monday" className="w-full">
+           <Tabs defaultValue="MONDAY" className="w-full">
               <TabsList className="bg-white/5 border border-white/10 p-1 w-full justify-start overflow-x-auto">
                 {days.map(day => (
                   <TabsTrigger key={day} value={day} className="data-[state=active]:bg-indigo-600 data-[state=active]:text-white min-w-[100px]">
@@ -41,39 +43,49 @@ export default async function FacultySchedulePage() {
                 ))}
               </TabsList>
 
-              {days.map(day => (
-                <TabsContent key={day} value={day} className="mt-6 space-y-4">
-                  {/* In a real app we'd filter by day. Here we show a generic teaching session for demo */}
-                  <Card className="bg-white/5 border-white/10 hover:bg-white/[0.08] transition-all group">
-                    <CardContent className="flex flex-col md:flex-row md:items-center justify-between p-6 gap-6">
-                         <div className="flex items-center gap-6">
-                            <div className="w-20 h-20 rounded-2xl bg-indigo-500/10 flex flex-col items-center justify-center border border-indigo-500/20 group-hover:bg-indigo-500/20 transition-colors">
-                                <span className="text-lg font-bold text-indigo-400">08:00 AM</span>
-                                <span className="text-xs text-gray-500 uppercase">08:50 AM</span>
-                            </div>
-                            <div className="space-y-1">
-                                <div className="flex items-center gap-2">
-                                    <Badge variant="outline" className="text-xs border-indigo-500/30 text-indigo-400">SESSION 1</Badge>
-                                    <h3 className="text-xl font-bold text-white">Advanced Web Systems</h3>
+              {days.map(day => {
+                const dayClasses = (timetable as any[]).filter(t => t.day === day)
+                return (
+                  <TabsContent key={day} value={day} className="mt-6 space-y-4">
+                    {dayClasses.length > 0 ? dayClasses.map((cls, i) => (
+                      <Card key={i} className="bg-white/5 border-white/10 hover:bg-white/[0.08] transition-all group font-['Inter']">
+                        <CardContent className="flex flex-col md:flex-row md:items-center justify-between p-6 gap-6">
+                             <div className="flex items-center gap-6">
+                                <div className="w-20 h-20 rounded-2xl bg-indigo-500/10 flex flex-col items-center justify-center border border-indigo-500/20 group-hover:bg-indigo-500/20 transition-colors">
+                                    <span className="text-lg font-bold text-indigo-400">{cls.startTime}</span>
+                                    <span className="text-xs text-gray-500 uppercase">{cls.endTime}</span>
                                 </div>
-                                <div className="flex flex-wrap items-center gap-4 mt-2">
-                                    <div className="flex items-center gap-1.5 text-xs text-gray-400">
-                                        <BookOpen className="w-4 h-4 text-purple-400" /> SWE3001
+                                <div className="space-y-1">
+                                    <div className="flex items-center gap-2">
+                                        <Badge variant="outline" className="text-[10px] border-indigo-500/30 text-indigo-400 font-black uppercase tracking-widest">{cls.slot}</Badge>
+                                        <h3 className="text-xl font-bold text-white">{cls.course.title}</h3>
                                     </div>
-                                    <div className="flex items-center gap-1.5 text-xs text-gray-400">
-                                        <MapPin className="w-4 h-4 text-rose-400" /> AB1-402
-                                    </div>
-                                    <div className="flex items-center gap-1.5 text-xs text-emerald-400">
-                                        <User className="w-4 h-4" /> 62 Students
+                                    <div className="flex flex-wrap items-center gap-4 mt-2">
+                                        <div className="flex items-center gap-1.5 text-xs text-gray-400">
+                                            <BookOpen className="w-4 h-4 text-purple-400" /> {cls.course.code}
+                                        </div>
+                                        <div className="flex items-center gap-1.5 text-xs text-gray-400">
+                                            <MapPin className="w-4 h-4 text-rose-400" /> {cls.venue}
+                                        </div>
+                                        <div className="flex items-center gap-1.5 text-xs text-emerald-400 font-bold">
+                                            <User className="w-4 h-4" /> {cls.course.registrations.length} Students
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                         </div>
-                         <Button size="sm" className="bg-indigo-600 hover:bg-indigo-700">Digital Attendance</Button>
-                    </CardContent>
-                  </Card>
-                </TabsContent>
-              ))}
+                             </div>
+                             <Link href={`/faculty/attendance?courseId=${cls.courseId}`}>
+                                <Button size="sm" className="bg-indigo-600 hover:bg-indigo-700 font-black uppercase text-[10px] tracking-widest">Digital Attendance</Button>
+                             </Link>
+                        </CardContent>
+                      </Card>
+                    )) : (
+                      <div className="p-12 text-center text-gray-600 uppercase font-black tracking-widest text-xs opacity-30">
+                          Empty Slot Archive
+                      </div>
+                    )}
+                  </TabsContent>
+                )
+              })}
            </Tabs>
         </div>
 
