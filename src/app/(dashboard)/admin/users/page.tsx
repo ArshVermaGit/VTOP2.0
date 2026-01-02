@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Shield, UserPlus, Search, Edit2, Trash2, Key } from "lucide-react"
+import { cn } from "@/lib/utils"
 
 export default async function UserManagementPage() {
   const users = [
@@ -98,6 +99,3 @@ export default async function UserManagementPage() {
   )
 }
 
-function cn(...classes: any[]) {
-  return classes.filter(Boolean).join(' ')
-}
