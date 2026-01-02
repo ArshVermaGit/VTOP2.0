@@ -32,7 +32,7 @@ export default async function ExamSchedulePage() {
                             <div>
                                 <div className="flex items-center gap-2 mb-1">
                                     <Badge variant="outline" className="text-blue-400 border-blue-500/30 font-mono">{exam.courseId}</Badge>
-                                    <Badge className="bg-blue-600 hover:bg-blue-700 text-white">{exam.examType}</Badge>
+                                    <Badge className="bg-blue-600 hover:bg-blue-700 text-white">{exam.type}</Badge>
                                 </div>
                                 <h3 className="text-xl font-bold text-white">Course ID: {exam.courseId}</h3>
                             </div>
@@ -62,7 +62,7 @@ export default async function ExamSchedulePage() {
                             <div>
                                 <div className="flex items-center gap-2 mb-1">
                                     <Badge variant="outline" className="text-purple-400 border-purple-500/30 font-mono">{exam.courseId}</Badge>
-                                    <Badge className="bg-purple-600 hover:bg-purple-700 text-white">{exam.examType}</Badge>
+                                    <Badge className="bg-purple-600 hover:bg-purple-700 text-white">{exam.type}</Badge>
                                 </div>
                                 <h3 className="text-xl font-bold text-white">Course ID: {exam.courseId}</h3>
                             </div>
