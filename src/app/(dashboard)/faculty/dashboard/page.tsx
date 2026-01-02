@@ -27,15 +27,13 @@ export default async function FacultyDashboard() {
 
   if (!faculty) return <div className="p-10 text-white font-black uppercase text-xs">Unauthorized or Faculty Profile not found.</div>
 
-  const days = ['SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY']
-  const currentDay = days[new Date().getDay()]
-
-  const todayClasses = faculty.courses.flatMap(c => 
-    c.timeTable?.filter((t: any) => t.day === currentDay) || []
+  const today = new Date().toLocaleDateString('en-US', { weekday: 'long' }).toUpperCase()
+  const todayClasses = faculty.courses.flatMap((c: any) =>
+    c.timeTable.filter((t: any) => t.day === today).map((t: any) => ({ ...t, course: c }))
   ).sort((a: any, b: any) => a.startTime.localeCompare(b.startTime))
 
   const totalProctees = faculty.proctees.length
-  const criticalProctees = faculty.proctees.filter((p: any) => 
+  const criticalProctees = faculty.proctees.filter((p: any) =>
     (p.attendance?.[0]?.percentage || 100) < 75 || p.cgpa < 7.5
   ).length
 
@@ -92,8 +90,8 @@ export default async function FacultyDashboard() {
          />
          <MetricCard 
             label="Research Index" 
-            value="3.2" 
-            subtitle="H-Index Score" 
+            value={faculty.supervisedScholars.reduce((sum, s) => sum + (s.hIndex || 0), 0) / (faculty.supervisedScholars.length || 1) || "1.0"} 
+            subtitle="Avg. H-Index of Scholars" 
             icon={<TrendingUp className="w-5 h-5 text-purple-400" />}
             status="EXCELLENT"
             color="purple"
@@ -110,7 +108,7 @@ export default async function FacultyDashboard() {
                             <Calendar className="w-5 h-5 text-indigo-500" />
                             <CardTitle className="text-white text-lg uppercase font-black italic tracking-tight">Daily Instruction Pipeline</CardTitle>
                         </div>
-                        <p className="text-[10px] text-gray-600 font-bold uppercase tracking-widest">Monday, Jan 05</p>
+                        <p className="text-[10px] text-gray-600 font-bold uppercase tracking-widest">{new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: '2-digit' })}</p>
                     </div>
                 </CardHeader>
                 <CardContent className="p-0">
@@ -123,22 +121,26 @@ export default async function FacultyDashboard() {
                                         <p className="text-xl font-black text-white italic tracking-tighter">{cls.startTime.split(':')[1]}</p>
                                         <div className="w-full bg-indigo-600/50 h-0.5 mt-1" />
                                     </div>
-                                    <div className="space-y-1">
-                                        <h4 className="text-white font-black text-md uppercase italic tracking-tight group-hover:text-indigo-400 transition-colors">Digital Image Processing</h4>
+                                     <div className="space-y-1">
+                                        <h4 className="text-white font-black text-md uppercase italic tracking-tight group-hover:text-indigo-400 transition-colors">{cls.course.title}</h4>
                                         <p className="text-[9px] text-gray-500 font-bold uppercase tracking-widest leading-none">Slot: {cls.slot} • Venue: {cls.venue}</p>
                                         <div className="flex items-center gap-2 pt-2">
-                                            <Badge className="bg-emerald-500/10 text-emerald-400 border-none text-[7px] font-black uppercase">Theory</Badge>
-                                            <Badge className="bg-white/5 text-gray-600 border-none text-[7px] font-black uppercase">52 Enrolled</Badge>
+                                            <Badge className="bg-emerald-500/10 text-emerald-400 border-none text-[7px] font-black uppercase">{cls.course.type}</Badge>
+                                            <Badge className="bg-white/5 text-gray-600 border-none text-[7px] font-black uppercase">{cls.course.registrations.length} Enrolled</Badge>
                                         </div>
                                     </div>
                                 </div>
-                                <div className="flex items-center gap-3">
-                                   <Button className="h-9 px-4 bg-indigo-600 hover:bg-indigo-700 text-white font-black uppercase text-[9px] tracking-widest rounded-lg transition-all shadow-lg shadow-indigo-600/20">
-                                      Mark Attendance
-                                   </Button>
-                                   <Button variant="ghost" className="w-9 h-9 p-0 rounded-lg text-gray-700 hover:text-white hover:bg-white/5 transition-all">
-                                      <ArrowRight className="w-4 h-4" />
-                                   </Button>
+                                 <div className="flex items-center gap-3">
+                                   <Link href={`/faculty/attendance?courseId=${cls.courseId}`}>
+                                       <Button className="h-9 px-4 bg-indigo-600 hover:bg-indigo-700 text-white font-black uppercase text-[9px] tracking-widest rounded-lg transition-all shadow-lg shadow-indigo-600/20">
+                                          Mark Attendance
+                                       </Button>
+                                   </Link>
+                                   <Link href={`/faculty/courses/${cls.courseId}`}>
+                                       <Button variant="ghost" className="w-9 h-9 p-0 rounded-lg text-gray-700 hover:text-white hover:bg-white/5 transition-all">
+                                          <ArrowRight className="w-4 h-4" />
+                                       </Button>
+                                   </Link>
                                 </div>
                            </div>
                         )) : (
@@ -174,13 +176,15 @@ export default async function FacultyDashboard() {
                                  </div>
                              </div>
                          ))}
-                         <Button variant="ghost" className="w-full h-12 text-[9px] text-indigo-400 font-black uppercase hover:bg-indigo-600/10 tracking-widest">
-                             View Complete Mentor List
-                         </Button>
+                          <Link href="/faculty/proctees">
+                              <Button variant="ghost" className="w-full h-12 text-[9px] text-indigo-400 font-black uppercase hover:bg-indigo-600/10 tracking-widest">
+                                  View Complete Mentor List
+                              </Button>
+                          </Link>
                      </CardContent>
                  </Card>
 
-                 <Card className="bg-[#0A0A0B]/80 border-white/10 overflow-hidden min-h-[350px]">
+                  <Card className="bg-[#0A0A0B]/80 border-white/10 overflow-hidden min-h-[350px]">
                      <CardHeader className="bg-black/40 border-b border-white/5">
                         <CardTitle className="text-white text-md uppercase font-black italic flex items-center gap-2">
                             <TrendingUp className="w-5 h-5 text-emerald-400" /> Research & Publications
@@ -188,16 +192,18 @@ export default async function FacultyDashboard() {
                      </CardHeader>
                      <CardContent className="p-6">
                          <div className="space-y-6">
-                            <ResearchStat label="Journals Published" value="14" color="indigo" />
-                            <ResearchStat label="Conferences indexed" value="28" color="emerald" />
-                            <ResearchStat label="Patents Granted" value="03" color="purple" />
+                            <ResearchStat label="Journals Published" value={faculty.supervisedScholars.reduce((sum, s) => sum + s.publicationsCount, 0)} color="indigo" />
+                            <ResearchStat label="Scholars Supervised" value={faculty.supervisedScholars.length} color="emerald" />
+                            <ResearchStat label="Total Citations" value={faculty.supervisedScholars.reduce((sum, s) => sum + s.citations, 0)} color="purple" />
                             <ResearchStat label="Ongoing Projects" value="02" color="amber" />
-                            <Button className="w-full mt-2 bg-emerald-600/10 text-emerald-400 border border-emerald-500/20 hover:bg-emerald-600 hover:text-white font-black uppercase text-[9px] tracking-widest h-10 transition-all rounded-xl">
-                                Update Research Portfolio
-                            </Button>
+                            <Link href="/faculty/research">
+                                <Button className="w-full mt-2 bg-emerald-600/10 text-emerald-400 border border-emerald-500/20 hover:bg-emerald-600 hover:text-white font-black uppercase text-[9px] tracking-widest h-10 transition-all rounded-xl">
+                                    Update Research Portfolio
+                                </Button>
+                            </Link>
                          </div>
                      </CardContent>
-                 </Card>
+                  </Card>
             </div>
          </div>
 
@@ -210,10 +216,18 @@ export default async function FacultyDashboard() {
                   <div className="p-6 space-y-6 relative z-10">
                       <h4 className="text-white font-black text-xs uppercase tracking-widest border-b border-white/5 pb-4 italic">Executive Actions</h4>
                       <div className="grid grid-cols-2 gap-3">
-                          <ToolButton icon={<Award className="w-4 h-4" />} label="Marks Upload" color="indigo" />
-                          <ToolButton icon={<FileText className="w-4 h-4" />} label="Counselling" color="amber" />
-                          <ToolButton icon={<Users className="w-4 h-4" />} label="Student List" color="emerald" />
-                          <ToolButton icon={<Briefcase className="w-4 h-4" />} label="Course CMS" color="purple" />
+                          <Link href="/faculty/marks">
+                            <ToolButton icon={<Award className="w-4 h-4" />} label="Marks Upload" color="indigo" />
+                          </Link>
+                          <Link href="/faculty/proctees">
+                            <ToolButton icon={<FileText className="w-4 h-4" />} label="Counselling" color="amber" />
+                          </Link>
+                          <Link href="/faculty/proctees">
+                            <ToolButton icon={<Users className="w-4 h-4" />} label="Student List" color="emerald" />
+                          </Link>
+                          <Link href="/faculty/courses">
+                            <ToolButton icon={<Briefcase className="w-4 h-4" />} label="Course CMS" color="purple" />
+                          </Link>
                       </div>
                       
                       <div className="pt-4 border-t border-white/5 space-y-3">
