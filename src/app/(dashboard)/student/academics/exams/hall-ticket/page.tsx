@@ -47,14 +47,14 @@ export default async function HallTicketPage() {
             </CardHeader>
             <CardContent className="space-y-4">
                 <p className="text-gray-400 text-sm leading-relaxed">
-                    Access to the digital hall ticket has been restricted due to <span className="text-white font-bold">{eligibility.reason}</span>.
+                    Access to the digital hall ticket has been restricted due to <span className="text-white font-bold">{eligibility.blockers?.join(', ') || 'policy violations'}</span>.
                 </p>
-                {eligibility.details && (
+                {eligibility.blockers && eligibility.blockers.length > 0 && (
                     <div className="p-4 rounded-xl bg-black/40 border border-white/5 space-y-2">
-                        <p className="text-[10px] text-gray-500 uppercase font-black">Affected Courses (Attendance &lt; 75%)</p>
+                        <p className="text-[10px] text-gray-500 uppercase font-black">Compliance Issues</p>
                         <div className="flex flex-wrap gap-2">
-                            {eligibility.details.map((courseId: string) => (
-                                <Badge key={courseId} variant="outline" className="border-rose-500/30 text-rose-400 text-[9px]">{courseId}</Badge>
+                            {eligibility.blockers.map((item: string, i: number) => (
+                                <Badge key={i} variant="outline" className="border-rose-500/30 text-rose-400 text-[9px]">{item}</Badge>
                             ))}
                         </div>
                     </div>
