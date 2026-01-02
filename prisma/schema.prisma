@@ -1,522 +1,939 @@
 generator client {
-    provider = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 datasource db {
-    provider = "sqlite"
-    url      = env("DATABASE_URL")
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
 }
 
 model User {
-    id             String          @id @default(cuid())
-    username       String          @unique
-    password       String
-    name           String
-    role           String          @default("STUDENT") // STUDENT, FACULTY, PARENT, ADMIN
-    email          String?
-    profile        StudentProfile?
-    facultyProfile FacultyProfile?
-    parentProfile  ParentProfile?
-    adminProfile   AdminProfile?
-    createdAt      DateTime        @default(now())
-    updatedAt      DateTime        @updatedAt
+  id             String          @id @default(cuid())
+  username       String          @unique
+  password       String
+  name           String
+  role           String          @default("STUDENT") // STUDENT, FACULTY, PARENT, ADMIN
+  email          String?
+  profile        StudentProfile?
+  facultyProfile FacultyProfile?
+  parentProfile  ParentProfile?
+  adminProfile   AdminProfile?
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
 
-    // Notifications & Messages
-    notifications    Notification[]
-    sentMessages     Message[]      @relation("SentMessages")
-    receivedMessages Message[]      @relation("ReceivedMessages")
-    forumPosts       ForumPost[]
-    forumReplies     ForumReply[]
+  // Notifications & Messages
+  notifications    Notification[]
+  sentMessages     Message[]      @relation("SentMessages")
+  receivedMessages Message[]      @relation("ReceivedMessages")
+  forumPosts       ForumPost[]
+  forumReplies     ForumReply[]
+
+  // Security & Settings
+  twoFactorEnabled Boolean         @default(false)
+  twoFactorSecret  String?
+  backupCodes      String? // JSON string
+  lastLogin        DateTime?
+  securityAudits   SecurityAudit[]
 }
 
 model StudentProfile {
-    id            String  @id @default(cuid())
-    userId        String  @unique
-    user          User    @relation(fields: [userId], references: [id])
-    regNo         String  @unique
-    applicationNo String? @unique
-    program       String
-    school        String
-    batch         String
-    cgpa          Float   @default(0.0)
+  id            String  @id @default(cuid())
+  userId        String  @unique
+  user          User    @relation(fields: [userId], references: [id])
+  regNo         String  @unique
+  applicationNo String? @unique
+  program       String
+  school        String
+  batch         String
+  cgpa          Float   @default(0.0)
 
-    // Photo
-    photoUrl String?
+  // Photo
+  photoUrl String?
 
-    // Proctor Info
-    proctorId String?
-    proctor   FacultyProfile? @relation(fields: [proctorId], references: [id])
+  // Proctor Info
+  proctorId String?
+  proctor   FacultyProfile? @relation(fields: [proctorId], references: [id])
 
-    // Personal Info
-    dob         DateTime?
-    bloodGroup  String?
-    mobile      String?
-    aadharNo    String?
-    nativePlace String?
-    nationality String?
-    apaarId     String? // APAAR ID
+  // Personal Info
+  dob         DateTime?
+  bloodGroup  String?
+  mobile      String?
+  aadharNo    String?
+  nativePlace String?
+  nationality String?
+  apaarId     String? // APAAR ID
 
-    // Emergency
-    emergencyName  String?
-    emergencyPhone String?
+  // Emergency
+  emergencyName  String?
+  emergencyPhone String?
 
-    // Bank Info
-    bankAccount String?
-    bankIfsc    String?
+  // Bank Info
+  bankAccount String?
+  bankIfsc    String?
 
-    // Registration Details
-    joiningDate DateTime?
-    abcId       String? // Academic Bank of Credits (ABC ID is separate from APAAR but often linked)
+  // Registration Details
+  joiningDate DateTime?
+  abcId       String? // Academic Bank of Credits (ABC ID is separate from APAAR but often linked)
 
-    // Hostel
-    hostelBlock String?
-    hostelRoom  String?
-    hostelMess  String?
+  // Hostel
+  hostelBlock String?
+  hostelRoom  String?
+  hostelMess  String?
 
-    // Biometrics
-    biometricId      String?
-    biometricReports BiometricReport[]
+  // Biometrics
+  biometricId      String?
+  biometricReports BiometricReport[]
 
-    // Academic Data
-    attendance            Attendance[]
-    marks                 Marks[]
-    timeTable             TimeTable[]
-    payments              Payment[]
-    leaves                LeaveRequest[]
-    services              ServiceRequest[]
-    research              ResearchProfile?
-    examApps              ExamApplication[]
-    thesis                ThesisSubmission?
-    meetings              Meeting[]
-    counsellingRecords    CounsellingRecord[]
-    registrations         CourseRegistration[]
-    attendanceLogs        AttendanceLog[]
-    assignmentSubmissions AssignmentSubmission[]
-    seatAllocations       SeatAllocation[]
-    gradeHistory          GradeHistory[]
-    reevaluationRequests  ReevaluationRequest[]
+  // Academic Data
+  attendance            Attendance[]
+  marks                 Marks[]
+  timeTable             TimeTable[]
+  payments              Payment[]
+  leaves                LeaveRequest[]
+  hostelMaintenance     HostelMaintenance[]
+  hostelConsentForms    HostelConsentForm[]
+  scholarships          Scholarship[]
+  permissionLetters     PermissionLetter[]
+  serviceRequests       ServiceRequest[]
+  digitalCredentials    DigitalCredential[]
+  migrations            ProgrammeMigration[]
+  courseRegistrations   CourseRegistration[]
+  attendanceLogs        AttendanceLog[]
+  gradeHistories        GradeHistory[]
+  reevaluationRequests  ReevaluationRequest[]
+  researchProfile       ResearchProfile?
+  hostelAdmissions      HostelAdmission[]
+  thesisSubmission      ThesisSubmission?
+  seatAllocations       SeatAllocation[]
+  examApplications      ExamApplication[]
+  meetings              Meeting[]
+  counsellingRecords    CounsellingRecord[]
+  assignmentSubmissions AssignmentSubmission[]
+  placementApplications PlacementApplication[]
+  clubMemberships       ClubMembership[]
+  achievements          Achievement[]
+  activityPoints        ActivityPoint[]
+  feedbackResponses     FeedbackResponse[]
+  bookIssues            BookIssue[]
+  bookReservations      BookReservation[]
+  libraryDues           LibraryDue[]
+  parentProfiles        ParentProfile[]
 }
 
 model FacultyProfile {
-    id          String @id @default(cuid())
-    userId      String @unique
-    user        User   @relation(fields: [userId], references: [id])
-    empId       String @unique
-    designation String
-    school      String
-    mobile      String
-    cabin       String
+  id          String @id @default(cuid())
+  userId      String @unique
+  user        User   @relation(fields: [userId], references: [id])
+  empId       String @unique
+  designation String
+  school      String
+  mobile      String
+  cabin       String
 
-    // Additional Profile Info
-    photoUrl       String?
-    dob            DateTime?
-    bloodGroup     String?
-    apaarId        String?
-    emergencyName  String?
-    emergencyPhone String?
-    joiningDate    DateTime?
+  // Additional Profile Info
+  photoUrl       String?
+  dob            DateTime?
+  bloodGroup     String?
+  apaarId        String?
+  emergencyName  String?
+  emergencyPhone String?
+  joiningDate    DateTime?
 
-    proctees              StudentProfile[]
-    courses               Course[]
-    meetings              Meeting[]
-    counsellingRecords    CounsellingRecord[]
-    attendanceLogs        AttendanceLog[]
-    assignmentSubmissions AssignmentSubmission[]
+  proctees              StudentProfile[]
+  courses               Course[]
+  meetings              Meeting[]
+  counsellingRecords    CounsellingRecord[]
+  attendanceLogs        AttendanceLog[]
+  assignmentSubmissions AssignmentSubmission[]
+  supervisedScholars    ResearchProfile[]      @relation("Supervisor")
+  payrolls              Payroll[]
+  leaves                FacultyLeave[]
 }
 
 model ParentProfile {
-    id        String  @id @default(cuid())
-    userId    String  @unique
-    user      User    @relation(fields: [userId], references: [id])
-    studentId String?
-    mobile    String
-
-    // Additional Profile Info
-    photoUrl       String?
-    emergencyName  String?
-    emergencyPhone String?
+  id             String               @id @default(cuid())
+  userId         String               @unique
+  user           User                 @relation(fields: [userId], references: [id])
+  studentId      String?
+  student        StudentProfile?      @relation(fields: [studentId], references: [id])
+  mobile         String?
+  emergencyName  String?
+  emergencyPhone String?
+  announcements  ParentAnnouncement[]
 }
 
 model AdminProfile {
-    id     String @id @default(cuid())
-    userId String @unique
-    user   User   @relation(fields: [userId], references: [id])
-    level  Int    @default(1) // Admin hierarchy
+  id     String @id @default(cuid())
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id])
+  level  Int    @default(1) // Admin hierarchy
 }
 
 model Course {
-    id          String  @id @default(cuid())
-    code        String  @unique
-    title       String
-    credits     Int
-    type        String // Theory, Lab, Project, etc.
-    slot        String?
-    venue       String?
-    category    String? // University Core, Program Core, Elective
-    syllabusUrl String?
+  id          String  @id @default(cuid())
+  code        String  @unique
+  title       String
+  credits     Int
+  type        String // Theory, Lab, Project, etc.
+  slot        String?
+  venue       String?
+  category    String? // University Core, Program Core, Elective
+  syllabusUrl String?
 
-    facultyId String?
-    faculty   FacultyProfile? @relation(fields: [facultyId], references: [id])
+  facultyId String?
+  faculty   FacultyProfile? @relation(fields: [facultyId], references: [id])
 
-    attendance     Attendance[]
-    marks          Marks[]
-    timeTable      TimeTable[]
-    registrations  CourseRegistration[]
-    materials      CourseMaterial[]
-    attendanceLogs AttendanceLog[]
-    assignments    Assignment[]
-    announcements  CourseAnnouncement[]
-    forumPosts     ForumPost[]
-    examSchedules  ExamSchedule[]
+  attendance     Attendance[]
+  marks          Marks[]
+  timeTable      TimeTable[]
+  registrations  CourseRegistration[]
+  materials      CourseMaterial[]
+  attendanceLogs AttendanceLog[]
+  assignments    Assignment[]
+  announcements  CourseAnnouncement[]
+  forumPosts     ForumPost[]
+  examSchedules  ExamSchedule[]
 }
 
 model CourseRegistration {
-    id        String         @id @default(cuid())
-    studentId String
-    student   StudentProfile @relation(fields: [studentId], references: [id])
-    courseId  String
-    course    Course         @relation(fields: [courseId], references: [id])
-    status    String         @default("REGISTERED") // REGISTERED, DROPPED, WAITLISTED
-    sem       String?
-    year      String?
-    createdAt DateTime       @default(now())
+  id        String         @id @default(cuid())
+  studentId String
+  student   StudentProfile @relation(fields: [studentId], references: [id])
+  courseId  String
+  course    Course         @relation(fields: [courseId], references: [id])
+  status    String         @default("REGISTERED") // REGISTERED, DROPPED, WAITLISTED
+  sem       String?
+  year      String?
+  createdAt DateTime       @default(now())
 
-    @@unique([studentId, courseId])
+  @@unique([studentId, courseId])
 }
 
 model CourseMaterial {
-    id        String   @id @default(cuid())
-    courseId  String
-    course    Course   @relation(fields: [courseId], references: [id])
-    title     String
-    type      String // SYLLABUS, NOTES, VIDEO, ASSIGNMENT
-    url       String
-    createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  courseId  String
+  course    Course   @relation(fields: [courseId], references: [id])
+  title     String
+  type      String // SYLLABUS, NOTES, VIDEO, ASSIGNMENT
+  url       String
+  createdAt DateTime @default(now())
 }
 
 model Attendance {
-    id              String         @id @default(cuid())
-    studentId       String
-    student         StudentProfile @relation(fields: [studentId], references: [id])
-    courseId        String
-    course          Course         @relation(fields: [courseId], references: [id])
-    attendedClasses Int
-    totalClasses    Int
-    percentage      Float
-    updatedAt       DateTime       @updatedAt
+  id              String         @id @default(cuid())
+  studentId       String
+  student         StudentProfile @relation(fields: [studentId], references: [id])
+  courseId        String
+  course          Course         @relation(fields: [courseId], references: [id])
+  attendedClasses Int
+  totalClasses    Int
+  percentage      Float
+  updatedAt       DateTime       @updatedAt
 
-    @@unique([studentId, courseId])
+  @@unique([studentId, courseId])
 }
 
 model AttendanceLog {
-    id        String         @id @default(cuid())
-    studentId String
-    student   StudentProfile @relation(fields: [studentId], references: [id])
-    courseId  String
-    course    Course         @relation(fields: [courseId], references: [id])
-    facultyId String
-    faculty   FacultyProfile @relation(fields: [facultyId], references: [id])
-    date      DateTime
-    status    String // PRESENT, ABSENT, LATE, ON_DUTY
-    slot      String?
-    createdAt DateTime       @default(now())
+  id        String         @id @default(cuid())
+  studentId String
+  student   StudentProfile @relation(fields: [studentId], references: [id])
+  courseId  String
+  course    Course         @relation(fields: [courseId], references: [id])
+  facultyId String
+  faculty   FacultyProfile @relation(fields: [facultyId], references: [id])
+  date      DateTime
+  status    String // PRESENT, ABSENT, LATE, ON_DUTY
+  slot      String?
+  createdAt DateTime       @default(now())
 }
 
 model Marks {
-    id         String         @id @default(cuid())
-    studentId  String
-    student    StudentProfile @relation(fields: [studentId], references: [id])
-    courseId   String
-    course     Course         @relation(fields: [courseId], references: [id])
-    cat1       Float?
-    cat2       Float?
-    fat        Float?
-    da1        Float?
-    da2        Float?
-    quiz       Float?
-    pbl        Float? // Project Based Learning marks
-    qcm        Float? // Quiz/Continuous Monitoring total
-    total      Float?
-    grade      String?
-    isArrear   Boolean        @default(false)
-    isDebarred Boolean        @default(false)
-    attendance Float? // At the time of marks finalization
-    updatedAt  DateTime       @updatedAt
+  id         String         @id @default(cuid())
+  studentId  String
+  student    StudentProfile @relation(fields: [studentId], references: [id])
+  courseId   String
+  course     Course         @relation(fields: [courseId], references: [id])
+  cat1       Float?
+  cat2       Float?
+  fat        Float?
+  da1        Float?
+  da2        Float?
+  quiz       Float?
+  pbl        Float? // Project Based Learning marks
+  qcm        Float? // Quiz/Continuous Monitoring total
+  total      Float?
+  grade      String?
+  isArrear   Boolean        @default(false)
+  isDebarred Boolean        @default(false)
+  attendance Float? // At the time of marks finalization
+  updatedAt  DateTime       @updatedAt
 
-    reevaluation ReevaluationRequest?
+  reevaluation ReevaluationRequest?
 
-    @@unique([studentId, courseId])
+  @@unique([studentId, courseId])
 }
 
 model GradeHistory {
-    id          String         @id @default(cuid())
-    studentId   String
-    student     StudentProfile @relation(fields: [studentId], references: [id])
-    semester    String // e.g., "Fall 2024"
-    courseCode  String
-    courseTitle String
-    credits     Int
-    grade       String
-    gradePoint  Int
-    result      String         @default("PASS") // PASS, FAIL, ARREAR
-    createdAt   DateTime       @default(now())
+  id          String         @id @default(cuid())
+  studentId   String
+  student     StudentProfile @relation(fields: [studentId], references: [id])
+  semester    String // e.g., "Fall 2024"
+  courseCode  String
+  courseTitle String
+  credits     Int
+  grade       String
+  gradePoint  Int
+  result      String         @default("PASS") // PASS, FAIL, ARREAR
+  createdAt   DateTime       @default(now())
 }
 
 model ReevaluationRequest {
-    id          String         @id @default(cuid())
-    marksId     String         @unique
-    marks       Marks          @relation(fields: [marksId], references: [id])
-    studentId   String
-    student     StudentProfile @relation(fields: [studentId], references: [id])
-    type        String         @default("SEE") // SEE (Paper View), REVAL (Re-evaluation)
-    status      String         @default("PENDING") // PENDING, APPROVED, COMPLETED
-    appliedAt   DateTime       @default(now())
-    completedAt DateTime?
-    feePaid     Boolean        @default(false)
+  id          String         @id @default(cuid())
+  marksId     String         @unique
+  marks       Marks          @relation(fields: [marksId], references: [id])
+  studentId   String
+  student     StudentProfile @relation(fields: [studentId], references: [id])
+  type        String         @default("SEE") // SEE (Paper View), REVAL (Re-evaluation)
+  status      String         @default("PENDING") // PENDING, APPROVED, COMPLETED
+  appliedAt   DateTime       @default(now())
+  completedAt DateTime?
+  feePaid     Boolean        @default(false)
 }
 
 model AcademicEvent {
-    id          String    @id @default(cuid())
-    title       String
-    description String?
-    date        DateTime
-    endDate     DateTime?
-    type        String    @default("EVENT") // EVENT, HOLIDAY, CULTURAL
-    location    String?
-    createdAt   DateTime  @default(now())
+  id          String    @id @default(cuid())
+  title       String
+  description String?
+  date        DateTime
+  endDate     DateTime?
+  type        String    @default("EVENT") // EVENT, HOLIDAY, CULTURAL
+  location    String?
+  createdAt   DateTime  @default(now())
 }
 
 model SemesterMilestone {
-    id          String   @id @default(cuid())
-    title       String
-    description String?
-    date        DateTime
-    type        String   @default("EXAM") // EXAM, REGISTRATION, RESULT
-    sem         String?
-    createdAt   DateTime @default(now())
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  date        DateTime
+  type        String   @default("EXAM") // EXAM, REGISTRATION, RESULT
+  sem         String?
+  createdAt   DateTime @default(now())
 }
 
 model TimeTable {
-    id        String         @id @default(cuid())
-    studentId String
-    student   StudentProfile @relation(fields: [studentId], references: [id])
-    courseId  String
-    course    Course         @relation(fields: [courseId], references: [id])
-    day       String // MONDAY, TUESDAY, etc.
-    startTime String // e.g., "08:00 AM"
-    endTime   String // e.g., "08:50 AM"
-    venue     String?
-    slot      String
+  id        String         @id @default(cuid())
+  studentId String
+  student   StudentProfile @relation(fields: [studentId], references: [id])
+  courseId  String
+  course    Course         @relation(fields: [courseId], references: [id])
+  day       String // MONDAY, TUESDAY, etc.
+  startTime String // e.g., "08:00 AM"
+  endTime   String // e.g., "08:50 AM"
+  venue     String?
+  slot      String
 }
 
 model Payment {
-    id          String         @id @default(cuid())
-    studentId   String
-    student     StudentProfile @relation(fields: [studentId], references: [id])
-    amount      Float
-    description String
-    status      String         @default("PENDING")
-    dueDate     DateTime
-    paidDate    DateTime?
-    receiptUrl  String?
+  id          String         @id @default(cuid())
+  studentId   String
+  student     StudentProfile @relation(fields: [studentId], references: [id])
+  amount      Float
+  description String
+  type        String         @default("TUITION") // TUITION, HOSTEL, MESS, SEMESTER
+  status      String         @default("PENDING") // PENDING, PAID, OVERDUE
+  dueDate     DateTime
+  paidDate    DateTime?
+  receiptUrl  String?
+  createdAt   DateTime       @default(now())
+}
+
+model Scholarship {
+  id          String         @id @default(cuid())
+  studentId   String
+  student     StudentProfile @relation(fields: [studentId], references: [id])
+  name        String
+  amount      Float
+  status      String         @default("APPLIED") // APPLIED, APPROVED, DISBURSED
+  type        String // GOVERNMENT, UNIVERSITY, CORPORATE
+  appliedDate DateTime       @default(now())
+}
+
+model FeeStructure {
+  id           String @id @default(cuid())
+  name         String
+  amount       Float
+  category     String // TUITION, HOSTEL, MESS
+  academicYear String
 }
 
 model LeaveRequest {
-    id             String         @id @default(cuid())
-    studentId      String
-    student        StudentProfile @relation(fields: [studentId], references: [id])
-    type           String // Outing, Leave, Medical, Scholar
-    fromDate       DateTime
-    toDate         DateTime
-    reason         String
-    status         String         @default("PENDING")
-    proctorComment String?
+  id             String         @id @default(cuid())
+  studentId      String
+  student        StudentProfile @relation(fields: [studentId], references: [id])
+  type           String // LEAVE, OUTING, OD, LATE_HOUR
+  category       String? // WEEKEND, GENERAL, MEDICAL (for Outing/Leave)
+  fromDate       DateTime
+  toDate         DateTime
+  reason         String
+  status         String         @default("PENDING") // PENDING, APPROVED, REJECTED, CANCELLED
+  leaveApproval  String? // PROCTOR_APPROVED, WARDEN_APPROVED, etc.
+  proctorComment String?
+  createdAt      DateTime       @default(now())
+}
+
+model PermissionLetter {
+  id        String         @id @default(cuid())
+  studentId String
+  student   StudentProfile @relation(fields: [studentId], references: [id])
+  title     String
+  type      String // EVENT, INDUSTRIAL_VISIT, INTERN
+  url       String
+  status    String         @default("VALID")
+  createdAt DateTime       @default(now())
 }
 
 model ServiceRequest {
-    id             String         @id @default(cuid())
-    studentId      String
-    student        StudentProfile @relation(fields: [studentId], references: [id])
-    type           String // Bonafide, Migration, Transcript, FinalYearReg
-    status         String         @default("PENDING")
-    requestDate    DateTime       @default(now())
-    completionDate DateTime?
+  id             String         @id @default(cuid())
+  studentId      String
+  student        StudentProfile @relation(fields: [studentId], references: [id])
+  type           String // BONAFIDE, TRANSCRIPT, TRANSFER_CERT, CONDUCT_CERT, COMPLETION_CERT
+  status         String         @default("PENDING") // PENDING, PROCESSING, COMPLETED, REJECTED
+  requestDate    DateTime       @default(now())
+  completionDate DateTime?
+  documentUrl    String?
+}
+
+model RegistrationWindow {
+  id           String   @id @default(cuid())
+  name         String // e.g., "Winter 2024-25 Registration"
+  type         String // SEMESTER, FINAL_YEAR, COURSE
+  startDate    DateTime
+  endDate      DateTime
+  status       String   @default("UPCOMING") // UPCOMING, ACTIVE, CLOSED
+  academicYear String
+}
+
+model DigitalCredential {
+  id         String         @id @default(cuid())
+  studentId  String
+  student    StudentProfile @relation(fields: [studentId], references: [id])
+  type       String // ID_CARD, LIBRARY_CARD, BUS_PASS
+  cardNumber String
+  validUntil DateTime
+  status     String         @default("ACTIVE")
+  qrCode     String?
+  createdAt  DateTime       @default(now())
+}
+
+model ProgrammeMigration {
+  id             String         @id @default(cuid())
+  studentId      String
+  student        StudentProfile @relation(fields: [studentId], references: [id])
+  type           String // PROGRAMME_CHANGE, MIGRATION
+  currentProgram String
+  targetProgram  String
+  reason         String
+  status         String         @default("PENDING") // PENDING, APPROVED, REJECTED
+  appliedAt      DateTime       @default(now())
+}
+
+model Communication {
+  id            String    @id @default(cuid())
+  type          String // FACULTY_MESSAGE, CLASS_MESSAGE, SPOTLIGHT, NEWS, EVENT, CIRCULAR, IMPORTANT_NOTICE
+  category      String? // e.g., "ACADEMIC", "HOSTEL", "T&P"
+  title         String
+  content       String
+  authorId      String? // Faculty or Admin ID
+  authorName    String
+  targetId      String? // Specific Student, Class, or null for Global
+  date          DateTime  @default(now())
+  expiryDate    DateTime?
+  attachmentUrl String?
+}
+
+model CouncilAnnouncement {
+  id         String   @id @default(cuid())
+  title      String
+  content    String
+  date       DateTime @default(now())
+  authorRole String // e.g., "President", "Secretary"
+}
+
+model PlacementDrive {
+  id            String                 @id @default(cuid())
+  companyName   String
+  logoUrl       String?
+  driveDate     DateTime
+  jobTitle      String
+  salaryPackage String?
+  eligibility   String // e.g., "CGPA > 8.0, No Arrears"
+  deadline      DateTime
+  status        String                 @default("UPCOMING") // UPCOMING, ACTIVE, CLOSED
+  applications  PlacementApplication[]
+}
+
+model CareerOpportunity {
+  id            String   @id @default(cuid())
+  type          String // INTERNSHIP, JOB
+  company       String
+  title         String
+  location      String
+  stipend       String?
+  salaryPackage String?
+  description   String
+  deadline      DateTime
+  postedAt      DateTime @default(now())
+  applyUrl      String?
+}
+
+model PlacementApplication {
+  id        String         @id @default(cuid())
+  studentId String
+  student   StudentProfile @relation(fields: [studentId], references: [id])
+  driveId   String
+  drive     PlacementDrive @relation(fields: [driveId], references: [id])
+  status    String         @default("APPLIED") // APPLIED, SHORTLISTED, SELECTED, REJECTED
+  appliedAt DateTime       @default(now())
+}
+
+model Club {
+  id          String           @id @default(cuid())
+  name        String
+  description String
+  category    String // TECHNICAL, CULTURAL, SPORTS, SOCIAL
+  logoUrl     String?
+  members     ClubMembership[]
+  events      ClubEvent[]
+}
+
+model ClubMembership {
+  id        String         @id @default(cuid())
+  studentId String
+  student   StudentProfile @relation(fields: [studentId], references: [id])
+  clubId    String
+  club      Club           @relation(fields: [clubId], references: [id])
+  role      String         @default("MEMBER") // MEMBER, COORDINATOR, PRESIDENT
+  joinedAt  DateTime       @default(now())
+}
+
+model ClubEvent {
+  id          String   @id @default(cuid())
+  clubId      String
+  club        Club     @relation(fields: [clubId], references: [id])
+  title       String
+  description String
+  date        DateTime
+  location    String
+  regLink     String?
+  points      Int      @default(0)
+}
+
+model Achievement {
+  id          String         @id @default(cuid())
+  studentId   String
+  student     StudentProfile @relation(fields: [studentId], references: [id])
+  title       String
+  category    String // ACADEMIC, TECHNICAL, CULTURAL, SPORTS
+  description String
+  date        DateTime
+  documentUrl String?
+  status      String         @default("PENDING") // PENDING, VERIFIED, REJECTED
+}
+
+model ActivityPoint {
+  id          String         @id @default(cuid())
+  studentId   String
+  student     StudentProfile @relation(fields: [studentId], references: [id])
+  type        String // EXC, CO_CURRICULAR
+  points      Int
+  description String
+  date        DateTime       @default(now())
+}
+
+model FeedbackSurvey {
+  id          String             @id @default(cuid())
+  type        String // COURSE, FACULTY, SEMESTER, FACILITY, EXIT
+  title       String
+  description String?
+  status      String             @default("ACTIVE") // ACTIVE, CLOSED
+  responses   FeedbackResponse[]
+}
+
+model FeedbackResponse {
+  id          String         @id @default(cuid())
+  surveyId    String
+  survey      FeedbackSurvey @relation(fields: [surveyId], references: [id])
+  studentId   String
+  student     StudentProfile @relation(fields: [studentId], references: [id])
+  courseId    String?
+  facultyId   String?
+  content     String // Questions and Answers (JSON String)
+  submittedAt DateTime       @default(now())
 }
 
 model ResearchProfile {
-    id           String         @id @default(cuid())
-    studentId    String         @unique
-    student      StudentProfile @relation(fields: [studentId], references: [id])
-    publications Int            @default(0)
-    citations    Int            @default(0)
-    hIndex       Int            @default(0)
-    thesisStatus String?
-    documentUrl  String?
+  id                String          @id @default(cuid())
+  studentId         String          @unique
+  student           StudentProfile  @relation(fields: [studentId], references: [id])
+  supervisorId      String?
+  supervisor        FacultyProfile? @relation("Supervisor", fields: [supervisorId], references: [id])
+  researchArea      String?
+  fellowshipStatus  String? // JRF, SRF, Non-Gate, etc.
+  publicationsCount Int             @default(0)
+  citations         Int             @default(0)
+  hIndex            Int             @default(0)
+  thesisStatus      String?
+  documentUrl       String?
+
+  publications    ResearchPublication[]
+  progressReports ProgressReport[]
+  researchLetters ResearchLetter[]
+}
+
+model ResearchPublication {
+  id                String          @id @default(cuid())
+  researchProfileId String
+  researchProfile   ResearchProfile @relation(fields: [researchProfileId], references: [id])
+  title             String
+  journal           String
+  year              Int
+  doi               String?
+  type              String          @default("JOURNAL") // JOURNAL, CONFERENCE, BOOK_CHAPTER
+  status            String          @default("PUBLISHED")
+  authors           String?
+}
+
+model ProgressReport {
+  id                String          @id @default(cuid())
+  researchProfileId String
+  researchProfile   ResearchProfile @relation(fields: [researchProfileId], references: [id])
+  title             String
+  content           String?
+  fileUrl           String?
+  status            String          @default("SUBMITTED") // SUBMITTED, REVIEWED, APPROVED
+  supervisorComment String?
+  submittedAt       DateTime        @default(now())
+}
+
+model ResearchLetter {
+  id                String          @id @default(cuid())
+  researchProfileId String
+  researchProfile   ResearchProfile @relation(fields: [researchProfileId], references: [id])
+  title             String
+  type              String // ADMISSION, FELLOWSHIP, BONAFIDE
+  url               String
+  createdAt         DateTime        @default(now())
+}
+
+model HostelAdmission {
+  id        String         @id @default(cuid())
+  studentId String
+  student   StudentProfile @relation(fields: [studentId], references: [id])
+  type      String         @default("ADMISSION") // ADMISSION, VACATING, ROOM_CHANGE
+  status    String         @default("PENDING") // PENDING, APPROVED, REJECTED
+  block     String?
+  roomPref  String?
+  messPref  String?
+  reason    String?
+  appliedAt DateTime       @default(now())
+}
+
+model HostelMaintenance {
+  id        String         @id @default(cuid())
+  studentId String
+  student   StudentProfile @relation(fields: [studentId], references: [id])
+  block     String
+  roomNo    String
+  category  String // CIVIL, ELECTRICAL, PLUMBING, WIFI
+  issue     String
+  status    String         @default("OPEN") // OPEN, IN_PROGRESS, RESOLVED
+  createdAt DateTime       @default(now())
+}
+
+model MessMenu {
+  id        String   @id @default(cuid())
+  messName  String
+  day       String // MONDAY, TUESDAY, etc.
+  breakfast String?
+  lunch     String?
+  snacks    String?
+  dinner    String?
+  updatedAt DateTime @updatedAt
+}
+
+model HostelConsentForm {
+  id        String         @id @default(cuid())
+  studentId String
+  student   StudentProfile @relation(fields: [studentId], references: [id])
+  type      String // INTERNSHIP, VACATION, COMPLETION
+  status    String         @default("PENDING")
+  appliedAt DateTime       @default(now())
+  url       String?
 }
 
 model ThesisSubmission {
-    id          String         @id @default(cuid())
-    studentId   String         @unique
-    student     StudentProfile @relation(fields: [studentId], references: [id])
-    title       String
-    abstract    String
-    status      String         @default("SUBMITTED")
-    submittedAt DateTime       @default(now())
+  id          String         @id @default(cuid())
+  studentId   String         @unique
+  student     StudentProfile @relation(fields: [studentId], references: [id])
+  title       String
+  abstract    String
+  status      String         @default("SUBMITTED")
+  submittedAt DateTime       @default(now())
 }
 
 model ExamSchedule {
-    id          String   @id @default(cuid())
-    courseId    String?
-    course      Course?  @relation(fields: [courseId], references: [id])
-    courseCode  String
-    courseTitle String
-    examDate    DateTime
-    slot        String
-    venue       String
-    mode        String   @default("OFFLINE") // ONLINE, OFFLINE
-    type        String // CAT-1, CAT-2, FAT, QUIZ, LAB
+  id          String   @id @default(cuid())
+  courseId    String?
+  course      Course?  @relation(fields: [courseId], references: [id])
+  courseCode  String
+  courseTitle String
+  examDate    DateTime
+  slot        String
+  venue       String
+  mode        String   @default("OFFLINE") // ONLINE, OFFLINE
+  type        String // CAT-1, CAT-2, FAT, QUIZ, LAB
 
-    seatAllocations SeatAllocation[]
+  seatAllocations SeatAllocation[]
 }
 
 model SeatAllocation {
-    id             String         @id @default(cuid())
-    examScheduleId String
-    examSchedule   ExamSchedule   @relation(fields: [examScheduleId], references: [id])
-    studentId      String
-    student        StudentProfile @relation(fields: [studentId], references: [id])
-    roomNo         String
-    seatNo         String
-    createdAt      DateTime       @default(now())
+  id             String         @id @default(cuid())
+  examScheduleId String
+  examSchedule   ExamSchedule   @relation(fields: [examScheduleId], references: [id])
+  studentId      String
+  student        StudentProfile @relation(fields: [studentId], references: [id])
+  roomNo         String
+  seatNo         String
+  createdAt      DateTime       @default(now())
 
-    @@unique([examScheduleId, studentId])
+  @@unique([examScheduleId, studentId])
 }
 
 model ExamApplication {
-    id        String         @id @default(cuid())
-    studentId String
-    student   StudentProfile @relation(fields: [studentId], references: [id])
-    type      String // Re-Exam, Re-FAT, Arrear
-    status    String         @default("APPLIED")
-    appliedAt DateTime       @default(now())
+  id        String         @id @default(cuid())
+  studentId String
+  student   StudentProfile @relation(fields: [studentId], references: [id])
+  type      String // Re-Exam, Re-FAT, Arrear
+  status    String         @default("APPLIED")
+  appliedAt DateTime       @default(now())
 }
 
 model BiometricReport {
-    id        String         @id @default(cuid())
-    studentId String
-    student   StudentProfile @relation(fields: [studentId], references: [id])
-    date      DateTime
-    checkIn   DateTime?
-    checkOut  DateTime?
-    status    String // PRESENT, ABSENT
+  id        String         @id @default(cuid())
+  studentId String
+  student   StudentProfile @relation(fields: [studentId], references: [id])
+  date      DateTime
+  checkIn   DateTime?
+  checkOut  DateTime?
+  status    String // PRESENT, ABSENT
 }
 
 model Notification {
-    id        String   @id @default(cuid())
-    userId    String
-    user      User     @relation(fields: [userId], references: [id])
-    title     String
-    message   String
-    type      String   @default("INFO")
-    read      Boolean  @default(false)
-    createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  title     String
+  message   String
+  type      String   @default("INFO")
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
 }
 
 model Message {
-    id         String   @id @default(cuid())
-    senderId   String
-    sender     User     @relation("SentMessages", fields: [senderId], references: [id])
-    receiverId String
-    receiver   User     @relation("ReceivedMessages", fields: [receiverId], references: [id])
-    subject    String?
-    content    String
-    createdAt  DateTime @default(now())
+  id         String   @id @default(cuid())
+  senderId   String
+  sender     User     @relation("SentMessages", fields: [senderId], references: [id])
+  receiverId String
+  receiver   User     @relation("ReceivedMessages", fields: [receiverId], references: [id])
+  subject    String?
+  content    String
+  createdAt  DateTime @default(now())
 }
 
 model Meeting {
-    id        String         @id @default(cuid())
-    studentId String
-    student   StudentProfile @relation(fields: [studentId], references: [id])
-    facultyId String
-    faculty   FacultyProfile @relation(fields: [facultyId], references: [id])
-    title     String
-    date      DateTime
-    time      String
-    venue     String
-    status    String         @default("SCHEDULED") // SCHEDULED, COMPLETED, CANCELLED
-    notes     String?
-    createdAt DateTime       @default(now())
+  id        String         @id @default(cuid())
+  studentId String
+  student   StudentProfile @relation(fields: [studentId], references: [id])
+  facultyId String
+  faculty   FacultyProfile @relation(fields: [facultyId], references: [id])
+  title     String
+  date      DateTime
+  time      String
+  venue     String
+  status    String         @default("SCHEDULED") // SCHEDULED, COMPLETED, CANCELLED
+  notes     String?
+  createdAt DateTime       @default(now())
 }
 
 model CounsellingRecord {
-    id          String         @id @default(cuid())
-    studentId   String
-    student     StudentProfile @relation(fields: [studentId], references: [id])
-    facultyId   String
-    faculty     FacultyProfile @relation(fields: [facultyId], references: [id])
-    date        DateTime
-    summary     String
-    actionTaken String?
-    priority    String         @default("NORMAL") // LOW, NORMAL, HIGH, URGENT
-    createdAt   DateTime       @default(now())
+  id          String         @id @default(cuid())
+  studentId   String
+  student     StudentProfile @relation(fields: [studentId], references: [id])
+  facultyId   String
+  faculty     FacultyProfile @relation(fields: [facultyId], references: [id])
+  date        DateTime
+  summary     String
+  actionTaken String?
+  priority    String         @default("NORMAL") // LOW, NORMAL, HIGH, URGENT
+  createdAt   DateTime       @default(now())
 }
 
 model Assignment {
-    id          String   @id @default(cuid())
-    courseId    String
-    course      Course   @relation(fields: [courseId], references: [id])
-    title       String
-    description String?
-    dueDate     DateTime
-    fileUrl     String? // Task description/template
-    createdAt   DateTime @default(now())
+  id          String   @id @default(cuid())
+  courseId    String
+  course      Course   @relation(fields: [courseId], references: [id])
+  title       String
+  description String?
+  dueDate     DateTime
+  fileUrl     String? // Task description/template
+  createdAt   DateTime @default(now())
 
-    submissions AssignmentSubmission[]
+  submissions AssignmentSubmission[]
 }
 
 model AssignmentSubmission {
-    id               String          @id @default(cuid())
-    assignmentId     String
-    assignment       Assignment      @relation(fields: [assignmentId], references: [id])
-    studentId        String
-    student          StudentProfile  @relation(fields: [studentId], references: [id])
-    fileUrl          String? // Student's work
-    status           String          @default("SUBMITTED") // SUBMITTED, GRADED
-    grade            String?
-    feedback         String?
-    submittedAt      DateTime        @default(now())
-    facultyProfile   FacultyProfile? @relation(fields: [facultyProfileId], references: [id])
-    facultyProfileId String?
+  id               String          @id @default(cuid())
+  assignmentId     String
+  assignment       Assignment      @relation(fields: [assignmentId], references: [id])
+  studentId        String
+  student          StudentProfile  @relation(fields: [studentId], references: [id])
+  fileUrl          String? // Student's work
+  status           String          @default("SUBMITTED") // SUBMITTED, GRADED
+  grade            String?
+  feedback         String?
+  submittedAt      DateTime        @default(now())
+  facultyProfile   FacultyProfile? @relation(fields: [facultyProfileId], references: [id])
+  facultyProfileId String?
 }
 
 model CourseAnnouncement {
-    id        String   @id @default(cuid())
-    courseId  String
-    course    Course   @relation(fields: [courseId], references: [id])
-    title     String
-    content   String
-    createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  courseId  String
+  course    Course   @relation(fields: [courseId], references: [id])
+  title     String
+  content   String
+  createdAt DateTime @default(now())
 }
 
 model ForumPost {
-    id        String   @id @default(cuid())
-    courseId  String
-    course    Course   @relation(fields: [courseId], references: [id])
-    authorId  String
-    author    User     @relation(fields: [authorId], references: [id])
-    title     String
-    content   String
-    createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  courseId  String
+  course    Course   @relation(fields: [courseId], references: [id])
+  authorId  String
+  author    User     @relation(fields: [authorId], references: [id])
+  title     String
+  content   String
+  createdAt DateTime @default(now())
 
-    replies ForumReply[]
+  replies ForumReply[]
 }
 
 model ForumReply {
-    id        String    @id @default(cuid())
-    postId    String
-    post      ForumPost @relation(fields: [postId], references: [id])
-    authorId  String
-    author    User      @relation(fields: [authorId], references: [id])
-    content   String
-    createdAt DateTime  @default(now())
+  id        String    @id @default(cuid())
+  postId    String
+  post      ForumPost @relation(fields: [postId], references: [id])
+  authorId  String
+  author    User      @relation(fields: [authorId], references: [id])
+  content   String
+  createdAt DateTime  @default(now())
+}
+
+model Book {
+  id              String            @id @default(cuid())
+  isbn            String            @unique
+  title           String
+  author          String
+  category        String
+  totalCopies     Int
+  availableCopies Int
+  location        String
+  issues          BookIssue[]
+  reservations    BookReservation[]
+}
+
+model BookIssue {
+  id         String         @id @default(cuid())
+  studentId  String
+  student    StudentProfile @relation(fields: [studentId], references: [id])
+  bookId     String
+  book       Book           @relation(fields: [bookId], references: [id])
+  issueDate  DateTime       @default(now())
+  dueDate    DateTime
+  returnDate DateTime?
+  status     String         @default("ISSUED") // ISSUED, RETURNED, OVERDUE
+}
+
+model BookReservation {
+  id              String         @id @default(cuid())
+  studentId       String
+  student         StudentProfile @relation(fields: [studentId], references: [id])
+  bookId          String
+  book            Book           @relation(fields: [bookId], references: [id])
+  reservationDate DateTime       @default(now())
+  status          String         @default("PENDING") // PENDING, FULFILLED, CANCELLED
+}
+
+model LibraryDue {
+  id        String         @id @default(cuid())
+  studentId String
+  student   StudentProfile @relation(fields: [studentId], references: [id])
+  amount    Float
+  reason    String
+  status    String         @default("UNPAID") // UNPAID, PAID
+}
+
+model EResource {
+  id       String @id @default(cuid())
+  title    String
+  type     String // JOURNAL, EBOOK, PAPER
+  url      String
+  category String
+}
+
+model ParentAnnouncement {
+  id       String         @id @default(cuid())
+  parentId String?
+  parent   ParentProfile? @relation(fields: [parentId], references: [id])
+  title    String
+  content  String
+  date     DateTime       @default(now())
+  priority String         @default("NORMAL") // NORMAL, HIGH
+}
+
+model Payroll {
+  id          String         @id @default(cuid())
+  facultyId   String
+  faculty     FacultyProfile @relation(fields: [facultyId], references: [id])
+  month       String
+  year        String
+  basePay     Float
+  allowances  Float
+  deductions  Float
+  netPay      Float
+  status      String         @default("PROCESSED") // PROCESSED, PAID
+  slipUrl     String?
+  processedAt DateTime       @default(now())
+}
+
+model FacultyLeave {
+  id        String         @id @default(cuid())
+  facultyId String
+  faculty   FacultyProfile @relation(fields: [facultyId], references: [id])
+  type      String // CASUAL, MEDICAL, SABBATICAL
+  fromDate  DateTime
+  toDate    DateTime
+  reason    String
+  status    String         @default("PENDING") // PENDING, APPROVED, REJECTED
+  createdAt DateTime       @default(now())
+}
+
+model SecurityAudit {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  event     String // LOGIN, PASSWORD_CHANGE, 2FA_ENABLE, etc.
+  ipAddress String?
+  device    String?
+  timestamp DateTime @default(now())
 }
