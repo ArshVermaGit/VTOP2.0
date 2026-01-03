@@ -4,7 +4,7 @@ import { useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
-import { useSession } from "next-auth/react"
+import { useSession, signOut } from "next-auth/react"
 import {
   BarChartHorizontal,
   History,
@@ -186,6 +186,7 @@ export function Sidebar() {
   const pathname = usePathname()
   const { data: session } = useSession()
   const [isCollapsed, setIsCollapsed] = useState(false)
+  const [showLogoutConfirm, setShowLogoutConfirm] = useState(false)
 
   const role = (session?.user as any)?.role || "STUDENT"
   
@@ -281,12 +282,58 @@ export function Sidebar() {
                 </div>
              )}
          </Button>
-         
-         <Button variant="ghost" className="w-full justify-start gap-3 hover:bg-red-500/10 hover:text-red-400 text-gray-400 h-10 px-3">
+                  <Button 
+            variant="ghost" 
+            className="w-full justify-start gap-3 hover:bg-red-500/10 hover:text-red-400 text-gray-400 h-10 px-3"
+            onClick={() => setShowLogoutConfirm(true)}
+          >
             <LogOut className="w-4.5 h-4.5 shrink-0" />
             {!isCollapsed && <span className="text-sm">Logout</span>}
-         </Button>
+          </Button>
       </div>
+
+      <AnimatePresence>
+        {showLogoutConfirm && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-md p-4"
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              className="bg-[#0A0A0B] border border-white/10 p-8 rounded-[2rem] max-w-sm w-full shadow-2xl space-y-6"
+            >
+              <div className="text-center space-y-2">
+                <div className="w-16 h-16 bg-red-500/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                  <LogOut className="w-8 h-8 text-red-500" />
+                </div>
+                <h3 className="text-xl font-bold text-white tracking-tight uppercase italic">Secure Termination</h3>
+                <p className="text-gray-500 text-xs font-bold uppercase tracking-widest leading-relaxed">
+                  Are you sure you want to end your active session and exit the matrix?
+                </p>
+              </div>
+              <div className="flex flex-col gap-3">
+                <Button 
+                  className="bg-red-500 hover:bg-red-600 text-white font-black uppercase text-[10px] tracking-widest h-12 rounded-xl transition-all"
+                  onClick={() => signOut({ callbackUrl: "/" })}
+                >
+                  Terminate Session
+                </Button>
+                <Button 
+                  variant="ghost" 
+                  className="text-gray-400 hover:text-white font-black uppercase text-[10px] tracking-widest h-12 rounded-xl"
+                  onClick={() => setShowLogoutConfirm(false)}
+                >
+                  Abort Exit
+                </Button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <Button
         variant="ghost"
