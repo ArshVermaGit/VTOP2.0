@@ -16,7 +16,7 @@ export default async function DetailedMarksPage() {
           <h1 className="text-3xl font-bold text-white tracking-tight flex items-center gap-3">
              <BarChartHorizontal className="w-8 h-8 text-rose-500" /> Assessment Marks (QCM)
           </h1>
-          <p className="text-gray-400 mt-1">Winter Semester 2025-26 • Component-wise Internal & External Split</p>
+          <p className="text-gray-400 mt-1">Winter Semester 2026-27 • Component-wise Internal & External Split</p>
         </div>
         <div className="flex items-center gap-3">
              <Link href="/student/academics/reevaluation">
