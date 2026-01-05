@@ -17,7 +17,7 @@ export default async function MessServicesPage() {
           <h1 className="text-3xl font-bold text-white tracking-tight flex items-center gap-3">
              <Utensils className="w-8 h-8 text-rose-500" /> Dining & Mess Services
           </h1>
-          <p className="text-gray-400 mt-1">Special Mess • Block-L Annex • Winter Semester 2025</p>
+          <p className="text-gray-400 mt-1">Special Mess • Block-L Annex • Winter Semester 2026</p>
         </div>
         <div className="flex items-center gap-3">
              <Button className="bg-rose-600 hover:bg-rose-700 text-white font-bold uppercase text-[10px] tracking-widest px-6 h-10 shadow-lg">
