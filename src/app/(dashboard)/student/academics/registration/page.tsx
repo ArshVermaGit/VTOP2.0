@@ -74,14 +74,14 @@ export default async function RegistrationPortalPage() {
                     <CardHeader>
                         <div className="space-y-1">
                              <p className="text-[10px] text-gray-500 uppercase font-black tracking-widest italic">Upcoming Cycle</p>
-                             <CardTitle className="text-white text-md font-bold">{upcomingWindow?.name || 'Summer 2025 Regular'}</CardTitle>
+                             <CardTitle className="text-white text-md font-bold">{upcomingWindow?.name || 'Summer 2026 Regular'}</CardTitle>
                          </div>
                     </CardHeader>
                     <CardContent className="space-y-4">
                          <div className="p-4 rounded-xl bg-black/40 border border-white/5 flex items-center justify-between">
                              <div className="space-y-1">
                                  <p className="text-[9px] text-gray-500 uppercase font-black">Expected Start</p>
-                                 <p className="text-white font-bold text-xs uppercase">{upcomingWindow ? new Date(upcomingWindow.startDate).toLocaleDateString() : '15 May 2025'}</p>
+                                 <p className="text-white font-bold text-xs uppercase">{upcomingWindow ? new Date(upcomingWindow.startDate).toLocaleDateString() : '15 May 2026'}</p>
                              </div>
                              <Badge variant="outline" className="bg-blue-600/10 text-blue-400 border-blue-500/20 text-[7px] uppercase font-black italic">Upcoming</Badge>
                          </div>
@@ -198,7 +198,7 @@ export default async function RegistrationPortalPage() {
                 <CardContent className="space-y-4">
                      <div className="p-3 rounded-xl bg-white/[0.02] border border-white/5 space-y-2">
                         <p className="text-[10px] text-gray-500 uppercase font-black">Academic Office</p>
-                        <p className="text-xs text-white">registrar@vit.edu</p>
+                        <p className="text-xs text-white">registrar@university.edu</p>
                      </div>
                      <Button variant="ghost" className="w-full text-[9px] text-indigo-400 font-black uppercase tracking-widest p-0 flex items-center justify-center gap-2">
                         Download Registration Guide <ExternalLink className="w-3 h-3" />
