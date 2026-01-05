@@ -55,7 +55,7 @@ export default async function ProfilePage() {
           <div className="flex flex-wrap justify-center lg:justify-start gap-4 mt-4 text-gray-400 text-sm">
              <div className="flex items-center gap-2"> <GraduationCap className="w-4 h-4 text-blue-400" /> {profile.program} </div>
              <div className="flex items-center gap-2"> <School className="w-4 h-4 text-purple-400" /> {profile.school} </div>
-             <div className="flex items-center gap-2"> <MapPin className="w-4 h-4 text-rose-400" /> Campus: VIT Bhopal </div>
+             <div className="flex items-center gap-2"> <MapPin className="w-4 h-4 text-rose-400" /> Campus: Main </div>
           </div>
         </div>
       </div>
@@ -244,7 +244,7 @@ export default async function ProfilePage() {
                 <CardContent className="space-y-6">
                     <div className="p-6 rounded-2xl bg-black/40 border border-white/5 text-sm text-gray-400 leading-relaxed max-h-[400px] overflow-y-auto">
                         <h4 className="text-white font-bold mb-4">Terms of Conduct & Academic Integrity</h4>
-                        <p className="mb-4">I, <strong>{profile.user.name}</strong>, hereby acknowledge that I have read and understood the University's policy on academic integrity and student conduct. I agree to abide by all rules and regulations set forth by VIT Bhopal University.</p>
+                        <p className="mb-4">I, <strong>{profile.user.name}</strong>, hereby acknowledge that I have read and understood the University&apos;s policy on academic integrity and student conduct. I agree to abide by all rules and regulations set forth by the University.</p>
                         <p className="mb-4">I understand that any form of academic dishonesty including plagiarism, cheating, or unauthorized collaboration will result in severe disciplinary action.</p>
                         <p className="mb-4">Furthermore, I certify that all personal and academic information provided in this profile is true and accurate to the best of my knowledge.</p>
                         {/* More terms... */}
