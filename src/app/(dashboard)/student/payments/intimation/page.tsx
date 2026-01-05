@@ -8,9 +8,9 @@ import { CreditCard, AlertTriangle, Calendar } from "lucide-react"
 
 export default function FeesIntimationPage() {
   const fees = [
-    { year: "2024-25", semester: "Winter", head: "Tuition Fee", amount: "₹1,98,000", status: "PENDING", dueDate: "15 Jan 2025" },
-    { year: "2024-25", semester: "Winter", head: "Hostel Fee", amount: "₹1,45,000", status: "PENDING", dueDate: "15 Jan 2025" },
-    { year: "2024-25", semester: "Winter", head: "Mess Fee", amount: "₹35,000", status: "PENDING", dueDate: "15 Jan 2025" },
+    { year: "2024-25", semester: "Winter", head: "Tuition Fee", amount: "₹1,98,000", status: "PENDING", dueDate: "15 Jan 2026" },
+    { year: "2024-25", semester: "Winter", head: "Hostel Fee", amount: "₹1,45,000", status: "PENDING", dueDate: "15 Jan 2026" },
+    { year: "2024-25", semester: "Winter", head: "Mess Fee", amount: "₹35,000", status: "PENDING", dueDate: "15 Jan 2026" },
   ]
 
   return (
