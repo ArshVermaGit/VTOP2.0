@@ -54,7 +54,7 @@ export default async function ParentProfilePage() {
           <div className="flex flex-wrap justify-center lg:justify-start gap-4 mt-4 text-gray-400 text-sm">
              <div className="flex items-center gap-2"> <GraduationCap className="w-4 h-4 text-blue-400" /> {student.program} </div>
              <div className="flex items-center gap-2"> <School className="w-4 h-4 text-purple-400" /> {student.school} </div>
-             <div className="flex items-center gap-2"> <MapPin className="w-4 h-4 text-rose-400" /> VIT Bhopal </div>
+             <div className="flex items-center gap-2"> <MapPin className="w-4 h-4 text-rose-400" /> Main Campus </div>
           </div>
         </div>
       </div>
