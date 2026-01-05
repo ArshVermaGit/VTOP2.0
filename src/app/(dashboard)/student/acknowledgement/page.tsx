@@ -9,7 +9,7 @@ export default function AcknowledgementPage() {
   const acknowledgements = [
     { title: "Hostel Rules & Regulations 2024-25", date: "15 Aug 2024", status: "ACKNOWLEDGED" },
     { title: "Anti-Ragging Affidavit Submission", date: "12 Aug 2024", status: "ACKNOWLEDGED" },
-    { title: "Placement Preference Form - 2025 Batch", date: "Due by 31 Dec 2024", status: "PENDING" },
+    { title: "Placement Preference Form - 2026 Batch", date: "Due by 31 Dec 2024", status: "PENDING" },
   ]
 
   return (
