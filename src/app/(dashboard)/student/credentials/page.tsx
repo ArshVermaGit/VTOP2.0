@@ -72,10 +72,10 @@ export default async function CredentialsPage() {
                     <CardDescription>Managed via university PKI</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                     <p className="text-xs text-gray-400 leading-relaxed">All documents downloaded from this portal are digitally signed by the Registrar, VIT University and are legally valid as per the IT Act.</p>
+                     <p className="text-xs text-gray-400 leading-relaxed">All documents downloaded from this portal are digitally signed by the University Registrar and are legally valid as per the IT Act.</p>
                      <div className="p-4 rounded-xl bg-black/40 border border-white/5">
                         <p className="text-[10px] text-gray-500 font-bold uppercase mb-1">Last Sync</p>
-                        <p className="text-sm text-white font-medium">31 Dec 2025, 10:45 AM</p>
+                        <p className="text-sm text-white font-medium">03 Jan 2026, 10:45 AM</p>
                      </div>
                 </CardContent>
             </Card>
