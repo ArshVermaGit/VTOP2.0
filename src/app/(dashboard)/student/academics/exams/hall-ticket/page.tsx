@@ -22,7 +22,7 @@ export default async function HallTicketPage() {
           <h1 className="text-3xl font-bold text-white tracking-tight flex items-center gap-3">
              <ShieldCheck className="w-8 h-8 text-indigo-500" /> Digital Hall Ticket
           </h1>
-          <p className="text-gray-400 mt-1">Winter Semester 2025-26 • Official Examination Credential</p>
+          <p className="text-gray-400 mt-1">Winter Semester 2026-27 • Official Examination Credential</p>
         </div>
         <div className="flex items-center gap-3">
              <Button variant="outline" className="border-white/10 text-gray-400 hover:text-white h-10 px-6 uppercase text-[10px] font-black tracking-widest">
@@ -66,7 +66,7 @@ export default async function HallTicketPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 p-8 rounded-3xl bg-white border border-white/10 shadow-2xl relative overflow-hidden group">
             {/* watermark background */}
             <div className="absolute inset-0 flex items-center justify-center opacity-[0.03] pointer-events-none select-none overflow-hidden">
-                <h2 className="text-[100px] font-black uppercase rotate-[-15deg] whitespace-nowrap">VIT OFFICIAL CREDENTIAL</h2>
+                <h2 className="text-[100px] font-black uppercase rotate-[-15deg] whitespace-nowrap">OFFICIAL UNIVERSITY CREDENTIAL</h2>
             </div>
 
             <div className="lg:col-span-1 space-y-6 relative z-10 border-r border-gray-100 pr-8">
@@ -84,7 +84,7 @@ export default async function HallTicketPage() {
                 <div className="space-y-4 pt-6 border-t border-gray-100">
                     <div className="flex justify-between items-center px-1">
                         <span className="text-[10px] text-gray-400 font-bold uppercase">Auth Token</span>
-                        <span className="text-[10px] text-gray-900 font-bold uppercase tracking-widest">HT-2025-01-A2</span>
+                        <span className="text-[10px] text-gray-900 font-bold uppercase tracking-widest">HT-2026-01-A2</span>
                     </div>
                     <div className="p-4 rounded-2xl bg-gray-50 border border-gray-100 flex flex-col items-center gap-4">
                         <QrCode className="w-32 h-32 text-gray-900" />
