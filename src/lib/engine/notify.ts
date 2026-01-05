@@ -27,11 +27,11 @@ export function generateICS(events: any[]) {
 
     events.forEach(event => {
         icsContent.push("BEGIN:VEVENT");
-        icsContent.push(`UID:${Math.random().toString(36).substring(2)}@vtop.vit.edu`);
+        icsContent.push(`UID:${Math.random().toString(36).substring(2)}@vtop.university.edu`);
         icsContent.push(`DTSTAMP:${new Date().toISOString().replace(/[-:]/g, '').split('.')[0]}Z`);
         icsContent.push(`SUMMARY:${event.title}`);
         icsContent.push(`DESCRIPTION:${event.description || 'VTOP 2.0 Academic Event'}`);
-        icsContent.push(`LOCATION:${event.location || 'VIT University'}`);
+        icsContent.push(`LOCATION:${event.location || 'University Campus'}`);
         // Mocking dates if not provided
         const start = event.start || new Date().toISOString();
         const end = event.end || new Date().toISOString();
