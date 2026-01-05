@@ -29,7 +29,7 @@ export default async function FacultyPayroll() {
           <p className="text-gray-500 text-xs font-bold uppercase tracking-widest mt-1">Compensation, Allowances & Tax Ledger</p>
         </div>
         <div className="flex items-center gap-3">
-           <Badge className="bg-emerald-600/10 text-emerald-400 border border-emerald-500/20 px-3 py-1 uppercase font-black text-[9px]">FY 2025-26 Active</Badge>
+           <Badge className="bg-emerald-600/10 text-emerald-400 border border-emerald-500/20 px-3 py-1 uppercase font-black text-[9px]">FY 2026-27 Active</Badge>
            <Button variant="outline" className="bg-white/5 border-white/10 text-white font-black uppercase text-[10px] tracking-widest px-6 h-12 rounded-2xl">
               <Download className="w-4 h-4 mr-2" /> Annual Statement
            </Button>
