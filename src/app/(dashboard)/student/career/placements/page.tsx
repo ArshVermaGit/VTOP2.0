@@ -36,7 +36,7 @@ export default async function CareerPortalPage() {
              <Button className="bg-blue-600 hover:bg-blue-700 text-white font-black uppercase text-[10px] tracking-widest px-6 h-10 shadow-lg">
                 <Globe className="w-4 h-4 mr-2" /> Global Postings
              </Button>
-             <Badge className="bg-blue-600/20 text-blue-400 border border-blue-500/20 px-4 py-1 uppercase font-black text-[9px]">Placement Season 2025</Badge>
+             <Badge className="bg-blue-600/20 text-blue-400 border border-blue-500/20 px-4 py-1 uppercase font-black text-[9px]">Placement Season 2026</Badge>
         </div>
       </div>
 
@@ -113,7 +113,7 @@ export default async function CareerPortalPage() {
                         <CardTitle className="text-white text-md flex items-center gap-2">
                              <GraduationCap className="w-5 h-5 text-indigo-400" /> Internship Hub
                         </CardTitle>
-                        <Badge className="bg-indigo-600/20 text-indigo-400 text-[8px] uppercase">Summer 2025</Badge>
+                        <Badge className="bg-indigo-600/20 text-indigo-400 text-[8px] uppercase">Summer 2026</Badge>
                     </CardHeader>
                     <CardContent className="p-0">
                          {opportunities.filter(o => o.type === 'INTERNSHIP').map((o) => (
