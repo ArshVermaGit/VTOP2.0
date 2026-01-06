@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "prisma generate && prisma db push --accept-data-loss && npm run seed && next build",
+    "build": "prisma generate && prisma db push --accept-data-loss && npx prisma db seed && next build",
     "start": "next start",
     "lint": "eslint",
     "seed": "ts-node prisma/seed.ts"
@@ -57,6 +57,6 @@
     "ts-node": "^10.9.2"
   },
   "prisma": {
-    "seed": "ts-node --transpile-only prisma/seed.ts"
+    "seed": "NODE_OPTIONS='--loader ts-node/esm' ts-node prisma/seed.ts"
   }
 }
