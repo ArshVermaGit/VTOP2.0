@@ -52,7 +52,7 @@ interface SubItem {
 }
 
 interface SidebarItem {
-  icon: any;
+  icon: React.ElementType;
   label: string;
   href: string;
   subItems?: SubItem[];
@@ -189,7 +189,7 @@ export function Sidebar() {
   const [isCollapsed, setIsCollapsed] = useState(false)
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false)
 
-  const role = (session?.user as any)?.role || "STUDENT"
+  const role = (session?.user as { role?: string })?.role || "STUDENT"
   
   const items = role === "ADMIN" ? adminItems : 
                 role === "FACULTY" ? facultyItems : 
