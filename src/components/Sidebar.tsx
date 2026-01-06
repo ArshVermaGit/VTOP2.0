@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { usePathname } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
 import { useSession, signOut } from "next-auth/react"
@@ -201,8 +202,14 @@ export function Sidebar() {
       className="relative h-screen bg-black/40 backdrop-blur-xl border-r border-white/10 flex flex-col z-50 text-white"
     >
       <div className="flex items-center gap-3 p-6 h-20">
-        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shadow-lg shadow-blue-500/20 shrink-0">
-          <span className="font-bold text-white text-xl">V</span>
+        <div className="shrink-0">
+          <Image 
+            src="/logo.png" 
+            alt="VTOP Logo" 
+            width={40} 
+            height={40} 
+            className="rounded-xl shadow-lg shadow-blue-500/20 object-cover"
+          />
         </div>
         <AnimatePresence>
             {!isCollapsed && (
