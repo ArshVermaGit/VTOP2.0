@@ -63,7 +63,7 @@ export default async function AdminDashboard() {
            </CardHeader>
            <CardContent>
               <div className="space-y-4">
-                 {[1, 2, 3].map((node) => (
+              {[{ node: 1, latency: 12 }, { node: 2, latency: 18 }, { node: 3, latency: 15 }].map(({ node, latency }) => (
                    <div key={node} className="flex items-center justify-between p-4 rounded-xl bg-black/40 border border-white/5 group hover:border-white/10 transition-colors">
                       <div className="flex items-center gap-4">
                          <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
@@ -73,7 +73,7 @@ export default async function AdminDashboard() {
                          </div>
                       </div>
                       <div className="text-right">
-                         <p className="text-xs text-white font-mono">{Math.floor(Math.random() * 20) + 10}ms latency</p>
+                         <p className="text-xs text-white font-mono">{latency}ms latency</p>
                          <p className="text-[10px] text-emerald-500 font-bold uppercase">Sync Done</p>
                       </div>
                    </div>
