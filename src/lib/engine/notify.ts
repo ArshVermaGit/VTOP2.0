@@ -17,7 +17,7 @@ export async function sendNotification(type: 'EMAIL' | 'SMS', payload: { to: str
 export function generateICS(events: any[]) {
     console.log("[CALENDAR_ENGINE] Constructing .ics payload...");
     
-    let icsContent = [
+    const icsContent = [
         "BEGIN:VCALENDAR",
         "VERSION:2.0",
         "PRODID:-//VTOP 2.0//NONSGML v1.0//EN",
