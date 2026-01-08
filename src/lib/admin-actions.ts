@@ -6,7 +6,7 @@ import { authOptions } from "@/lib/auth"
 
 export async function getSystemAudit() {
   const session = await getServerSession(authOptions)
-  if (!session?.user || (session.user as { role: string }).role !== 'ADMIN') throw new Error("Unauthorized")
+  if (!session?.user || session.user.role !== 'ADMIN') throw new Error("Unauthorized")
 
   const models = ['user', 'studentProfile', 'facultyProfile', 'parentProfile', 'course', 'attendanceLog', 'marks', 'payment', 'leaveRequest', 'securityAudit']
   const counts: Record<string, number> = {}
