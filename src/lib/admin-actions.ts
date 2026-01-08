@@ -1,5 +1,5 @@
 import prisma from "@/lib/prisma"
-import { getServerSession } from "next-auth"
+import { getServerSession } from "next-auth/next"
 import { authOptions } from "@/lib/auth"
 
 // --- ADMIN DASHBOARD ACTIONS ---
@@ -8,7 +8,7 @@ export async function getSystemAudit() {
   const session = await getServerSession(authOptions)
   if (!session?.user || session.user.role !== 'ADMIN') throw new Error("Unauthorized")
 
-  const models = ['user', 'studentProfile', 'facultyProfile', 'parentProfile', 'course', 'attendanceLog', 'marks', 'payment', 'leaveRequest', 'securityAudit']
+  const models = ['user', 'studentProfile', 'facultyProfile', 'parentProfile', 'adminProfile', 'course', 'attendanceLog', 'marks', 'payment', 'leaveRequest', 'securityAudit']
   const counts: Record<string, number> = {}
   
   await Promise.all(models.map(async (m) => {
@@ -490,7 +490,7 @@ export async function updateMarks(id: string, data: Partial<{
 
 export async function getModelData(modelName: string, page: number = 1, pageSize: number = 20) {
   const session = await getServerSession(authOptions)
-  if (!session?.user || (session.user as { role: string }).role !== 'ADMIN') throw new Error("Unauthorized")
+  if (!session?.user || session.user.role !== 'ADMIN') throw new Error("Unauthorized")
 
   const prismaModel = (prisma as any)[modelName]
   if (!prismaModel) throw new Error("Invalid model name")
@@ -509,7 +509,7 @@ export async function getModelData(modelName: string, page: number = 1, pageSize
 
 export async function deleteModelRecord(modelName: string, id: string) {
   const session = await getServerSession(authOptions)
-  if (!session?.user || (session.user as { role: string }).role !== 'ADMIN') throw new Error("Unauthorized")
+  if (!session?.user || session.user.role !== 'ADMIN') throw new Error("Unauthorized")
 
   const prismaModel = (prisma as any)[modelName]
   if (!prismaModel) throw new Error("Invalid model name")
@@ -561,7 +561,7 @@ export async function updateAttendance(id: string, data: Partial<{
   slot: string
 }>) {
   const session = await getServerSession(authOptions)
-  if (!session?.user || (session.user as { role: string }).role !== 'ADMIN') throw new Error("Unauthorized")
+  if (!session?.user || session.user.role !== 'ADMIN') throw new Error("Unauthorized")
 
   return await prisma.attendanceLog.update({
     where: { id },
@@ -575,14 +575,14 @@ export async function updateAttendance(id: string, data: Partial<{
 
 export async function deleteAttendance(id: string) {
   const session = await getServerSession(authOptions)
-  if (!session?.user || (session.user as { role: string }).role !== 'ADMIN') throw new Error("Unauthorized")
+  if (!session?.user || session.user.role !== 'ADMIN') throw new Error("Unauthorized")
 
   return await prisma.attendanceLog.delete({ where: { id } })
 }
 
 export async function seedDatabase() {
   const session = await getServerSession(authOptions)
-  if (!session?.user || (session.user as { role: string }).role !== 'ADMIN') throw new Error("Unauthorized")
+  if (!session?.user || session.user.role !== 'ADMIN') throw new Error("Unauthorized")
 
   await prisma.user.create({
     data: {
@@ -598,7 +598,7 @@ export async function seedDatabase() {
 
 export async function getAllPayments() {
   const session = await getServerSession(authOptions)
-  if (!session?.user || (session.user as { role: string }).role !== 'ADMIN') throw new Error("Unauthorized")
+  if (!session?.user || session.user.role !== 'ADMIN') throw new Error("Unauthorized")
 
   return await prisma.payment.findMany({
     include: { student: { include: { user: true } } },
@@ -608,7 +608,7 @@ export async function getAllPayments() {
 
 export async function getAllLeaveRequests() {
   const session = await getServerSession(authOptions)
-  if (!session?.user || (session.user as { role: string }).role !== 'ADMIN') throw new Error("Unauthorized")
+  if (!session?.user || session.user.role !== 'ADMIN') throw new Error("Unauthorized")
 
   return await prisma.leaveRequest.findMany({
     include: { student: { include: { user: true } } },
