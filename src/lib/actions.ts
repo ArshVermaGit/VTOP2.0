@@ -26,6 +26,20 @@ export async function getStudentProfile() {
   })
 }
 
+export async function getFacultyProfile() {
+  const session = await getServerSession(authOptions)
+  if (!session?.user) return null
+
+  return await prisma.facultyProfile.findFirst({
+    where: {
+      userId: session.user.id
+    },
+    include: {
+      user: true
+    }
+  })
+}
+
 
 
 export async function getTimetable() {
