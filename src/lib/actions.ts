@@ -26,19 +26,7 @@ export async function getStudentProfile() {
   })
 }
 
-export async function getFacultyProfile() {
-  const session = await getServerSession(authOptions)
-  if (!session?.user) return null
 
-  return await prisma.facultyProfile.findFirst({
-    where: {
-      userId: session.user.id
-    },
-    include: {
-      user: true
-    }
-  })
-}
 
 
 
@@ -137,7 +125,7 @@ export async function getAttendanceLogs() {
 
 export async function getGlobalAttendanceLogs() {
   const session = await getServerSession(authOptions)
-  if ((session?.user as any)?.role !== "ADMIN") return []
+  if (session?.user?.role !== "ADMIN") return []
 
   return await prisma.attendanceLog.findMany({
     include: { course: true, faculty: { include: { user: true } }, student: { include: { user: true } } },
@@ -208,12 +196,12 @@ export async function submitAssignment(assignmentId: string, fileUrl: string) {
 
 export async function postForumPost(courseId: string, title: string, content: string) {
   const session = await getServerSession(authOptions)
-  if (!session?.user || !(session.user as any).id) throw new Error("Unauthorized")
+  if (!session?.user || !session.user.id) throw new Error("Unauthorized")
 
   return await prisma.forumPost.create({
     data: {
       courseId,
-      authorId: (session.user as any).id,
+      authorId: session.user.id,
       title,
       content
     }
@@ -222,12 +210,12 @@ export async function postForumPost(courseId: string, title: string, content: st
 
 export async function postForumReply(postId: string, content: string) {
   const session = await getServerSession(authOptions)
-  if (!session?.user || !(session.user as any).id) throw new Error("Unauthorized")
+  if (!session?.user || !session.user.id) throw new Error("Unauthorized")
 
   return await prisma.forumReply.create({
     data: {
       postId,
-      authorId: (session.user as any).id,
+      authorId: session.user.id,
       content
     }
   })
@@ -235,7 +223,7 @@ export async function postForumReply(postId: string, content: string) {
 
 export async function postCourseAnnouncement(courseId: string, title: string, content: string) {
   const session = await getServerSession(authOptions)
-  if ((session?.user as any)?.role !== "FACULTY") throw new Error("Unauthorized")
+  if (session?.user?.role !== "FACULTY") throw new Error("Unauthorized")
 
   const faculty = await getFacultyProfile()
   if (!faculty) throw new Error("Faculty profile not found")
@@ -410,7 +398,7 @@ export async function getParentProfile() {
 
 export async function getStudentProfileByParent() {
   const session = await getServerSession(authOptions)
-  if (!session?.user || (session.user as any).role !== 'PARENT') return null
+  if (!session?.user || session.user.role !== 'PARENT') return null
 
   const parent = await getParentProfile()
   if (!parent || !parent.studentId) return null
@@ -554,7 +542,7 @@ export async function markAttendance(data: { courseId: string, date: Date, slot:
 
 export async function adminOverrideAttendance(logId: string, newStatus: string) {
     const session = await getServerSession(authOptions)
-    if ((session?.user as any)?.role !== "ADMIN") throw new Error("Unauthorized Admin")
+    if (session?.user?.role !== "ADMIN") throw new Error("Unauthorized Admin")
 
     const log = await prisma.attendanceLog.update({
         where: { id: logId },
@@ -1210,10 +1198,10 @@ export async function reserveBook(bookId: string) {
 
 export async function getParentDashboardData() {
   const session = await getServerSession(authOptions)
-  if (!session?.user || (session.user as any).role !== 'PARENT') return null
+  if (!session?.user || session.user.role !== 'PARENT') return null
 
   const parentProfile = await prisma.parentProfile.findUnique({
-    where: { userId: (session.user as any).id },
+    where: { userId: session.user.id },
     include: {
       student: {
         include: {
@@ -1267,10 +1255,10 @@ export async function getParentDashboardData() {
 
 export async function getFacultyDashboardData() {
   const session = await getServerSession(authOptions)
-  if (!session?.user || (session.user as any).role !== 'FACULTY') throw new Error("Unauthorized")
+  if (!session?.user || session.user.role !== 'FACULTY') throw new Error("Unauthorized")
 
   const faculty = await prisma.facultyProfile.findUnique({
-    where: { userId: (session.user as any).id },
+    where: { userId: session.user.id },
     include: {
       user: true,
       courses: {
@@ -1314,10 +1302,10 @@ export async function getFacultyDashboardData() {
 
 export async function getFacultyAdminData() {
   const session = await getServerSession(authOptions)
-  if (!session?.user || (session.user as any).role !== 'FACULTY') throw new Error("Unauthorized")
+  if (!session?.user || session.user.role !== 'FACULTY') throw new Error("Unauthorized")
 
   const faculty = await prisma.facultyProfile.findUnique({
-    where: { userId: (session.user as any).id },
+    where: { userId: session.user.id },
     include: {
       payrolls: {
         orderBy: { processedAt: 'desc' }
@@ -1333,10 +1321,10 @@ export async function getFacultyAdminData() {
 
 export async function markAttendanceBulk(courseId: string, studentIds: string[], status: string) {
   const session = await getServerSession(authOptions)
-  if (!session?.user || (session.user as any).role !== 'FACULTY') throw new Error("Unauthorized")
+  if (!session?.user || session.user.role !== 'FACULTY') throw new Error("Unauthorized")
 
   const faculty = await prisma.facultyProfile.findUnique({
-    where: { userId: (session.user as any).id }
+    where: { userId: session.user.id }
   })
   if (!faculty) throw new Error("Faculty profile not found")
 
@@ -1357,7 +1345,7 @@ export async function markAttendanceBulk(courseId: string, studentIds: string[],
 
 export async function updateMarksBulk(courseId: string, marksData: { studentId: string, cat1?: number, cat2?: number, fat?: number, da1?: number, da2?: number, quiz?: number }[]) {
   const session = await getServerSession(authOptions)
-  if (!session?.user || (session.user as any).role !== 'FACULTY') throw new Error("Unauthorized")
+  if (!session?.user || session.user.role !== 'FACULTY') throw new Error("Unauthorized")
 
   const updates = marksData.map(async (data) => {
     const total = (data.cat1 || 0) + (data.cat2 || 0) + (data.fat || 0) + (data.da1 || 0) + (data.da2 || 0) + (data.quiz || 0)
@@ -1457,7 +1445,7 @@ export async function getSecurityStatus() {
   if (!session?.user) throw new Error("Unauthorized")
 
   return await prisma.user.findUnique({
-    where: { id: (session.user as any).id },
+    where: { id: session.user.id },
     select: {
       twoFactorEnabled: true,
       lastLogin: true,
@@ -1474,7 +1462,7 @@ export async function toggle2FA(enabled: boolean) {
   const session = await getServerSession(authOptions)
   if (!session?.user) throw new Error("Unauthorized")
 
-  const userId = (session.user as any).id
+  const userId = session.user.id
 
   if (enabled) {
       // Generate a dummy secret for mock 2FA
@@ -1557,7 +1545,7 @@ export async function syncInstitutionalData(target: 'ATTENDANCE' | 'MARKS' | 'PR
   // Create security audit for the sync action
   await prisma.securityAudit.create({
       data: {
-          userId: (session.user as any).id,
+          userId: session.user.id,
           event: `LEGACY_SYNC_${target}`,
           ipAddress: '127.0.0.1',
           device: 'VTOP 2.0 Engine'
@@ -1572,7 +1560,7 @@ export async function triggerNotification(target: 'EMAIL' | 'SMS', message: stri
   if (!session?.user) throw new Error("Unauthorized")
 
   return await NotifyEngine.sendNotification(target, {
-      to: (session.user as any).email || (session.user as any).mobile || "user@university.edu",
+      to: session.user.email || session.user.mobile || "user@university.edu",
       subject: "VTOP 2.0 Institutional Alert",
       message: message
   })
