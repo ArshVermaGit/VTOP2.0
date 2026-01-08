@@ -30,6 +30,8 @@ import {
   Search,
   Menu,
   X,
+  Briefcase,
+  AlertTriangle
 } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
@@ -68,7 +70,7 @@ const facultyItems: SidebarItem[] = [
 const parentItems: SidebarItem[] = [
   { icon: LayoutDashboard, label: "Ward Status", href: "/parent/dashboard" },
   { icon: UserCheck, label: "Ward Attendance", href: "/parent/attendance" },
-  { icon: Award, label: "Academic Report", href: "/parent/marks" },
+  { icon: Award, label: "Academic Report", href: "/parent/performance" },
   { icon: CreditCard, label: "Fee Portal", href: "/parent/payments" },
   { icon: History, label: "Full Profile", href: "/parent/profile" },
 ];
