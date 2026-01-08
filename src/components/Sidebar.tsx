@@ -27,11 +27,8 @@ import {
   Award,
   UserCheck,
   Zap,
-  Search,
   Menu,
-  X,
-  Briefcase,
-  AlertTriangle
+  X
 } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
