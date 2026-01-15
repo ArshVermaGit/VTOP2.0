@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Badge } from "@/components/ui/badge"
-import { Users, User, Mail, Phone, Calendar, Clock, MessageSquare, Plus, ShieldCheck, Heart, FileText, CheckCircle2, AlertCircle, MapPin } from "lucide-react"
+import { Users, Mail, Calendar, Clock, MessageSquare, Plus, FileText, CheckCircle2, MapPin } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { getFacultyProfile, getFacultyMeetings, getFacultyCounsellingRecords } from "@/lib/actions"
 import Image from "next/image"
@@ -45,7 +45,7 @@ export default async function FacultyMentorPage() {
 
         <TabsContent value="proctees" className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {proctees.map((student: any) => (
+                {proctees.map((student: { id: string, photoUrl?: string | null, user: { name: string, email: string | null }, regNo: string, program: string, cgpa: number }) => (
                     <Card key={student.id} className="bg-white/5 border-white/10 hover:border-indigo-500/30 transition-all group overflow-hidden">
                         <div className="h-1 bg-linear-to-r from-indigo-600 to-blue-600 opacity-50 group-hover:opacity-100 transition-opacity" />
                         <CardHeader className="flex flex-row items-center gap-4">
