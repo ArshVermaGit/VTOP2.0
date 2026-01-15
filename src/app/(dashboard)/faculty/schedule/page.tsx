@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Badge } from "@/components/ui/badge"
-import { Clock, MapPin, User, BookOpen, Calendar as CalendarIcon, Filter } from "lucide-react"
+import { MapPin, User, BookOpen, Calendar as CalendarIcon, Filter } from "lucide-react"
 import { getFacultyProfile, getAcademicEvents, getSemesterMilestones, getFacultyTimetable } from "@/lib/actions"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
@@ -44,7 +44,7 @@ export default async function FacultySchedulePage() {
               </TabsList>
 
               {days.map(day => {
-                const dayClasses = (timetable as any[]).filter(t => t.day === day)
+                const dayClasses = (timetable as { day: string, startTime: string, endTime: string, slot: string, course: { title: string, code: string, registrations: any[] }, venue: string, courseId: string }[]).filter(t => t.day === day)
                 return (
                   <TabsContent key={day} value={day} className="mt-6 space-y-4">
                     {dayClasses.length > 0 ? dayClasses.map((cls, i) => (
