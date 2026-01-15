@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import { useSession, signOut } from "next-auth/react"
 import {
   History,
-  MapPin,
+  Search,
   LayoutDashboard,
   BookOpen,
   CreditCard,
