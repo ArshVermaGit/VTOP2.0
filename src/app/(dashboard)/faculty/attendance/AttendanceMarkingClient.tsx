@@ -4,35 +4,34 @@ import { useState, useEffect } from "react"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { User, CheckCircle2, XCircle, Search, Clock, MapPin, ChevronRight, AlertCircle, Save } from "lucide-react"
+import { CheckCircle2, XCircle, Search, Clock, Save } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { markAttendance, getCourseStudents } from "@/lib/actions"
 import { toast } from "sonner"
 import { useRouter } from "next/navigation"
 
-export default function AttendanceMarkingClient({ courses }: { courses: any[] }) {
+export default function AttendanceMarkingClient({ courses }: { courses: { id: string, title: string, code: string, slot: string | null }[] }) {
   const router = useRouter()
   const [selectedCourse, setSelectedCourse] = useState(courses[0]?.id || "")
-  const [students, setStudents] = useState<any[]>([])
+  const [students, setStudents] = useState<{ id: string, regNo: string, user: { name: string } }[]>([])
   const [attendance, setAttendance] = useState<Record<string, string>>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [searchTerm, setSearchTerm] = useState("")
   const [slot, setSlot] = useState("A1")
 
   useEffect(() => {
-    if (selectedCourse) {
-      loadStudents()
+    const loadStudents = async () => {
+      if (selectedCourse) {
+        const data = await getCourseStudents(selectedCourse)
+        setStudents(data)
+        // Initialize all as Present
+        const initial: Record<string, string> = {}
+        data.forEach((s: { id: string }) => initial[s.id] = "PRESENT")
+        setAttendance(initial)
+      }
     }
+    loadStudents()
   }, [selectedCourse])
-
-  const loadStudents = async () => {
-    const data = await getCourseStudents(selectedCourse)
-    setStudents(data)
-    // Initialize all as Present
-    const initial: Record<string, string> = {}
-    data.forEach((s: any) => initial[s.id] = "PRESENT")
-    setAttendance(initial)
-  }
 
   const toggleStatus = (studentId: string) => {
     setAttendance(prev => {
@@ -58,6 +57,7 @@ export default function AttendanceMarkingClient({ courses }: { courses: any[] })
       toast.success("Attendance marked successfully!")
       router.refresh()
     } catch (error) {
+      console.error(error)
       toast.error("Failed to mark attendance.")
     } finally {
       setIsSubmitting(false)
