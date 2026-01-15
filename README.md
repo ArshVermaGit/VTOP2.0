@@ -64,9 +64,11 @@ Buttery smooth 60fps
 ## 🎭 Four Portals, One Ecosystem
 
 ### 🎓 Student Nexus
+
 **Your academic command center. Everything you need, nothing you don't.**
 
 **Core Features:**
+
 - 📊 **Dashboard** — Real-time attendance, GPA, and class overview
 - ⏰ **Time Table** — Dynamic schedule with smart notifications
 - 📈 **Attendance** — Detailed tracking with percentage calculators
@@ -77,9 +79,11 @@ Buttery smooth 60fps
 ---
 
 ### 👨‍🏫 Faculty Cabin
+
 **Teaching tools that actually help instead of hinder.**
 
 **Core Features:**
+
 - 🏠 **Academic Hub** — Your courses and daily schedule at a glance
 - 📋 **Duty Chart** — Exam proctoring and administrative tracking
 - ✅ **Roll Call** — Lightning-fast mobile attendance marking
@@ -89,9 +93,11 @@ Buttery smooth 60fps
 ---
 
 ### 👪 Parent Guardian
+
 **Peace of mind through transparency.**
 
 **Core Features:**
+
 - 👁️ **Ward Status** — Real-time academic performance monitoring
 - 📅 **Attendance** — Daily updates with instant alerts
 - 📊 **Academic Report** — Detailed grade breakdowns and progress tracking
@@ -101,9 +107,11 @@ Buttery smooth 60fps
 ---
 
 ### 🛡️ Admin Oracle
+
 **God mode for university management.**
 
 **Core Features:**
+
 - 🎛️ **Control Center** — System health and vital statistics dashboard
 - 👥 **Identity Hub** — User provisioning and credential management
 - 🗄️ **Master Registry** — Global database explorer and editor
@@ -118,6 +126,7 @@ Buttery smooth 60fps
 We didn't just build a portal. We crafted an **experience**.
 
 **Design Philosophy:**
+
 - 🌌 **Glassmorphism** — Layered translucency for visual depth
 - 💫 **Ambient Lighting** — Dynamic gradients that breathe with your interactions
 - ⚡ **Motion Design** — Physics-based animations via Framer Motion
@@ -146,21 +155,22 @@ NextAuth.js + Tailwind CSS + Framer Motion
 
 **Why These Choices?**
 
-| Tech | Why We Use It |
-|------|---------------|
-| **Next.js 16** | Server Components + edge rendering = blazing speed |
-| **React 19** | Latest hooks, concurrent features, better performance |
-| **TypeScript** | Type safety prevents bugs before they happen |
-| **Prisma** | Type-safe queries + painless migrations |
-| **NextAuth.js** | Battle-tested auth with multi-role support |
-| **Tailwind** | Rapid UI development without CSS hell |
-| **Framer Motion** | Cinematic animations that don't tank performance |
+| Tech              | Why We Use It                                         |
+| ----------------- | ----------------------------------------------------- |
+| **Next.js 16**    | Server Components + edge rendering = blazing speed    |
+| **React 19**      | Latest hooks, concurrent features, better performance |
+| **TypeScript**    | Type safety prevents bugs before they happen          |
+| **Prisma**        | Type-safe queries + painless migrations               |
+| **NextAuth.js**   | Battle-tested auth with multi-role support            |
+| **Tailwind**      | Rapid UI development without CSS hell                 |
+| **Framer Motion** | Cinematic animations that don't tank performance      |
 
 ---
 
 ## ⚡ Quick Start
 
 ### Prerequisites
+
 ```bash
 Node.js 18+ • PostgreSQL • Git
 ```
@@ -168,12 +178,14 @@ Node.js 18+ • PostgreSQL • Git
 ### Installation
 
 **1. Clone the repository**
+
 ```bash
 git clone https://github.com/ArshVermaGit/Vtop2.0.git
 cd Vtop2.0
 ```
 
 **2. Install dependencies**
+
 ```bash
 npm install
 ```
@@ -181,6 +193,7 @@ npm install
 **3. Configure environment**
 
 Create `.env` in the root:
+
 ```env
 # Database
 DATABASE_URL="postgresql://user:password@localhost:5432/vtop2?schema=public"
@@ -191,6 +204,7 @@ NEXTAUTH_URL="http://localhost:3000"
 ```
 
 **4. Initialize database**
+
 ```bash
 npx prisma generate
 npx prisma db push
@@ -198,6 +212,7 @@ npm run seed  # Optional: Add sample data
 ```
 
 **5. Launch**
+
 ```bash
 npm run dev
 ```
@@ -243,30 +258,35 @@ src/
 ## 🎯 Feature Highlights
 
 **🔐 Authentication & Security**
+
 - Multi-role JWT system with NextAuth.js
 - Role-Based Access Control (RBAC)
 - Secure session management
 - Parent-student linking system
 
 **📊 Academic Management**
+
 - Real-time attendance tracking
 - Comprehensive grade management
 - Dynamic timetable generation
 - Course enrollment system
 
 **💼 Administration**
+
 - System health monitoring
 - User provisioning tools
 - Global database access
 - Attendance override capabilities
 
 **💰 Financial Tracking**
+
 - Fee payment history
 - Outstanding dues alerts
 - Receipt generation
 - Multi-year financial records
 
 **🏠 Campus Services**
+
 - V-Topia community hub
 - Digital communication channels
 - Administrative request system
@@ -300,6 +320,7 @@ No compromises. Just speed.
 ## 🛣️ Roadmap
 
 **Coming Soon:**
+
 - [ ] 🤖 AI-powered course recommendations
 - [ ] 📱 Native mobile apps (iOS & Android)
 - [ ] 🌐 Multi-language support
@@ -313,7 +334,15 @@ No compromises. Just speed.
 
 Found a bug? Have an idea? PRs are welcome!
 
+**Quick links:**
+
+- [Contributing Guidelines](CONTRIBUTING.md)
+- [Code of Conduct](CODE_OF_CONDUCT.md)
+- [Security Policy](SECURITY.md)
+- [Support Guide](SUPPORT.md)
+
 **How to contribute:**
+
 1. Fork the repository
 2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
 3. Commit your changes (`git commit -m 'Add AmazingFeature'`)
@@ -321,6 +350,7 @@ Found a bug? Have an idea? PRs are welcome!
 5. Open a Pull Request
 
 **Guidelines:**
+
 - Follow existing code style (Prettier + ESLint configured)
 - Write meaningful commit messages
 - Update documentation as needed
@@ -331,7 +361,7 @@ Found a bug? Have an idea? PRs are welcome!
 ## 👨‍💻 Creator
 
 **Arsh Verma**  
-*Full Stack Architect • UI/UX Perfectionist*
+_Full Stack Architect • UI/UX Perfectionist_
 
 Built with ❤️, TypeScript, and way too much coffee.
 
@@ -340,11 +370,15 @@ Built with ❤️, TypeScript, and way too much coffee.
 
 ---
 
-## 📜 License
+## 📜 License & Governance
+
+VTOP 2.0 is released under the **MIT License**.
+
+- [Full License Details](LICENSE.md)
+- [Changelog](CHANGELOG.md)
+- [Project Roadmap](ROADMAP.md)
 
 MIT License — Use it, modify it, share it. Just don't claim you built it from scratch 😉
-
-See [LICENSE](LICENSE) for details.
 
 ---
 
