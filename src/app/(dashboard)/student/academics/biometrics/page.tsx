@@ -1,8 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Badge } from "@/components/ui/badge"
-import { Fingerprint, Calendar, Clock, MapPin } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { Fingerprint, Calendar, MapPin } from "lucide-react"
 import { getBiometricReports } from "@/lib/actions"
 
 export default async function BiometricsPage() {
