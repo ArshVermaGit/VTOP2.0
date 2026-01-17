@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { User, Search, MoreVertical, Edit3, Trash2, UserPlus, BookOpen, Clock } from "lucide-react"
+import { User, Search, MoreVertical, Edit3, Trash2, UserPlus, BookOpen, Clock, type LucideIcon } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
@@ -147,7 +147,7 @@ export function FacultyManagementClient({ initialFaculty }: { initialFaculty: Fa
   )
 }
 
-function StatCard({ title, value, icon: Icon, color }: { title: string, value: string | number, icon: any, color: string }) {
+function StatCard({ title, value, icon: Icon, color }: { title: string, value: string | number, icon: LucideIcon, color: string }) {
     return (
         <Card className="bg-white/5 border-white/10 p-4">
             <div className="flex items-center justify-between">
