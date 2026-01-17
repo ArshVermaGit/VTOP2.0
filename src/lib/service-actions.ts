@@ -1,8 +1,6 @@
 "use server"
 
 import prisma from "@/lib/prisma"
-import { getServerSession } from "next-auth"
-import { authOptions } from "@/lib/auth"
 import { getStudentProfile } from "@/lib/actions"
 
 export async function getServiceRequests() {
@@ -15,7 +13,7 @@ export async function getServiceRequests() {
   })
 }
 
-export async function createServiceRequest(type: string, details?: string) {
+export async function createServiceRequest(type: string) {
   const profile = await getStudentProfile()
   if (!profile) throw new Error("Unauthorized")
 
