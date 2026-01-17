@@ -5,18 +5,19 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { FileText, Download } from "lucide-react"
+import { FileText } from "lucide-react"
 import { useState } from "react"
 import { toast } from "sonner"
 import { cn } from "@/lib/utils"
 
 import { getServiceRequests, createServiceRequest } from "@/lib/service-actions"
 import { useEffect } from "react"
+import { ServiceRequest } from "@prisma/client"
 
 export default function TranscriptPage() {
   const [type, setType] = useState("official")
   const [loading, setLoading] = useState(false)
-  const [requests, setRequests] = useState<any[]>([])
+  const [requests, setRequests] = useState<ServiceRequest[]>([])
 
   useEffect(() => {
     loadRequests()
@@ -37,7 +38,7 @@ export default function TranscriptPage() {
         await createServiceRequest("TRANSCRIPT")
         toast.success("Transcript request submitted successfully!")
         loadRequests()
-    } catch (error) {
+    } catch {
         toast.error("Failed to submit request")
     } finally {
         setLoading(false)
