@@ -1,4 +1,5 @@
 {
+  "$schema": "https://json.schemastore.org/package.json",
   "name": "vtop-app",
   "version": "0.1.0",
   "private": true,
@@ -47,7 +48,7 @@
     "tailwind-merge": "^3.4.0",
     "tailwindcss-animate": "^1.0.7",
     "typescript": "^5.9.3",
-    "xlsx": "^0.18.5",
+    "xlsx": "https://cdn.sheetjs.com/xlsx-latest/xlsx-latest.tgz",
     "zod": "^4.3.2"
   },
   "devDependencies": {
