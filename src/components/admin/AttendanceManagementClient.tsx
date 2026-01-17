@@ -3,9 +3,10 @@
 import { useState } from "react"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { ShieldCheck, Search, Filter, Edit3, Trash2, AlertCircle, Loader2, Check, X } from "lucide-react"
+import { ShieldCheck, Search, Filter, Edit3, Trash2, AlertCircle, Loader2, Check } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
+import { Label } from "@/components/ui/label"
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { updateAttendance, deleteAttendance } from "@/lib/admin-actions"
@@ -56,14 +57,14 @@ export function AttendanceManagementClient({ initialLogs }: { initialLogs: Atten
     setIsLoading(true)
     try {
       await updateAttendance(selectedLog.id, {
-        status: formData.status as any,
+        status: formData.status,
         slot: formData.slot
       })
       toast.success("Attendance record updated!")
       setEditDialogOpen(false)
       router.refresh()
-    } catch (error: any) {
-      toast.error(error.message || "Failed to update record")
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Failed to update record")
     } finally {
       setIsLoading(false)
     }
@@ -77,8 +78,8 @@ export function AttendanceManagementClient({ initialLogs }: { initialLogs: Atten
       toast.success("Attendance record deleted!")
       setLogs(logs.filter(l => l.id !== selectedLog.id))
       setDeleteDialogOpen(false)
-    } catch (error: any) {
-      toast.error(error.message || "Failed to delete record")
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Failed to delete record")
     } finally {
       setIsLoading(false)
     }
@@ -266,6 +267,4 @@ export function AttendanceManagementClient({ initialLogs }: { initialLogs: Atten
   )
 }
 
-function Label({ children, className }: any) {
-  return <label className={className}>{children}</label>
-}
+
