@@ -90,8 +90,8 @@ export function CourseManagementClient({
         slot: "", venue: "", category: "Program Core", facultyId: ""
       })
       router.refresh()
-    } catch (error: any) {
-      toast.error(error.message || "Failed to create course")
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Failed to create course")
     } finally {
       setIsCreating(false)
     }
@@ -110,8 +110,8 @@ export function CourseManagementClient({
       toast.success("Course updated successfully!")
       setEditDialogOpen(false)
       router.refresh()
-    } catch (error: any) {
-      toast.error(error.message || "Failed to update course")
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Failed to update course")
     } finally {
       setIsLoading(false)
     }
@@ -125,8 +125,8 @@ export function CourseManagementClient({
       toast.success("Course deleted successfully!")
       setCourses(courses.filter(c => c.id !== selectedCourse.id))
       setDeleteDialogOpen(false)
-    } catch (error: any) {
-      toast.error(error.message || "Failed to delete course")
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Failed to create course")
     } finally {
       setIsLoading(false)
     }
