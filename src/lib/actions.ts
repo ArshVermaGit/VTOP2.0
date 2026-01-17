@@ -1,6 +1,8 @@
 "use server"
 
+import { randomBytes } from "crypto"
 import prisma from "@/lib/prisma"
+import { GradeHistory } from "@prisma/client"
 import { getServerSession } from "next-auth/next"
 import { authOptions } from "@/lib/auth"
 import * as DocumentEngine from "@/lib/engine/docs"
@@ -323,7 +325,8 @@ export async function getAcademicPerformance() {
   const cgpa = totalCredits > 0 ? (totalPoints / totalCredits).toFixed(2) : "0.00"
 
   // Semester-wise grouping
-  const semesterWise = history.reduce((acc: Record<string, { credits: number, points: number, courses: any[] }>, curr) => {
+  type SemesterData = { credits: number, points: number, courses: GradeHistory[] }
+  const semesterWise = history.reduce((acc: Record<string, SemesterData>, curr) => {
     if (!acc[curr.semester]) {
       acc[curr.semester] = { credits: 0, points: 0, courses: [] }
     }
@@ -333,7 +336,7 @@ export async function getAcademicPerformance() {
     return acc
   }, {})
 
-  const semesterPerformance = Object.entries(semesterWise).map(([sem, data]: [string, any]) => ({
+  const semesterPerformance = Object.entries(semesterWise).map(([sem, data]) => ({
     semester: sem,
     gpa: (data.points / data.credits).toFixed(2),
     credits: data.credits,
@@ -1106,7 +1109,7 @@ export async function getAchievementsData() {
   }
 }
 
-export async function submitAchievement(data: any) {
+export async function submitAchievement(data: { title: string, category: string, description: string, date: Date, documentUrl?: string | null }) {
   const profile = await getStudentProfile()
   if (!profile) throw new Error("Unauthorized")
 
@@ -1138,7 +1141,7 @@ export async function getPendingFeedbacks() {
   return surveys.filter(s => s.responses.length === 0)
 }
 
-export async function submitFeedback(surveyId: string, content: any, courseId?: string, facultyId?: string) {
+export async function submitFeedback(surveyId: string, content: Record<string, unknown>, courseId?: string, facultyId?: string) {
   const profile = await getStudentProfile()
   if (!profile) throw new Error("Unauthorized")
 
@@ -1480,9 +1483,15 @@ export async function toggle2FA(enabled: boolean) {
   const userId = session.user.id
 
   if (enabled) {
+<<<<<<< Updated upstream
       // Generate a secret and backup codes for 2FA using a cryptographically secure PRNG
       const secret = generateSecureCode(10)
       const codes = Array.from({ length: 5 }, () => generateSecureCode(6))
+=======
+      // Generate a dummy secret for mock 2FA
+      const secret = randomBytes(10).toString('hex').toUpperCase()
+      const codes = Array.from({ length: 5 }, () => randomBytes(4).toString('hex').toUpperCase())
+>>>>>>> Stashed changes
       
       await prisma.user.update({
           where: { id: userId },
@@ -1532,7 +1541,7 @@ export async function exportAcademicReport(type: 'GRADES' | 'ATTENDANCE' | 'FINA
   const session = await getServerSession(authOptions)
   if (!session?.user) throw new Error("Unauthorized")
 
-  let data: any[] = []
+  let data: Record<string, unknown>[] = []
   
   if (type === 'GRADES') {
       const student = await getStudentProfile()
