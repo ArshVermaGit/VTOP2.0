@@ -71,8 +71,8 @@ export function MarksManagementClient({ initialMarks }: { initialMarks: Marks[] 
       toast.success("Marks updated successfully!")
       setEditDialogOpen(false)
       router.refresh()
-    } catch (error: any) {
-      toast.error(error.message || "Failed to update marks")
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Failed to update marks")
     } finally {
       setIsLoading(false)
     }
