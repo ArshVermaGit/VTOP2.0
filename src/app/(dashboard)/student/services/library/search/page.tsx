@@ -19,9 +19,17 @@ import {
 } from "lucide-react"
 import Link from "next/link"
 
+interface Book {
+  id: string
+  title: string
+  author: string
+  availableCopies: number
+  location: string
+}
+
 export default function LibrarySearchPage() {
   const [query, setQuery] = useState("")
-  const [results, setResults] = useState<any[]>([])
+  const [results, setResults] = useState<Book[]>([])
   const [loading, setLoading] = useState(false)
   const [hasSearched, setHasSearched] = useState(false)
 
@@ -41,7 +49,7 @@ export default function LibrarySearchPage() {
     try {
       await reserveBook(bookId)
       alert("Book reserved successfully!")
-    } catch (error) {
+    } catch {
       alert("Failed to reserve book.")
     }
   }
