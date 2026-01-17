@@ -1,8 +1,9 @@
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { FileText, CreditCard, Library, Bus, Download, FileCheck, History, ChevronRight, Plus, ExternalLink, ShieldCheck, Printer, Verified } from "lucide-react"
+import { FileText, Library, Bus, Download, FileCheck, History, ChevronRight, Plus, ShieldCheck, Printer, Verified } from "lucide-react"
 import { getServiceRequests, getDigitalCredentials } from "@/lib/actions"
 import { Button } from "@/components/ui/button"
+import Image from "next/image"
 
 export default async function AdminServicesPage() {
   const requests = await getServiceRequests()
@@ -22,8 +23,10 @@ export default async function AdminServicesPage() {
           <p className="text-gray-400 mt-1">Official Certificates, Transcripts & Digital Credentials</p>
         </div>
         <div className="flex items-center gap-3">
-             <Button className="bg-indigo-600 hover:bg-indigo-700 text-white font-black uppercase text-[10px] tracking-widest px-6 h-10 shadow-lg">
-                <Plus className="w-4 h-4 mr-2" /> New Request
+             <Button className="bg-indigo-600 hover:bg-indigo-700 text-white font-black uppercase text-[10px] tracking-widest px-6 h-10 shadow-lg" asChild>
+                <a href="#new-request">
+                    <Plus className="w-4 h-4 mr-2" /> New Request
+                </a>
              </Button>
              <Badge className="bg-indigo-600/20 text-indigo-400 border border-indigo-500/20 px-4 py-1 uppercase font-black text-[9px]">Official Services</Badge>
         </div>
@@ -135,7 +138,13 @@ export default async function AdminServicesPage() {
                 <CardContent className="space-y-6 relative z-10 py-6">
                      <div className="flex items-center gap-4">
                         <div className="w-16 h-16 rounded-2xl bg-white/20 backdrop-blur-xl border border-white/30 flex items-center justify-center p-1 overflow-hidden">
-                             <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&q=80&w=250" className="w-full h-full object-cover rounded-xl" />
+                             <Image 
+                                src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&q=80&w=250" 
+                                className="w-full h-full object-cover rounded-xl"
+                                alt="Student Profile"
+                                width={64}
+                                height={64}
+                            />
                         </div>
                         <div className="space-y-0.5 text-white">
                              <p className="text-xs font-black uppercase tracking-tight">Arsh Verma</p>
@@ -187,7 +196,7 @@ export default async function AdminServicesPage() {
                     </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                    <p className="text-[11px] text-gray-400 leading-relaxed italic">"Official hardcopies of certificates can be collected from AB1 Hub after proctor & registrar digital signing is completed."</p>
+                    <p className="text-[11px] text-gray-400 leading-relaxed italic">&quot;Official hardcopies of certificates can be collected from AB1 Hub after proctor &amp; registrar digital signing is completed.&quot;</p>
                     <div className="space-y-2">
                         <div className="flex justify-between items-center text-[10px] font-black uppercase">
                             <span className="text-gray-500">AB1 Hub Hours</span>
