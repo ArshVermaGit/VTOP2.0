@@ -1,5 +1,13 @@
 // --- VTOP 2.0 COMMUNICATION GATEWAY ---
 
+interface CalendarEvent {
+  title: string
+  description?: string | null
+  location?: string | null
+  start: string
+  end: string
+}
+
 export async function sendNotification(type: 'EMAIL' | 'SMS', payload: { to: string; subject?: string; message: string }) {
     console.log(`[NOTIFY_GATEWAY] Dispatching ${type} to: ${payload.to}`);
     if (type === 'EMAIL') {
@@ -14,7 +22,7 @@ export async function sendNotification(type: 'EMAIL' | 'SMS', payload: { to: str
     return { success: true, messageId: `msg_${Math.random().toString(36).substring(2, 12)}` };
 }
 
-export function generateICS(events: any[]) {
+export function generateICS(events: CalendarEvent[]) {
     console.log("[CALENDAR_ENGINE] Constructing .ics payload...");
     
     const icsContent = [
@@ -45,7 +53,7 @@ export function generateICS(events: any[]) {
     return icsContent.join('\r\n');
 }
 
-export async function exportToGoogleCalendar(events: any[]) {
+export async function exportToGoogleCalendar(events: CalendarEvent[]) {
     console.log("[CALENDAR_ENGINE] Generating Google Calendar Deep Link...");
     const event = events[0];
     const baseUrl = "https://www.google.com/calendar/render?action=TEMPLATE";
