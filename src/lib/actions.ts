@@ -1,6 +1,6 @@
 "use server"
 
-import { randomBytes } from "crypto"
+
 import prisma from "@/lib/prisma"
 import { GradeHistory } from "@prisma/client"
 import { getServerSession } from "next-auth/next"
@@ -1483,15 +1483,9 @@ export async function toggle2FA(enabled: boolean) {
   const userId = session.user.id
 
   if (enabled) {
-<<<<<<< Updated upstream
       // Generate a secret and backup codes for 2FA using a cryptographically secure PRNG
       const secret = generateSecureCode(10)
       const codes = Array.from({ length: 5 }, () => generateSecureCode(6))
-=======
-      // Generate a dummy secret for mock 2FA
-      const secret = randomBytes(10).toString('hex').toUpperCase()
-      const codes = Array.from({ length: 5 }, () => randomBytes(4).toString('hex').toUpperCase())
->>>>>>> Stashed changes
       
       await prisma.user.update({
           where: { id: userId },
