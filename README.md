@@ -1,7 +1,7 @@
 <div align="center">
-  <img src="public/logo.png" alt="VTOP 2.0" width="180" />
+  <img src="public/logo.png" alt="CampusHub" width="180" />
   
-  # ⚡ VTOP 2.0
+  # ⚡ CampusHub
   
   **The University Portal That Doesn't Make You Cry**
   
@@ -22,7 +22,7 @@
 
 Legacy university portals are archaeological artifacts. They're slow, confusing, and look like they were designed when dial-up was cutting-edge technology.
 
-**VTOP 2.0** is the ground-up rewrite nobody asked for but everyone desperately needed. No half-measures. No compromises. Just pure, beautiful functionality.
+**CampusHub** is the ground-up rewrite nobody asked for but everyone desperately needed. No half-measures. No compromises. Just pure, beautiful functionality.
 
 ---
 
@@ -31,7 +31,7 @@ Legacy university portals are archaeological artifacts. They're slow, confusing,
 <table>
 <tr>
 <td>❌ <strong>The Old Way</strong></td>
-<td>✅ <strong>VTOP 2.0</strong></td>
+<td>✅ <strong>CampusHub</strong></td>
 </tr>
 <tr>
 <td>
@@ -135,35 +135,32 @@ We didn't just build a portal. We crafted an **experience**.
 
 ---
 
-## 🚀 Tech Stack That Scales
+## 🏗️ Architecture at a Glance
 
-Built on bleeding-edge technology designed for performance and maintainability:
+CampusHub implements a **Flat Modular Architecture**.
 
-```
-Next.js 16 (App Router + Server Actions)
-              ↓
-      React 19 + TypeScript 5.9
-              ↓
-         Prisma ORM
-              ↓
-        PostgreSQL
-              ↓
-NextAuth.js + Tailwind CSS + Framer Motion
-              ↓
-     Radix UI Primitives
+```mermaid
+graph TD
+    A[App Router] --> B(Dashboard Pages)
+    B --> C{Sections Engine}
+    C --> D[Faculty Domain]
+    C --> E[Student Domain]
+    C --> F[Parent Domain]
+    G[Config Registry] --> H(Navigation Logic)
+    H --> I[Sidebar UI]
 ```
 
-**Why These Choices?**
+- **Domain Isolation**: UI code for each portal (Student, Faculty, Parent) is isolated in `src/sections`.
+- **Decoupled Logic**: Navigation and metadata are managed in `src/config`.
+- **Strict Typing**: Full Prisma integration with a zero-warning build state.
 
-| Tech              | Why We Use It                                         |
-| ----------------- | ----------------------------------------------------- |
-| **Next.js 16**    | Server Components + edge rendering = blazing speed    |
-| **React 19**      | Latest hooks, concurrent features, better performance |
-| **TypeScript**    | Type safety prevents bugs before they happen          |
-| **Prisma**        | Type-safe queries + painless migrations               |
-| **NextAuth.js**   | Battle-tested auth with multi-role support            |
-| **Tailwind**      | Rapid UI development without CSS hell                 |
-| **Framer Motion** | Cinematic animations that don't tank performance      |
+## 🛠️ Tech Stack & Engine
+
+- **Framework**: Next.js 15 (App Router)
+- **Database**: PostgreSQL (Prisma ORM)
+- **Security**: NextAuth.js (Google OAuth & Adaptive 2FA)
+- **Visuals**: Tailwind CSS, Framer Motion, Lucide Icons
+- **Sanity**: TypeScript (Strict Mode), ESLint (Zero-Error)
 
 ---
 
@@ -332,29 +329,7 @@ No compromises. Just speed.
 
 ## 🤝 Contributing
 
-Found a bug? Have an idea? PRs are welcome!
-
-**Quick links:**
-
-- [Contributing Guidelines](CONTRIBUTING.md)
-- [Code of Conduct](CODE_OF_CONDUCT.md)
-- [Security Policy](SECURITY.md)
-- [Support Guide](SUPPORT.md)
-
-**How to contribute:**
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-**Guidelines:**
-
-- Follow existing code style (Prettier + ESLint configured)
-- Write meaningful commit messages
-- Update documentation as needed
-- Test thoroughly before submitting
+We welcome contributions! Please read our [CONTRIBUTING.md](CONTRIBUTING.md) to understand our architectural patterns and quality standards.
 
 ---
 
@@ -366,13 +341,13 @@ _Full Stack Architect • UI/UX Perfectionist_
 Built with ❤️, TypeScript, and way too much coffee.
 
 **Connect:**  
-[🐙 GitHub](https://github.com/ArshVermaGit) • [💼 LinkedIn](https://linkedin.com/in/arshverma) • [🌐 Portfolio](https://arshverma.dev)
+[🐙 GitHub](https://github.com/ArshVermaGit) • [💼 LinkedIn](https://www.linkedin.com/in/arshvermadev/) • [🌐 Portfolio](https://arshverma.dev) • [🐦 X (Twitter)](https://x.com/TheArshVerma)
 
 ---
 
 ## 📜 License & Governance
 
-VTOP 2.0 is released under the **MIT License**.
+CampusHub is released under the **MIT License**.
 
 - [Full License Details](LICENSE.md)
 - [Changelog](CHANGELOG.md)
@@ -386,7 +361,7 @@ MIT License — Use it, modify it, share it. Just don't claim you built it from 
   
   ### ⭐ Star this repo if it saved your sanity!
   
-  **VTOP 2.0** — *Engineering the Future of Education*
+  **CampusHub** — *Engineering the Future of Education*
   
   ```
   ╔════════════════════════════════════════╗
