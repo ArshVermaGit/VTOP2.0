@@ -2,7 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Badge } from "@/components/ui/badge"
 import { Database, HardDrive, RefreshCw, Activity } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { DatabaseControlClient } from "@/components/admin/DatabaseControlClient"
+import { DatabaseControlClient } from "@/sections/admin/DatabaseControlClient"
 import { getSystemAudit } from "@/lib/admin-actions"
 
 export default async function AdminDatabasePage() {
@@ -22,7 +22,7 @@ export default async function AdminDatabasePage() {
          </Button>
       </div>
 
-      <DatabaseControlClient counts={counts as any} />
+      <DatabaseControlClient counts={counts as unknown as Record<string, number>} />
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
          <StatsCard label="Active Connections" value="342" icon={Database} color="emerald" />
@@ -62,7 +62,7 @@ export default async function AdminDatabasePage() {
   )
 }
 
-function StatsCard({ label, value, icon: Icon, color }: { label: string, value: string, icon: any, color: string }) {
+function StatsCard({ label, value, icon: Icon, color }: { label: string, value: string, icon: React.ElementType, color: string }) {
     const colorMap: Record<string, string> = {
         emerald: "text-emerald-400 bg-emerald-500/10 border-emerald-500/20",
         blue: "text-blue-400 bg-blue-500/10 border-blue-500/20",
