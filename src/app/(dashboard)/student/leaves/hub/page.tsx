@@ -1,13 +1,14 @@
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Calendar, MapPin, Clock, ShieldCheck, AlertCircle, FileText, CheckCircle2, ChevronRight, Plus, History, XCircle, Plane, Car, UserCheck } from "lucide-react"
+import { Calendar, MapPin, Clock, ShieldCheck, AlertCircle, FileText, ChevronRight, Plus, History, XCircle, Plane, UserCheck } from "lucide-react"
 import { getLeaveStatus } from "@/lib/actions"
 import { Button } from "@/components/ui/button"
-import Link from "next/link"
+import type { LeaveRequest } from "@/types/student"
+// Link import removed as it was unused
 
 export default async function LeaveHubPage() {
   const leaves = await getLeaveStatus()
-  const activeLeaves = leaves?.filter(l => l.status === 'PENDING' || l.status === 'APPROVED') || []
+  // const activeLeaves = leaves?.filter((l: any) => l.status === 'PENDING' || l.status === 'APPROVED') || []
 
   return (
     <div className="space-y-6">
@@ -69,7 +70,7 @@ export default async function LeaveHubPage() {
                 <CardContent className="p-0">
                     {leaves && leaves.length > 0 ? (
                         <div className="divide-y divide-white/5">
-                            {leaves.map((leave) => (
+                            {leaves.map((leave: LeaveRequest) => (
                                 <div key={leave.id} className="p-5 hover:bg-white/[0.02] transition-colors flex items-center justify-between group">
                                     <div className="flex items-center gap-5">
                                         <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${
@@ -197,7 +198,7 @@ export default async function LeaveHubPage() {
                     <ShieldCheck className="w-5 h-5 text-blue-400" />
                     <h4 className="text-white font-bold text-sm uppercase">Secure Vault</h4>
                 </div>
-                <p className="text-xs text-gray-400 leading-relaxed">All digital permissions are cryptographically signed by the University Registrar and are verifiable via the VTOP Mobile App QR scanner.</p>
+                <p className="text-xs text-gray-400 leading-relaxed">All digital permissions are cryptographically signed by the University Registrar and are verifiable via the CampusHub Mobile App QR scanner.</p>
             </div>
         </div>
       </div>
