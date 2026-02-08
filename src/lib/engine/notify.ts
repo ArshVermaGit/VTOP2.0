@@ -1,4 +1,4 @@
-// --- VTOP 2.0 COMMUNICATION GATEWAY ---
+// --- CampusHub COMMUNICATION GATEWAY ---
 
 interface CalendarEvent {
   title: string
@@ -28,17 +28,17 @@ export function generateICS(events: CalendarEvent[]) {
     const icsContent = [
         "BEGIN:VCALENDAR",
         "VERSION:2.0",
-        "PRODID:-//VTOP 2.0//NONSGML v1.0//EN",
+        "PRODID:-//CampusHub//NONSGML v1.0//EN",
         "CALSCALE:GREGORIAN",
         "METHOD:PUBLISH"
     ];
 
     events.forEach(event => {
         icsContent.push("BEGIN:VEVENT");
-        icsContent.push(`UID:${Math.random().toString(36).substring(2)}@vtop.university.edu`);
+        icsContent.push(`UID:${Math.random().toString(36).substring(2)}@campushub.university.edu`);
         icsContent.push(`DTSTAMP:${new Date().toISOString().replace(/[-:]/g, '').split('.')[0]}Z`);
         icsContent.push(`SUMMARY:${event.title}`);
-        icsContent.push(`DESCRIPTION:${event.description || 'VTOP 2.0 Academic Event'}`);
+        icsContent.push(`DESCRIPTION:${event.description || 'CampusHub Academic Event'}`);
         icsContent.push(`LOCATION:${event.location || 'University Campus'}`);
         // Mocking dates if not provided
         const start = event.start || new Date().toISOString();
