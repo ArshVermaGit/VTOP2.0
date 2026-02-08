@@ -66,7 +66,7 @@ export function UniversalRegistry() {
           <h1 className="text-3xl font-bold text-white tracking-tight flex items-center gap-3">
              <Database className="w-8 h-8 text-indigo-500" /> Master Registry
           </h1>
-          <p className="text-gray-400 mt-1">Universal database explorer for VTOP 2.0 Engine</p>
+          <p className="text-gray-400 mt-1">Universal database explorer for CampusHub Engine</p>
         </div>
         <div className="flex items-center gap-3">
              <Select value={model} onValueChange={(v) => { setModel(v); setPage(1); }}>
