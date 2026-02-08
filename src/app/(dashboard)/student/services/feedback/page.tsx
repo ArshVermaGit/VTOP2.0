@@ -16,6 +16,7 @@ import {
 } from "lucide-react"
 import { getPendingFeedbacks } from "@/lib/actions"
 import { Button } from "@/components/ui/button"
+import { FeedbackSurvey } from "@/types/common"
 
 export default async function FeedbackCenterPage() {
   const pendingSurveys = await getPendingFeedbacks()
@@ -27,10 +28,10 @@ export default async function FeedbackCenterPage() {
           <h1 className="text-3xl font-bold text-white tracking-tight flex items-center gap-3">
              <MessageSquare className="w-8 h-8 text-rose-500" /> Feedback Center
           </h1>
-          <p className="text-gray-400 mt-1">Course Evaluations, Faculty Feedback & Institutional Surveys</p>
+          <p className="text-gray-400 mt-1">Course Evaluations, Faculty Feedback & Campus Surveys</p>
         </div>
         <div className="flex items-center gap-3">
-           <Badge className="bg-rose-600/20 text-rose-400 border border-rose-500/20 px-4 py-1 uppercase font-black text-[9px]">Mandatory for Registration</Badge>
+           <Badge className="bg-rose-600/20 text-rose-400 border border-rose-500/20 px-4 py-1 uppercase font-black text-[9px]">Required for Semester Registration</Badge>
         </div>
       </div>
 
@@ -42,14 +43,14 @@ export default async function FeedbackCenterPage() {
                     <div className="flex justify-between items-center">
                         <div className="flex items-center gap-3">
                             <ClipboardCheck className="w-5 h-5 text-emerald-400" />
-                            <CardTitle className="text-white text-lg">Survey Tasklist</CardTitle>
+                            <CardTitle className="text-white text-lg">Your Feedback Tasks</CardTitle>
                         </div>
                         <Badge variant="outline" className="border-emerald-500/20 text-emerald-400 uppercase text-[8px] font-black">{pendingSurveys.length} Pending</Badge>
                     </div>
                 </CardHeader>
                 <CardContent className="p-0">
                     <div className="divide-y divide-white/5">
-                        {pendingSurveys.length > 0 ? pendingSurveys.map((survey) => (
+                        {pendingSurveys.length > 0 ? pendingSurveys.map((survey: FeedbackSurvey) => (
                             <div key={survey.id} className="p-6 hover:bg-white/[0.01] transition-colors group cursor-pointer flex flex-col md:row md:items-center justify-between gap-6">
                                 <div className="flex items-start gap-5">
                                     <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 group-hover:bg-rose-600/20 group-hover:text-rose-400 transition-all">
@@ -82,8 +83,8 @@ export default async function FeedbackCenterPage() {
                                    <CheckCircle2 className="w-8 h-8" />
                                </div>
                                <div className="space-y-1">
-                                   <p className="text-white font-black text-xs uppercase tracking-widest">No Pending Feedback</p>
-                                   <p className="text-gray-500 text-[10px] uppercase font-bold">You are compliant with all institutional evaluations.</p>
+                                   <p className="text-white font-black text-xs uppercase tracking-widest">You&apos;re All Caught Up</p>
+                                   <p className="text-gray-500 text-[10px] uppercase font-bold">You have no pending evaluations at the moment.</p>
                                </div>
                            </div>
                         )}
@@ -98,7 +99,7 @@ export default async function FeedbackCenterPage() {
                     </div>
                     <CardHeader className="bg-black/20 border-b border-white/5">
                          <CardTitle className="text-white text-md flex items-center gap-2">
-                              <ShieldCheck className="w-5 h-5 text-indigo-400" /> Anonymity Protocol
+                              <ShieldCheck className="w-5 h-5 text-indigo-400" /> Your Privacy Matters
                          </CardTitle>
                     </CardHeader>
                     <CardContent className="p-5 space-y-4">
@@ -139,14 +140,14 @@ export default async function FeedbackCenterPage() {
                      <AlertCircle className="w-32 h-32 text-white" />
                  </div>
                  <CardHeader>
-                      <p className="text-[10px] text-white/50 uppercase font-black tracking-widest italic leading-tight">Compliance Status</p>
+                      <p className="text-[10px] text-white/50 uppercase font-black tracking-widest italic leading-tight">Your Status</p>
                       <CardTitle className="text-white text-2xl font-black uppercase">ACTION REQUIRED</CardTitle>
                  </CardHeader>
                  <CardContent className="space-y-4 relative z-10 py-2">
                       <div className="p-4 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 space-y-2">
                           <p className="text-white font-bold text-xs">Hall Ticket Eligibility</p>
                           <p className="text-[10px] text-white/70 leading-relaxed">
-                              You have **{pendingSurveys.length} pending coarse evaluations**. Complete them to unlock your Winter 24-25 FAT Hall Ticket.
+                              You have **{pendingSurveys.length} pending evaluations**. Complete them to unlock your Hall Ticket for the upcoming exams.
                           </p>
                       </div>
                       <Button className="w-full bg-white text-rose-600 hover:bg-rose-50 font-black uppercase text-[10px] tracking-widest h-11 transition-all shadow-xl">
