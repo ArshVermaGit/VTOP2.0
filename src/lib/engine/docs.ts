@@ -1,19 +1,19 @@
-// --- VTOP 2.0 DOCUMENT ENGINE ---
+// --- CampusHub DOCUMENT ENGINE ---
 
 export async function generatePDF(type: 'TRANSCRIPT' | 'HALL_TICKET' | 'PAYSLIP', _data: Record<string, unknown>) {
     console.log(`[DOC_ENGINE] Starting PDF Generation Protocol for: ${type}`);
     void _data; // Suppress unused warning
     // In a real environment, we would use jspdf or puppeteer.
-    // For VTOP 2.0, we simulate the server-side processing delay and return a mock URL.
+    // For CampusHub, we simulate the server-side processing delay and return a mock URL.
     await new Promise(resolve => setTimeout(resolve, 1500));
     
     const timestamp = new Date().getTime();
-    console.log(`[DOC_ENGINE] PDF Optimized & Sealed: vtop_${type.toLowerCase()}_${timestamp}.pdf`);
+    console.log(`[DOC_ENGINE] PDF Optimized & Sealed: hub_${type.toLowerCase()}_${timestamp}.pdf`);
     
     return {
         success: true,
-        url: `/api/docs/download?file=vtop_${type.toLowerCase()}_${timestamp}.pdf`,
-        filename: `vtop_${type.toLowerCase()}_${timestamp}.pdf`
+        url: `/api/docs/download?file=campushub_${type.toLowerCase()}_${timestamp}.pdf`,
+        filename: `campushub_${type.toLowerCase()}_${timestamp}.pdf`
     };
 }
 
@@ -38,6 +38,6 @@ export async function generateCSVExport(type: string, data: Record<string, unkno
         success: true,
         content: csvContent,
         size: blob.size,
-        filename: `vtop_export_${type.toLowerCase()}_${new Date().getTime()}.csv`
+        filename: `hub_export_${type.toLowerCase()}_${new Date().getTime()}.csv`
     };
 }
