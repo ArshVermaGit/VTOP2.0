@@ -1,4 +1,4 @@
-// --- VTOP 2.0 LEGACY SYNC ENGINE ---
+// --- CampusHub LEGACY SYNC ENGINE ---
 
 export async function solveCaptcha() {
     console.log("[SYNC_ENGINE] Captcha Challenge Received. Initializing Solver...");
@@ -22,7 +22,7 @@ export async function syncLegacyData(target: 'ATTENDANCE' | 'MARKS' | 'PROFILE')
     await solveCaptcha();
     
     // Step 2: Session Establishment
-    console.log("[SYNC_ENGINE] Authenticating with Legacy VTOP Nodes...");
+    console.log("[SYNC_ENGINE] Authenticating with Legacy CampusHub Nodes...");
     await new Promise(resolve => setTimeout(resolve, 1000));
     
     // Step 3: Scraping Data
