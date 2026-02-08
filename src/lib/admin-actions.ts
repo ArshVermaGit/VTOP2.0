@@ -177,7 +177,7 @@ export async function createUser(data: CreateUserData) {
       userId: (session.user as { id: string }).id,
       event: `USER_CREATED: ${data.username} (${data.role})`,
       ipAddress: 'Admin Panel',
-      device: 'VTOP 2.0 Admin'
+      device: 'CampusHub Admin'
     }
   })
 
@@ -227,7 +227,7 @@ export async function updateUser(id: string, data: Partial<CreateUserData>) {
       userId: (session.user as { id: string }).id,
       event: `USER_UPDATED: ${user.username}`,
       ipAddress: 'Admin Panel',
-      device: 'VTOP 2.0 Admin'
+      device: 'CampusHub Admin'
     }
   })
 
@@ -264,7 +264,7 @@ export async function deleteUser(id: string) {
       userId: (session.user as { id: string }).id,
       event: `USER_DELETED: ${user.username} (${user.role})`,
       ipAddress: 'Admin Panel',
-      device: 'VTOP 2.0 Admin'
+      device: 'CampusHub Admin'
     }
   })
 
@@ -285,7 +285,7 @@ export async function linkParentToStudent(parentUserId: string, studentProfileId
       userId: (session.user as { id: string }).id,
       event: `PARENT_LINKED: Parent ${parentUserId} -> Student ${studentProfileId}`,
       ipAddress: 'Admin Panel',
-      device: 'VTOP 2.0 Admin'
+      device: 'CampusHub Admin'
     }
   })
 
@@ -382,7 +382,7 @@ export async function createCourse(data: {
       userId: (session.user as { id: string }).id,
       event: `COURSE_CREATED: ${data.code}`,
       ipAddress: 'Admin Panel',
-      device: 'VTOP 2.0 Admin'
+      device: 'CampusHub Admin'
     }
   })
 
@@ -412,7 +412,7 @@ export async function updateCourse(id: string, data: Partial<{
       userId: (session.user as { id: string }).id,
       event: `COURSE_UPDATED: ${course.code}`,
       ipAddress: 'Admin Panel',
-      device: 'VTOP 2.0 Admin'
+      device: 'CampusHub Admin'
     }
   })
 
@@ -433,7 +433,7 @@ export async function deleteCourse(id: string) {
       userId: (session.user as { id: string }).id,
       event: `COURSE_DELETED: ${course.code}`,
       ipAddress: 'Admin Panel',
-      device: 'VTOP 2.0 Admin'
+      device: 'CampusHub Admin'
     }
   })
 
@@ -481,7 +481,7 @@ export async function updateMarks(id: string, data: Partial<{
       userId: (session.user as { id: string }).id,
       event: `MARKS_UPDATED: Student ${marks.studentId}, Course ${marks.courseId}`,
       ipAddress: 'Admin Panel',
-      device: 'VTOP 2.0 Admin'
+      device: 'CampusHub Admin'
     }
   })
 
@@ -537,7 +537,7 @@ export async function clearDatabase() {
       userId: (session.user as { id: string }).id,
       event: `DATABASE_CLEARED`,
       ipAddress: 'Admin Panel',
-      device: 'VTOP 2.0 Admin'
+      device: 'CampusHub Admin'
     }
   })
 
