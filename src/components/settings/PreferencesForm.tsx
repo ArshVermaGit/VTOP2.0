@@ -29,13 +29,13 @@ export function PreferencesForm({ email, mobile }: PreferencesFormProps) {
     <div className="space-y-6 max-w-3xl mx-auto">
       <div className="flex flex-col gap-2">
         <h1 className="text-3xl font-bold text-white tracking-tight">Preferences</h1>
-        <p className="text-gray-400">Customize your VTOP experience.</p>
+        <p className="text-gray-400">Customize your CampusHub experience.</p>
       </div>
 
       <Card className="bg-white/5 border-white/10">
         <CardHeader>
             <CardTitle>Notifications</CardTitle>
-            <CardDescription>Control how you receive alerts.</CardDescription>
+            <CardDescription>Choose how you&apos;d like to stay updated.</CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
             <div className="flex items-center justify-between">
