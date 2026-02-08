@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { Providers } from "@/components/providers/Providers";
+import { Toaster } from "sonner"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -13,16 +15,13 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "VTOP 2.0 | Advanced University Management System",
-  description: "Experience the next generation of academic management with VTOP 2.0. Secure, fast, and unified portal for students, faculty, and administrators.",
+  title: "CampusHub | Your Smart Campus Portal",
+  description: "Everything you need for campus life, all in one place. Secure, fast, and easy to use.",
   icons: {
-    icon: "/icon.png",
-    apple: "/icon.png",
+    icon: "/crest-icon.png",
+    apple: "/crest-icon.png",
   },
 };
-
-import { Providers } from "@/components/Providers"
-import { Toaster } from "sonner"
 
 export default function RootLayout({
   children,
