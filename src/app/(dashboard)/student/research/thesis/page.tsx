@@ -1,9 +1,9 @@
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { FileUp, ShieldCheck, AlertCircle, FileText, CheckCircle2, ChevronRight, GraduationCap, Gavel, Info, Lock } from "lucide-react"
+import { FileUp, ShieldCheck, AlertCircle, FileText, CheckCircle2, ChevronRight, GraduationCap, Info, Lock } from "lucide-react"
 import { getResearchProfile } from "@/lib/actions"
 import { Button } from "@/components/ui/button"
-import Link from "next/link"
+
 
 export default async function ThesisHubPage() {
   const profile = await getResearchProfile()
