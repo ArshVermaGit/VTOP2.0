@@ -1,72 +1,48 @@
-# Contributing to VTOP 2.0 🚀
+# Contributing to CampusHub
 
-First off, thank you for considering contributing to VTOP 2.0! It's people like you that make VTOP 2.0 such a great tool for the campus community.
+Welcome! We are building the next generation of university governance. To ensure the project remains scalable and 100% bug-free, please adhere to the following standards.
 
-## 🌈 Code of Conduct
+## Architectural Pattern: "Sections & Features"
 
-This project and everyone participating in it is governed by the [VTOP 2.0 Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code.
+CampusHub uses a modular section-based architecture.
 
-## 🏗️ How Can I Contribute?
+- **Pages** (`src/app/`): Dashboard pages should be thin wrappers (server components) that fetch data and pass it to modular sections.
+- **Sections** (`src/sections/[portal]/`): All UI logic must be encapsulated in domain-specific sections (e.g., `FacultyMetrics`, `StudentPipeline`).
+- **Configuration** (`src/config/`): Menus, site names, and global constants must be decoupled from the UI.
 
-### Reporting Bugs
+### Folder Structure Example
 
-- Check the [Issues](https://github.com/ArshVermaGit/Vtop2.0/issues) to see if the bug has already been reported.
-- If not, open a new issue with a clear title and description, steps to reproduce, and any relevant logs or screenshots.
+```text
+src/
+├── app/dashboard/page.tsx      # Entry point (Fetch only)
+└── sections/faculty/
+    ├── FacultyMetrics.tsx      # Isolated UI Section
+    └── ProctorAudit.tsx        # Isolated UI Section
+```
 
-### Suggesting Enhancements
+## Coding Standards
 
-- Open a new issue with the tag `enhancement`.
-- Describe the feature you'd like to see and why it would be useful.
+### 1. Type Safety
 
-### Pull Requests
+- **Zero `any` Policy**: Use of `any` is strictly prohibited. All data must be typed using the Prisma-aligned domain types in `src/types/`.
+- **Strict Null Checks**: Always handle null/undefined states for profile data.
 
-1. Fork the repo and create your branch from `main`.
-2. If you've added code that should be tested, add tests.
-3. If you've changed APIs, update the documentation.
-4. Ensure the test suite passes.
-5. Make sure your code lints.
-6. Issue the pull request!
+### 2. UI & Aesthetics
 
-## 💻 Local Development Setup
+- **Responsive-First**: All modals and dashboards must be tested on mobile (`lg:col-span` etc).
+- **Lucide Icons**: Use standard Lucide icons for consistency.
+- **Framer Motion**: Use `AnimatePresence` for smooth transitions. Avoid heavy CSS animations.
 
-### Prerequisites
+### 3. Image Optimization
 
-- Node.js 18+
-- PostgreSQL
-- Git
+- Never use generic `<img>` tags. Always use `next/image` for automatic optimization and LCP performance.
 
-### Steps
+## Pull Request Process
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/ArshVermaGit/Vtop2.0.git
-   cd Vtop2.0
-   ```
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
-3. **Configure environment**
-   Create a `.env` file in the root directory and add the necessary environment variables (refer to `README.md` for details).
-4. **Initialize database**
-   ```bash
-   npx prisma generate
-   npx prisma db push
-   ```
-5. **Run the development server**
-   ```bash
-   npm run dev
-   ```
+1. **Lint Check**: Run `npm run lint` before submitting. PRs with warnings will be rejected.
+2. **Build Check**: Ensure `npm run build` succeeds locally.
+3. **Documentation**: If adding a new feature, update the relevant section in `README.md`.
 
-## 🎨 Style Guide
+---
 
-- **TypeScript**: Use TypeScript for all new features.
-- **Styling**: Use Tailwind CSS for styling.
-- **Components**: Follow the existing component structure in `src/components`.
-- **Commits**: Write descriptive commit messages.
-
-## 🤔 Questions?
-
-Feel free to open an issue or reach out to the maintainers if you have any questions.
-
-Happy coding! ⚡
+Build with 🖤 for the ecosystem.
