@@ -2,7 +2,7 @@
 
 ## Supported Versions
 
-We primarily support the latest version of VTOP 2.0. Security patches will be applied to the `main` branch.
+We primarily support the latest version of CampusHub. Security patches will be applied to the `main` branch.
 
 | Version | Supported |
 | ------- | --------- |
@@ -22,4 +22,4 @@ Please email [insert security email address] with the following information:
 - Potential impact.
 - Any suggested fixes.
 
-We will acknowledge your report within 48 hours and provide a timeline for a fix. We appreciate your help in keeping VTOP 2.0 secure!
+We will acknowledge your report within 48 hours and provide a timeline for a fix. We appreciate your help in keeping CampusHub secure!
