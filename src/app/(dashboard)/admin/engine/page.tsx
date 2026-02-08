@@ -1,28 +1,21 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { 
-  Database, 
-  Cpu, 
-  Terminal, 
-  FileText, 
-  Download, 
-  Zap, 
-  RefreshCw, 
-  Mail, 
-  MessageSquare, 
-  Calendar, 
+import {
+  Database,
+  Terminal,
+  FileText,
+  Download,
+  Zap,
+  RefreshCw,
+  Mail,
+  MessageSquare,
+  Calendar,
   ShieldCheck,
-  AlertCircle,
   Activity,
-  ChevronRight,
-  ArrowRight,
-  Loader2,
-  Lock,
-  Search,
-  Globe
+  Loader2
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -49,12 +42,12 @@ export default function EngineControlCenter() {
   const handleSync = async (target: 'ATTENDANCE' | 'MARKS' | 'PROFILE') => {
     setSyncing(target)
     try {
-        const res = await syncInstitutionalData(target)
-        toast({ title: "Synchronization Successful", description: `Legacy ${target} packets integrated into VTOP 2.0.` })
+        await syncInstitutionalData(target)
+        toast({ title: "Updates Complete", description: `University ${target} records are now up to date.` })
         // Refresh logs
         const status = await getSecurityStatus()
         setLogs(status?.securityAudits || [])
-    } catch (e) {
+    } catch {
         toast({ title: "Sync Failed", variant: "destructive" })
     } finally {
         setSyncing(null)
@@ -66,7 +59,7 @@ export default function EngineControlCenter() {
     try {
         const res = await exportAcademicReport(type)
         toast({ title: "Export Compiled", description: `Filename: ${res.filename} | Size: ${res.size} bytes` })
-    } catch (e) {
+    } catch {
         toast({ title: "Export Failed", variant: "destructive" })
     } finally {
         setExporting(null)
@@ -78,9 +71,9 @@ export default function EngineControlCenter() {
     setNotifying(true)
     try {
         await triggerNotification(target, notificationMsg)
-        toast({ title: "Message Dispatched", description: `${target} sent via Institutional Gateway.` })
+        toast({ title: "Message Sent", description: `The ${target} announcement has been dispatched.` })
         setNotificationMsg("")
-    } catch (e) {
+    } catch {
         toast({ title: "Notification Failed", variant: "destructive" })
     } finally {
         setNotifying(false)
@@ -93,7 +86,7 @@ export default function EngineControlCenter() {
         if (ics) {
             toast({ title: "Calendar Generated", description: ".ics file ready for integration." })
         }
-    } catch (e) {
+    } catch {
         toast({ title: "ICS Failed", variant: "destructive" })
     }
   }
@@ -103,12 +96,12 @@ export default function EngineControlCenter() {
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
         <div className="space-y-1">
            <Badge className="bg-amber-600/10 text-amber-500 border border-amber-500/20 px-3 uppercase font-black text-[9px] mb-2 tracking-widest">Root / Engine Access</Badge>
-           <h1 className="text-4xl font-black text-white tracking-tighter uppercase italic flex items-center gap-4">
-              Engine <span className="text-amber-500">Forge</span> Hub
-           </h1>
-           <p className="text-gray-500 text-xs font-bold uppercase tracking-widest leading-none mt-1">
-             Backend Orchestration, Documentation Pipelines & Legacy Bridge
-           </p>
+            <h1 className="text-4xl font-black text-white tracking-tighter uppercase italic flex items-center gap-4">
+               System <span className="text-amber-500">Control</span> Panel
+            </h1>
+            <p className="text-gray-500 text-xs font-bold uppercase tracking-widest leading-none mt-1">
+              System Updates, Reports & Data Sync
+            </p>
         </div>
         <div className="flex items-center gap-4">
             <div className="text-right">
@@ -126,7 +119,7 @@ export default function EngineControlCenter() {
                 <CardHeader className="bg-black/40 border-b border-white/5 py-6">
                     <div className="flex items-center gap-3">
                         <Zap className="w-5 h-5 text-amber-500" />
-                        <CardTitle className="text-white text-lg uppercase font-black italic tracking-tight">Institutional Sync Engine</CardTitle>
+                        <CardTitle className="text-white text-lg uppercase font-black italic tracking-tight">University Data Sync</CardTitle>
                     </div>
                 </CardHeader>
                 <CardContent className="p-8 grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -155,7 +148,7 @@ export default function EngineControlCenter() {
                 <Card className="bg-[#0A0A0B]/80 border-white/10 overflow-hidden">
                     <CardHeader className="bg-black/40 border-b border-white/5">
                         <CardTitle className="text-white text-md uppercase font-black italic flex items-center gap-2">
-                            <FileText className="w-5 h-5 text-indigo-400" /> Document Forging Engine
+                            <FileText className="w-5 h-5 text-indigo-400" /> Report Generator
                         </CardTitle>
                     </CardHeader>
                     <CardContent className="p-8 space-y-4">
@@ -196,14 +189,14 @@ export default function EngineControlCenter() {
                 <Card className="bg-[#0A0A0B]/80 border-white/10 overflow-hidden">
                     <CardHeader className="bg-black/40 border-b border-white/5">
                         <CardTitle className="text-white text-md uppercase font-black italic flex items-center gap-2">
-                            <MessageSquare className="w-5 h-5 text-purple-400" /> Communication Gateway
+                            <MessageSquare className="w-5 h-5 text-purple-400" /> Announcements & Alerts
                         </CardTitle>
                     </CardHeader>
                     <CardContent className="p-8 space-y-6">
                         <Input 
                             value={notificationMsg}
                             onChange={(e) => setNotificationMsg(e.target.value)}
-                            placeholder="Enter institutional message..."
+                            placeholder="Enter campus message..."
                             className="bg-white/5 border-white/10 text-white placeholder:text-gray-700 uppercase font-black text-[10px] h-12 rounded-xl"
                         />
                         <div className="flex gap-4">
@@ -232,7 +225,7 @@ export default function EngineControlCenter() {
              <Card className="bg-[#0A0A0B] border-white/10 overflow-hidden shadow-2xl h-full flex flex-col">
                  <CardHeader className="bg-black/20 border-b border-white/5">
                      <CardTitle className="text-white text-xs uppercase font-black italic tracking-widest flex items-center gap-2">
-                        <Terminal className="w-4 h-4 text-emerald-400" /> VTOP Terminal Logs
+                        <Terminal className="w-4 h-4 text-emerald-400" /> System Activity
                      </CardTitle>
                  </CardHeader>
                  <CardContent className="p-0 flex-1 overflow-y-auto max-h-[600px] scrollbar-hide">
@@ -282,7 +275,7 @@ function SyncOption({ title, description, loading, onClick }: any) {
                 disabled={loading}
             >
                 {loading ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <RefreshCw className="w-3 h-3 mr-2 group-hover:rotate-180 transition-transform duration-500" />}
-                {loading ? 'Orchestrating...' : 'Force Sync'}
+                {loading ? 'Updating...' : 'Sync Now'}
             </Button>
         </div>
     )
