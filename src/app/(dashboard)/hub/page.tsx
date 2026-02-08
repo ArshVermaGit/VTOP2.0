@@ -181,7 +181,7 @@ export default function UnifiedPortalHub() {
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
         <div className="space-y-2">
           <Badge className="bg-white/5 text-white/60 border-white/10 px-3 uppercase font-black text-[9px] tracking-widest">
-            VTOP 2.0 • Unified Access
+            CampusHub • Unified Access
           </Badge>
           <h1 className="text-5xl font-black text-white tracking-tighter uppercase italic">
             {roleLabels[role]} <span className="text-indigo-500">Hub</span>
