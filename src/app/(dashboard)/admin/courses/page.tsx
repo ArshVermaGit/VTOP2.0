@@ -1,5 +1,5 @@
 import { getAllCourses, getFacultyList } from "@/lib/admin-actions"
-import { CourseManagementClient } from "@/components/admin/CourseManagementClient"
+import { CourseManagementClient } from "@/sections/admin/CourseManagementClient"
 
 export default async function AdminCoursesPage() {
   const [courses, faculty] = await Promise.all([
