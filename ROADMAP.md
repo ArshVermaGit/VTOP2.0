@@ -1,6 +1,6 @@
-# VTOP 2.0 Roadmap 🗺️
+# CampusHub Roadmap 🗺️
 
-The future of campus management is here. This roadmap outlines the planned features and improvements for VTOP 2.0.
+The future of campus management is here. This roadmap outlines the planned features and improvements for CampusHub.
 
 ## 🟢 Phase 1: Foundation Clean (Completed)
 
