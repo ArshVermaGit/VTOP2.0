@@ -1,4 +1,4 @@
-import { UniversalRegistry } from "@/components/admin/UniversalRegistry"
+import { UniversalRegistry } from "@/sections/admin/UniversalRegistry"
 
 export default function ExplorerPage() {
   return (
