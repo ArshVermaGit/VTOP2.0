@@ -1,32 +1,26 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { 
   ShieldCheck, 
   Lock, 
   Smartphone, 
-  Key, 
   History, 
-  AlertTriangle,
-  Fingerprint,
-  RotateCcw,
-  CheckCircle2,
-  XCircle,
-  Clock,
-  Globe,
+  ShieldAlert,
   Monitor,
+  Globe,
   Smartphone as PhoneIcon,
-  ChevronRight,
-  ShieldAlert
+  ChevronRight
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Switch } from "@/components/ui/switch"
 import { getSecurityStatus, toggle2FA } from "@/lib/actions"
+import { SecurityStatus, SecurityAudit } from "@/types/common"
 
 export default function SecurityMatrixPage() {
-  const [status, setStatus] = useState<any>(null)
+  const [status, setStatus] = useState<SecurityStatus | null>(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -46,18 +40,18 @@ export default function SecurityMatrixPage() {
     }
   }
 
-  if (loading) return <div className="p-10 text-center text-[10px] text-gray-500 font-black uppercase tracking-widest animate-pulse">Initializing Security Matrix...</div>
+  if (loading) return <div className="p-10 text-center text-[10px] text-gray-500 font-black uppercase tracking-widest animate-pulse">Loading Security Settings...</div>
 
   return (
     <div className="max-w-6xl mx-auto space-y-10 pb-20">
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
         <div className="space-y-1">
-           <Badge className="bg-indigo-600/10 text-indigo-400 border border-indigo-500/20 px-3 uppercase font-black text-[9px] mb-2 tracking-widest">Zero-Trust Environment</Badge>
+           <Badge className="bg-indigo-600/10 text-indigo-400 border border-indigo-500/20 px-3 uppercase font-black text-[9px] mb-2 tracking-widest">Secure Environment</Badge>
            <h1 className="text-4xl font-black text-white tracking-tighter uppercase italic flex items-center gap-4">
-              Security <span className="text-indigo-500">Matrix</span>
+              Security <span className="text-indigo-500">Settings</span>
            </h1>
            <p className="text-gray-500 text-xs font-bold uppercase tracking-widest leading-none mt-1">
-             Protect your identity, credentials and institutional access
+             Protect your account, personal info and campus access
            </p>
         </div>
         <div className="bg-[#0A0A0B] p-4 rounded-2xl border border-white/5 flex items-center gap-4">
@@ -84,7 +78,7 @@ export default function SecurityMatrixPage() {
                 <CardContent className="p-8 space-y-8">
                     <div className="flex items-start justify-between gap-8">
                         <div className="space-y-2 flex-1">
-                            <h4 className="text-white font-black text-sm uppercase italic">Authenticator App (TOTP)</h4>
+                            <h4 className="text-white font-black text-sm uppercase italic">Authenticator App</h4>
                             <p className="text-xs text-gray-500 leading-relaxed font-bold">
                                 Use an app like Google Authenticator or Authy to generate secure, time-based codes for every login attempt.
                             </p>
@@ -158,7 +152,7 @@ export default function SecurityMatrixPage() {
                  </CardHeader>
                  <CardContent className="p-0">
                      <div className="divide-y divide-white/5">
-                         {status?.securityAudits.map((audit: any) => (
+                         {status?.securityAudits.map((audit: SecurityAudit) => (
                              <div key={audit.id} className="p-4 space-y-2 hover:bg-white/[0.01] transition-all group">
                                  <div className="flex items-center justify-between">
                                      <Badge className="bg-white/5 text-[7px] font-black uppercase border-white/10 px-1.5 h-4 italic">
@@ -198,7 +192,7 @@ export default function SecurityMatrixPage() {
             </div>
 
             <Card className="bg-[#0A0A0B] border-white/5 p-6">
-                <h4 className="text-white font-black text-xs uppercase tracking-widest border-b border-white/5 pb-4 mb-4 italic">Privacy Hub</h4>
+                <h4 className="text-white font-black text-xs uppercase tracking-widest border-b border-white/5 pb-4 mb-4 italic">Privacy Center</h4>
                 <div className="space-y-4">
                     <div className="flex items-center justify-between">
                          <p className="text-[10px] text-gray-400 font-black uppercase">Visible to Proctor</p>
