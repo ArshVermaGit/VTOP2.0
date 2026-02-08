@@ -125,7 +125,7 @@ export default async function MessServicesPage() {
                </div>
                <div className="space-y-1">
                     <h4 className="text-white font-bold text-lg">Night Canteen</h4>
-                    <p className="text-xs text-gray-400 max-w-sm">Block-L Annex night canteen is operational from <span className="text-rose-400 font-bold">10:00 PM - 02:30 AM</span>. Order via VTOP Mobile for delivery to your room.</p>
+                    <p className="text-xs text-gray-400 max-w-sm">Block-L Annex night canteen is operational from <span className="text-rose-400 font-bold">10:00 PM - 02:30 AM</span>. Order via CampusHub Mobile for delivery to your room.</p>
                     <Button variant="link" className="p-0 text-rose-400 text-[10px] font-black uppercase tracking-widest mt-2">
                         View Night Menu <ChevronRight className="w-4 h-4 ml-1" />
                     </Button>
