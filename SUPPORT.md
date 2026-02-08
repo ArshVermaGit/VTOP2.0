@@ -1,6 +1,6 @@
 # Support
 
-Need help with VTOP 2.0? Here's how you can get support:
+Need help with CampusHub? Here's how you can get support:
 
 ## 🔍 Troubleshooting
 
@@ -18,12 +18,13 @@ For bugs and feature requests, please use the [Issues](https://github.com/ArshVe
 Join our community to discuss features, share ideas, and get help from other users:
 
 - [GitHub Discussions](https://github.com/ArshVermaGit/Vtop2.0/discussions)
-- [Project Website](https://vtop2.arshverma.dev) (if applicable)
+- [Project Website](https://arshverma.dev)
+- [Email Support](mailto:arshverma.dev@gmail.com)
 
 ## 📧 Direct Contact
 
-If you have a specific inquiry that cannot be handled through public channels, you can reach out to Arsh Verma at [insert email/contact link].
+If you have a specific inquiry that cannot be handled through public channels, you can reach out to Arsh Verma at [arshverma.dev@gmail.com](mailto:arshverma.dev@gmail.com).
 
 ---
 
-We strive to respond to all inquiries as quickly as possible. Thank you for using VTOP 2.0!
+We strive to respond to all inquiries as quickly as possible. Thank you for using CampusHub!
