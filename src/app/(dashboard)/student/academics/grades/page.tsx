@@ -1,16 +1,25 @@
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { History, Download, Filter, Search, FileText, ChevronRight, GraduationCap } from "lucide-react"
+import { Badge } from "@/components/ui/badge"
+import { History, Download, Filter, Search, GraduationCap } from "lucide-react"
 import { getGradeHistory } from "@/lib/actions"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+
+interface GradeRecord {
+  id: string;
+  semester: string;
+  courseTitle: string;
+  courseCode: string;
+  credits: number;
+  grade: string;
+  result: string;
+}
 
 export default async function GradeHistoryPage() {
   const history = await getGradeHistory()
 
   // Group by semester for the UI
-  const groupedHistory = history.reduce((acc: any, curr) => {
+  const groupedHistory = (history as unknown as GradeRecord[]).reduce((acc: Record<string, GradeRecord[]>, curr) => {
     if (!acc[curr.semester]) acc[curr.semester] = []
     acc[curr.semester].push(curr)
     return acc
@@ -44,17 +53,17 @@ export default async function GradeHistoryPage() {
       </div>
 
       <div className="space-y-8">
-        {Object.entries(groupedHistory).map(([semester, courses]: [string, any]) => (
+        {Object.entries(groupedHistory).map(([semester, courses]) => (
             <div key={semester} className="space-y-4">
                  <div className="flex items-center gap-4 px-2">
                     <h3 className="text-white font-black text-lg uppercase tracking-tight">{semester}</h3>
                     <div className="h-px flex-1 bg-white/5" />
                     <Badge variant="outline" className="border-indigo-500/20 text-indigo-400 text-[10px] font-bold">
-                        {courses.length} Courses • {courses.reduce((a: any, b: any) => a + b.credits, 0)} Credits
+                        {courses.length} Courses • {courses.reduce((a, b) => a + b.credits, 0)} Credits
                     </Badge>
                 </div>
 
-                <Card className="bg-white/5 border-white/10 overflow-hidden">
+                <div className="bg-white/5 border border-white/10 rounded-xl overflow-hidden">
                     <Table>
                         <TableHeader className="bg-white/[0.02]">
                             <TableRow className="border-white/5 hover:bg-transparent">
@@ -66,7 +75,7 @@ export default async function GradeHistoryPage() {
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            {courses.map((c: any) => (
+                            {courses.map((c) => (
                                 <TableRow key={c.id} className="border-white/5 hover:bg-white/[0.02] transition-colors group">
                                     <TableCell className="px-6 py-4">
                                         <div>
@@ -94,7 +103,7 @@ export default async function GradeHistoryPage() {
                             ))}
                         </TableBody>
                     </Table>
-                </Card>
+                </div>
             </div>
         ))}
       </div>
