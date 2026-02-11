@@ -227,7 +227,7 @@ export default function CourseContentClient({ course }: { course: { id: string, 
                                 </div>
                                 <p className="text-gray-400 text-sm leading-relaxed pl-11">{post.content}</p>
                                 <div className="pl-11 pt-4 space-y-3">
-                                    {post.replies.map((reply: any) => (
+                                    {post.replies.map((reply: { id: string; content: string; createdAt: string | Date; author: { name: string } }) => (
                                         <div key={reply.id} className="p-3 rounded-xl bg-black/20 border border-white/5 flex gap-3">
                                             <div className="w-6 h-6 rounded-full bg-blue-600/20 flex items-center justify-center text-blue-400 font-bold text-[10px]">
                                                 {reply.author.name.charAt(0)}
