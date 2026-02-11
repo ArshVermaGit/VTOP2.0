@@ -1,9 +1,22 @@
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { MapPin, Search, Navigation, Info, ShieldCheck, Map } from "lucide-react"
+import { MapPin, Navigation, Info, Map } from "lucide-react"
 import { getSeatAllocations } from "@/lib/actions"
 import { format } from "date-fns"
 import { Input } from "@/components/ui/input"
+
+interface SeatAllocation {
+  id: string;
+  roomNo: string;
+  seatNo: string;
+  examSchedule: {
+    type: string;
+    courseTitle: string;
+    courseCode: string;
+    examDate: string | Date;
+    slot: string;
+  };
+}
 
 export default async function SeatAllocationPage() {
   const allocations = await getSeatAllocations()
@@ -19,8 +32,7 @@ export default async function SeatAllocationPage() {
         </div>
         <div className="flex items-center gap-3">
              <div className="relative w-64">
-                <Search className="absolute left-3 top-3 h-4 w-4 text-gray-500" />
-                <Input placeholder="Search exam or room..." className="pl-10 bg-white/5 border-white/10 text-white" />
+                <Input placeholder="Search exam or room..." className="bg-white/5 border-white/10 text-white" />
              </div>
              <Badge className="bg-indigo-600/20 text-indigo-400 border border-indigo-500/20 px-4 py-1">LIVE MAPPING</Badge>
         </div>
@@ -34,7 +46,7 @@ export default async function SeatAllocationPage() {
                 </div>
             ) : (
                 <div className="grid grid-cols-1 gap-4">
-                    {allocations.map((a: any) => (
+                    {(allocations as unknown as SeatAllocation[]).map((a) => (
                         <Card key={a.id} className="bg-white/5 border-white/10 overflow-hidden group hover:border-indigo-500/30 transition-all">
                             <div className="flex flex-col md:flex-row">
                                 <div className="p-6 md:w-48 bg-black/40 border-r border-white/5 flex flex-col items-center justify-center text-center">
