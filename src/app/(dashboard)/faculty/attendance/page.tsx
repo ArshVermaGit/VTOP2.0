@@ -1,7 +1,7 @@
 import { getFacultyProfile, getCourses } from "@/lib/actions"
 import AttendanceMarkingClient from "./AttendanceMarkingClient"
 import { Badge } from "@/components/ui/badge"
-import { ShieldCheck, Users } from "lucide-react"
+import { ShieldCheck } from "lucide-react"
 
 export default async function FacultyAttendancePage() {
   const faculty = await getFacultyProfile()
