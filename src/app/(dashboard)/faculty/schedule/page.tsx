@@ -6,6 +6,20 @@ import { getFacultyProfile, getAcademicEvents, getSemesterMilestones, getFaculty
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 
+interface CourseClass {
+  day: string;
+  startTime: string;
+  endTime: string;
+  slot: string;
+  course: {
+    title: string;
+    code: string;
+    registrations: { id: string }[];
+  };
+  venue: string;
+  courseId: string;
+}
+
 export default async function FacultySchedulePage() {
   const [faculty, events, milestones, timetable] = await Promise.all([
     getFacultyProfile(),
@@ -44,7 +58,7 @@ export default async function FacultySchedulePage() {
               </TabsList>
 
               {days.map(day => {
-                const dayClasses = (timetable as { day: string, startTime: string, endTime: string, slot: string, course: { title: string, code: string, registrations: any[] }, venue: string, courseId: string }[]).filter(t => t.day === day)
+                const dayClasses = (timetable as unknown as CourseClass[]).filter(t => t.day === day)
                 return (
                   <TabsContent key={day} value={day} className="mt-6 space-y-4">
                     {dayClasses.length > 0 ? dayClasses.map((cls, i) => (
