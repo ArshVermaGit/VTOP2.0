@@ -1,7 +1,7 @@
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Badge } from "@/components/ui/badge"
-import { Calendar as CalendarIcon, Clock, MapPin, Info, Star, ShieldAlert, PartyPopper } from "lucide-react"
+import { Calendar as CalendarIcon, MapPin, Star, ShieldAlert, PartyPopper } from "lucide-react"
 import { getAcademicEvents, getSemesterMilestones } from "@/lib/actions"
 
 export default async function AcademicCalendarPage() {
