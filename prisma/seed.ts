@@ -6,7 +6,8 @@ async function main() {
   const models = ['securityAudit', 'facultyLeave', 'payroll', 'parentAnnouncement', 'eResource', 'libraryDue', 'bookReservation', 'bookIssue', 'book', 'feedbackResponse', 'feedbackSurvey', 'activityPoint', 'achievement', 'clubEvent', 'clubMembership', 'club', 'placementApplication', 'careerOpportunity', 'placementDrive', 'councilAnnouncement', 'communication', 'programmeMigration', 'digitalCredential', 'registrationWindow', 'serviceRequest', 'scholarship', 'feeStructure', 'permissionLetter', 'hostelConsentForm', 'messMenu', 'hostelMaintenance', 'hostelAdmission', 'researchLetter', 'progressReport', 'researchPublication', 'reevaluationRequest', 'gradeHistory', 'seatAllocation', 'examSchedule', 'forumReply', 'forumPost', 'courseAnnouncement', 'assignmentSubmission', 'assignment', 'academicEvent', 'semesterMilestone', 'biometricReport', 'examApplication', 'thesisSubmission', 'leaveRequest', 'payment', 'marks', 'attendance', 'timeTable', 'courseRegistration', 'courseMaterial', 'meeting', 'counsellingRecord', 'course', 'researchProfile', 'studentProfile', 'facultyProfile', 'parentProfile', 'adminProfile', 'user']
   
   for (const model of models) {
-    const table = (prisma as Record<string, { deleteMany: () => Promise<unknown> }>)[model]
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const table = (prisma as any)[model]
     if (table) {
       await table.deleteMany()
     }
