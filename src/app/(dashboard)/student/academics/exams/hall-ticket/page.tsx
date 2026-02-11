@@ -1,9 +1,20 @@
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { ShieldCheck, Download, Printer, QrCode, User, FileCheck, AlertCircle, Calendar } from "lucide-react"
+import { ShieldCheck, Printer, QrCode, FileCheck, AlertCircle } from "lucide-react"
 import { getHallTicketEligibility, getStudentProfile, getExamSchedules } from "@/lib/actions"
 import { format } from "date-fns"
+import Image from "next/image"
+
+interface ExamSchedule {
+  id: string;
+  type: string;
+  examDate: string | Date;
+  slot: string;
+  courseTitle: string;
+  courseCode: string;
+  venue: string;
+}
 
 export default async function HallTicketPage() {
   const [eligibility, profile, schedules] = await Promise.all([
@@ -13,7 +24,7 @@ export default async function HallTicketPage() {
   ])
 
   // Only show FAT and CAT exams in Hall Ticket
-  const eligibleExams = schedules.filter(s => s.type === 'CAT-1' || s.type === 'CAT-2' || s.type === 'FAT')
+  const eligibleExams = (schedules as unknown as ExamSchedule[]).filter(s => s.type === 'CAT-1' || s.type === 'CAT-2' || s.type === 'FAT')
 
   return (
     <div className="space-y-6">
@@ -22,7 +33,7 @@ export default async function HallTicketPage() {
           <h1 className="text-3xl font-bold text-white tracking-tight flex items-center gap-3">
              <ShieldCheck className="w-8 h-8 text-indigo-500" /> Digital Hall Ticket
           </h1>
-          <p className="text-gray-400 mt-1">Winter Semester 2026-27 • Official Examination Credential</p>
+          <p className="text-gray-400 mt-1">Winter Semester 2026-27 &bull; Official Examination Credential</p>
         </div>
         <div className="flex items-center gap-3">
              <Button variant="outline" className="border-white/10 text-gray-400 hover:text-white h-10 px-6 uppercase text-[10px] font-black tracking-widest">
@@ -59,7 +70,7 @@ export default async function HallTicketPage() {
                         </div>
                     </div>
                 )}
-                <p className="text-[10px] text-gray-600 italic">Please resolve these issues at the Dean's office (Room AB2-104) to unlock your credentials.</p>
+                <p className="text-[10px] text-gray-600 italic">Please resolve these issues at the Dean&apos;s office (Room AB2-104) to unlock your credentials.</p>
             </CardContent>
         </Card>
       ) : (
@@ -71,8 +82,15 @@ export default async function HallTicketPage() {
 
             <div className="lg:col-span-1 space-y-6 relative z-10 border-r border-gray-100 pr-8">
                 <div className="space-y-4">
-                    <div className="w-32 h-32 rounded-2xl bg-gray-100 border border-gray-200 overflow-hidden mx-auto">
-                        <img src={profile?.photoUrl || ""} alt="Student" className="w-full h-full object-cover" />
+                    <div className="w-32 h-32 rounded-2xl bg-gray-100 border border-gray-200 overflow-hidden mx-auto relative">
+                        {profile?.photoUrl && (
+                          <Image 
+                            src={profile.photoUrl} 
+                            alt="Student" 
+                            fill
+                            className="object-cover"
+                          />
+                        )}
                     </div>
                     <div className="text-center space-y-1">
                         <h2 className="text-gray-900 font-black text-xl uppercase tracking-tight">{profile?.user.name}</h2>
@@ -114,7 +132,7 @@ export default async function HallTicketPage() {
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-100">
-                            {eligibleExams.map((exam: any) => (
+                            {eligibleExams.map((exam) => (
                                 <tr key={exam.id}>
                                     <td className="py-4">
                                         <p className="text-gray-900 font-black text-sm">{format(new Date(exam.examDate), 'dd MMM yyyy')}</p>
@@ -122,7 +140,7 @@ export default async function HallTicketPage() {
                                     </td>
                                     <td className="py-4">
                                         <p className="text-gray-900 font-bold text-xs">{exam.courseTitle}</p>
-                                        <Badge variant="outline" className="border-gray-200 text-gray-400 text-[9px] font-bold p-0 border-none">{exam.courseCode} • {exam.type}</Badge>
+                                        <Badge variant="outline" className="border-gray-200 text-gray-400 text-[9px] font-bold p-0 border-none">{exam.courseCode} &bull; {exam.type}</Badge>
                                     </td>
                                     <td className="py-4 text-right">
                                         <p className="text-gray-900 font-black text-sm">{exam.venue}</p>
