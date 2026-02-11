@@ -1,10 +1,27 @@
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { BookOpen, User, ChevronRight, Activity, LayoutGrid } from "lucide-react"
+import { User, ChevronRight, LayoutGrid } from "lucide-react"
 import { getCourses, getAttendance } from "@/lib/actions"
 import Link from "next/link"
 import { Progress } from "@/components/ui/progress"
+
+interface Course {
+  id: string;
+  code: string;
+  title: string;
+  type: string;
+  credits: number;
+  faculty?: {
+    user: {
+      name: string;
+    }
+  } | null;
+}
+
+interface AttendanceItem {
+  courseId: string;
+  percentage: number;
+}
 
 export default async function StudentCoursesPage() {
   const [courses, attendance] = await Promise.all([
@@ -25,7 +42,7 @@ export default async function StudentCoursesPage() {
              <div className="text-right">
                 <p className="text-[10px] text-gray-500 uppercase font-bold">Total Credits</p>
                 <p className="text-xl font-bold text-blue-400">
-                    {courses.reduce((acc: number, c: any) => acc + c.credits, 0)}
+                    {courses.reduce((acc: number, c: Course) => acc + c.credits, 0)}
                 </p>
              </div>
              <Badge className="bg-blue-600/20 text-blue-400 border border-blue-500/20 px-4 py-1">ACADEMIC HUB</Badge>
@@ -33,8 +50,8 @@ export default async function StudentCoursesPage() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {courses.map((course: any) => {
-          const attendanceItem = attendance.find((a: any) => a.courseId === course.id)
+        {courses.map((course: Course) => {
+          const attendanceItem = (attendance as unknown as AttendanceItem[]).find((a) => a.courseId === course.id)
           const percentage = attendanceItem?.percentage || 0
 
           return (
