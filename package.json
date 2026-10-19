@@ -56,7 +56,7 @@
     "postcss": "^8.5.10",
     "tailwindcss": "^4.3.3",
     "ts-node": "^10.9.2",
-    "tsx": "^4.21.0"
+    "tsx": "^4.23.15"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"
